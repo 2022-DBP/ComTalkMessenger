@@ -33,7 +33,6 @@
 			this.button_Dpt_Plus = new System.Windows.Forms.Button();
 			this.label_Dpt_Title = new System.Windows.Forms.Label();
 			this.button_Dpt_Udt = new System.Windows.Forms.Button();
-			this.label1 = new System.Windows.Forms.Label();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -143,25 +142,12 @@
 			this.button_Dpt_Udt.Text = "수정";
 			this.button_Dpt_Udt.UseVisualStyleBackColor = false;
 			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("맑은 고딕", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.label1.ForeColor = System.Drawing.Color.White;
-			this.label1.Location = new System.Drawing.Point(11, 9);
-			this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(64, 37);
-			this.label1.TabIndex = 11;
-			this.label1.Text = "test";
-			// 
 			// FormAdmin_Dpt
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
 			this.ClientSize = new System.Drawing.Size(366, 428);
-			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button_Dpt_Udt);
 			this.Controls.Add(this.label_Dpt_Title);
 			this.Controls.Add(this.button_Dpt_Plus);
@@ -192,6 +178,5 @@
 		private ToolStripMenuItem 로그아웃ToolStripMenuItem;
 		private Label label_Dpt_Title;
 		private Button button_Dpt_Udt;
-		private Label label1;
 	}
 }
