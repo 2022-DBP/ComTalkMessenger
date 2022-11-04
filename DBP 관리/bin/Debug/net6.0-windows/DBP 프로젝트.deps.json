@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "DBP 프로젝트/1.0.0": {
+        "runtime": {
+          "DBP 프로젝트.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DBP 프로젝트/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

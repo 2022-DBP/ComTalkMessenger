@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="FormAdmin_User_DptChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAdmin_User_Pri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAdmin_Dpt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAdmin_Dpt_Plus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAdmin_Dpt_Udt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAdmin_User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
