@@ -18,11 +18,6 @@ namespace DBP_관리
         }
 
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void EnterLogin(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
@@ -40,6 +35,18 @@ namespace DBP_관리
         {
             Form_Resist f2 = new Form_Resist();
             f2.Show();
+        }
+
+        // 체크 시 자동으로 로그인
+        private void AutoLogin(object sender, EventArgs e)
+        {
+
+        }
+
+        // 체크 시 자동으로 전에 로그인했던 유저의 아이디, 비번을 텍스트에 출력
+        private void AutoInput(object sender, EventArgs e)
+        {
+
         }
     }
 }

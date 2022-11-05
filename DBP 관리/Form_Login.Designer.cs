@@ -32,10 +32,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.autoInputCheck = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.autoLoginCheck = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -49,10 +49,10 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.checkBox2);
+            this.panel1.Controls.Add(this.autoInputCheck);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.autoLoginCheck);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBox1);
@@ -87,18 +87,19 @@
             this.label3.Text = "회원가입";
             this.label3.Click += new System.EventHandler(this.ResistIn_Click);
             // 
-            // checkBox2
+            // autoInputCheck
             // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.autoInputCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.ForeColor = System.Drawing.Color.White;
-            this.checkBox2.Location = new System.Drawing.Point(235, 354);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(150, 24);
-            this.checkBox2.TabIndex = 9;
-            this.checkBox2.Text = "ID / PW 자동입력";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.autoInputCheck.AutoSize = true;
+            this.autoInputCheck.ForeColor = System.Drawing.Color.White;
+            this.autoInputCheck.Location = new System.Drawing.Point(235, 354);
+            this.autoInputCheck.Name = "autoInputCheck";
+            this.autoInputCheck.Size = new System.Drawing.Size(150, 24);
+            this.autoInputCheck.TabIndex = 9;
+            this.autoInputCheck.Text = "ID / PW 자동입력";
+            this.autoInputCheck.UseVisualStyleBackColor = true;
+            this.autoInputCheck.CheckedChanged += new System.EventHandler(this.AutoInput);
             // 
             // pictureBox1
             // 
@@ -123,19 +124,19 @@
             this.textBox2.TabIndex = 4;
             this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnterLogin);
             // 
-            // checkBox1
+            // autoLoginCheck
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.autoLoginCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.ForeColor = System.Drawing.Color.White;
-            this.checkBox1.Location = new System.Drawing.Point(118, 354);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(111, 24);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "자동 로그인";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.autoLoginCheck.AutoSize = true;
+            this.autoLoginCheck.ForeColor = System.Drawing.Color.White;
+            this.autoLoginCheck.Location = new System.Drawing.Point(118, 354);
+            this.autoLoginCheck.Name = "autoLoginCheck";
+            this.autoLoginCheck.Size = new System.Drawing.Size(111, 24);
+            this.autoLoginCheck.TabIndex = 5;
+            this.autoLoginCheck.Text = "자동 로그인";
+            this.autoLoginCheck.UseVisualStyleBackColor = true;
+            this.autoLoginCheck.CheckedChanged += new System.EventHandler(this.AutoLogin);
             // 
             // label2
             // 
@@ -207,9 +208,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btn_Login;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox autoLoginCheck;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox autoInputCheck;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
     }

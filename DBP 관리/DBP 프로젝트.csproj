@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.31" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="FormAdmin_User_Chat.cs">
       <SubType>Form</SubType>
     </Compile>
