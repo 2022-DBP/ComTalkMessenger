@@ -6,11 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Myproject
+namespace DBP_관리
 {
-    public partial class Form2 : Form
+    public partial class Form_Resist : Form
     {
-        public Form2()
+        public Form_Resist()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
-﻿namespace Myproject
+﻿namespace DBP_관리
 {
-    partial class Form2
+    partial class Form_Resist
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Resist));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
@@ -423,13 +423,13 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // Form2
+            // Form_Resist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 622);
             this.Controls.Add(this.panel1);
-            this.Name = "Form2";
+            this.Name = "Form_Resist";
             this.Text = "회원가입";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

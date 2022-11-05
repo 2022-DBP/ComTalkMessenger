@@ -1,6 +1,6 @@
-﻿namespace Myproject
+﻿namespace DBP_관리
 {
-    partial class Form1
+    partial class Form_Login
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Login));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -184,13 +184,13 @@
             this.btn_Login.Text = "로그인";
             this.btn_Login.UseVisualStyleBackColor = false;
             // 
-            // Form1
+            // Form_Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 553);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Name = "Form_Login";
             this.Text = "Comtalk Messenger";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
