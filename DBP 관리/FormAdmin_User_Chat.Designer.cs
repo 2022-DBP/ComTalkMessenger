@@ -1,5 +1,6 @@
 ﻿namespace DBP_관리 {
-	partial class FormAdmin_User_DptChange {
+	partial class FormAdmin_User_Chat
+	{
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
