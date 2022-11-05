@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DBP_관리 {
-	public partial class FormAdmin_User_DptChange : Form {
-		public FormAdmin_User_DptChange() {
+	public partial class FormAdmin_User_Chat : Form {
+		public FormAdmin_User_Chat() {
 			InitializeComponent();
 		}
 	}
