@@ -30,33 +30,34 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Resist));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label_verify = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.Btn_CancleResist = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.combo_Department = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.txt_backAddress = new System.Windows.Forms.TextBox();
+            this.txt_Address = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.txt_frontAddress = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txt_Profile = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txt_Nickname = new System.Windows.Forms.TextBox();
+            this.Btn_checkID = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txt_ConfirmPass = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txt_Password = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txt_Id = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_Name = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
@@ -67,39 +68,50 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.panel1.Controls.Add(this.label_verify);
             this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.Btn_CancleResist);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.combo_Department);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.textBox9);
-            this.panel1.Controls.Add(this.textBox8);
+            this.panel1.Controls.Add(this.txt_backAddress);
+            this.panel1.Controls.Add(this.txt_Address);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.textBox7);
+            this.panel1.Controls.Add(this.txt_frontAddress);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.textBox6);
+            this.panel1.Controls.Add(this.txt_Profile);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.textBox5);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.txt_Nickname);
+            this.panel1.Controls.Add(this.Btn_checkID);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.textBox4);
+            this.panel1.Controls.Add(this.txt_ConfirmPass);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.txt_Password);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.txt_Id);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.txt_Name);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(0, -3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(467, 628);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // label_verify
+            // 
+            this.label_verify.AutoSize = true;
+            this.label_verify.Font = new System.Drawing.Font("맑은 고딕", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_verify.ForeColor = System.Drawing.Color.Red;
+            this.label_verify.Location = new System.Drawing.Point(327, 362);
+            this.label_verify.Name = "label_verify";
+            this.label_verify.Size = new System.Drawing.Size(0, 19);
+            this.label_verify.TabIndex = 1000;
             // 
             // label11
             // 
@@ -111,15 +123,15 @@
             this.label11.Size = new System.Drawing.Size(474, 2);
             this.label11.TabIndex = 27;
             // 
-            // button5
+            // Btn_CancleResist
             // 
-            this.button5.Location = new System.Drawing.Point(236, 561);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(169, 42);
-            this.button5.TabIndex = 26;
-            this.button5.Text = "취소";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.Btn_CancleResist.Location = new System.Drawing.Point(236, 561);
+            this.Btn_CancleResist.Name = "Btn_CancleResist";
+            this.Btn_CancleResist.Size = new System.Drawing.Size(169, 42);
+            this.Btn_CancleResist.TabIndex = 26;
+            this.Btn_CancleResist.Text = "취소";
+            this.Btn_CancleResist.UseVisualStyleBackColor = true;
+            this.Btn_CancleResist.Click += new System.EventHandler(this.Cancle_Resist);
             // 
             // button4
             // 
@@ -132,7 +144,7 @@
             this.button4.TabIndex = 25;
             this.button4.Text = "회원가입";
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Btn_ResistON);
             // 
             // label10
             // 
@@ -158,14 +170,15 @@
             this.label9.Text = "환영합니다";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // comboBox1
+            // combo_Department
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(117, 508);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(151, 28);
-            this.comboBox1.TabIndex = 22;
-            this.comboBox1.Text = "개발 부서";
+            this.combo_Department.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.combo_Department.FormattingEnabled = true;
+            this.combo_Department.Location = new System.Drawing.Point(117, 508);
+            this.combo_Department.Name = "combo_Department";
+            this.combo_Department.Size = new System.Drawing.Size(151, 28);
+            this.combo_Department.TabIndex = 8;
+            this.combo_Department.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -183,33 +196,36 @@
             this.button3.Location = new System.Drawing.Point(327, 415);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(94, 34);
-            this.button3.TabIndex = 20;
+            this.button3.TabIndex = 7;
             this.button3.Text = "우편검색";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // textBox9
+            // txt_backAddress
             // 
-            this.textBox9.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox9.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox9.Location = new System.Drawing.Point(222, 415);
-            this.textBox9.MaxLength = 30;
-            this.textBox9.Multiline = true;
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.Size = new System.Drawing.Size(90, 34);
-            this.textBox9.TabIndex = 19;
+            this.txt_backAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_backAddress.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_backAddress.Location = new System.Drawing.Point(222, 415);
+            this.txt_backAddress.MaxLength = 30;
+            this.txt_backAddress.Multiline = true;
+            this.txt_backAddress.Name = "txt_backAddress";
+            this.txt_backAddress.ReadOnly = true;
+            this.txt_backAddress.Size = new System.Drawing.Size(90, 34);
+            this.txt_backAddress.TabIndex = 19;
+            this.txt_backAddress.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
-            // textBox8
+            // txt_Address
             // 
-            this.textBox8.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox8.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox8.Location = new System.Drawing.Point(117, 455);
-            this.textBox8.MaxLength = 30;
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.Size = new System.Drawing.Size(195, 34);
-            this.textBox8.TabIndex = 18;
+            this.txt_Address.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Address.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Address.Location = new System.Drawing.Point(117, 455);
+            this.txt_Address.MaxLength = 30;
+            this.txt_Address.Multiline = true;
+            this.txt_Address.Name = "txt_Address";
+            this.txt_Address.ReadOnly = true;
+            this.txt_Address.Size = new System.Drawing.Size(195, 34);
+            this.txt_Address.TabIndex = 18;
+            this.txt_Address.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
             // label7
             // 
@@ -223,17 +239,17 @@
             this.label7.Text = "주소";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox7
+            // txt_frontAddress
             // 
-            this.textBox7.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox7.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox7.Location = new System.Drawing.Point(117, 415);
-            this.textBox7.MaxLength = 30;
-            this.textBox7.Multiline = true;
-            this.textBox7.Name = "textBox7";
-            this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(86, 34);
-            this.textBox7.TabIndex = 16;
+            this.txt_frontAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_frontAddress.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_frontAddress.Location = new System.Drawing.Point(117, 415);
+            this.txt_frontAddress.MaxLength = 30;
+            this.txt_frontAddress.Multiline = true;
+            this.txt_frontAddress.Name = "txt_frontAddress";
+            this.txt_frontAddress.ReadOnly = true;
+            this.txt_frontAddress.Size = new System.Drawing.Size(86, 34);
+            this.txt_frontAddress.TabIndex = 16;
             // 
             // pictureBox2
             // 
@@ -251,7 +267,7 @@
             this.button2.Location = new System.Drawing.Point(327, 105);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(94, 34);
-            this.button2.TabIndex = 14;
+            this.button2.TabIndex = 999;
             this.button2.Text = "파일 찾기";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -268,18 +284,19 @@
             this.label6.Text = "프로필";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
-            // textBox6
+            // txt_Profile
             // 
-            this.textBox6.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox6.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox6.Location = new System.Drawing.Point(117, 106);
-            this.textBox6.MaxLength = 30;
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(195, 34);
-            this.textBox6.TabIndex = 12;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.txt_Profile.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Profile.Enabled = false;
+            this.txt_Profile.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Profile.Location = new System.Drawing.Point(117, 106);
+            this.txt_Profile.MaxLength = 30;
+            this.txt_Profile.Multiline = true;
+            this.txt_Profile.Name = "txt_Profile";
+            this.txt_Profile.ReadOnly = true;
+            this.txt_Profile.Size = new System.Drawing.Size(195, 34);
+            this.txt_Profile.TabIndex = 120;
+            this.txt_Profile.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label5
             // 
@@ -293,27 +310,28 @@
             this.label5.Text = "별명";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // textBox5
+            // txt_Nickname
             // 
-            this.textBox5.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox5.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox5.Location = new System.Drawing.Point(117, 205);
-            this.textBox5.MaxLength = 30;
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(195, 34);
-            this.textBox5.TabIndex = 10;
-            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            this.txt_Nickname.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Nickname.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Nickname.Location = new System.Drawing.Point(117, 205);
+            this.txt_Nickname.MaxLength = 30;
+            this.txt_Nickname.Multiline = true;
+            this.txt_Nickname.Name = "txt_Nickname";
+            this.txt_Nickname.Size = new System.Drawing.Size(195, 34);
+            this.txt_Nickname.TabIndex = 2;
+            this.txt_Nickname.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
-            // button1
+            // Btn_checkID
             // 
-            this.button1.Location = new System.Drawing.Point(327, 254);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 34);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "중복확인";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Btn_checkID.ForeColor = System.Drawing.Color.Black;
+            this.Btn_checkID.Location = new System.Drawing.Point(327, 254);
+            this.Btn_checkID.Name = "Btn_checkID";
+            this.Btn_checkID.Size = new System.Drawing.Size(94, 34);
+            this.Btn_checkID.TabIndex = 4;
+            this.Btn_checkID.Text = "중복확인";
+            this.Btn_checkID.UseVisualStyleBackColor = true;
+            this.Btn_checkID.Click += new System.EventHandler(this.CheckID);
             // 
             // label4
             // 
@@ -327,18 +345,19 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // textBox4
+            // txt_ConfirmPass
             // 
-            this.textBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox4.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox4.Location = new System.Drawing.Point(117, 362);
-            this.textBox4.MaxLength = 30;
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.PasswordChar = '*';
-            this.textBox4.Size = new System.Drawing.Size(195, 34);
-            this.textBox4.TabIndex = 7;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.txt_ConfirmPass.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_ConfirmPass.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_ConfirmPass.Location = new System.Drawing.Point(117, 362);
+            this.txt_ConfirmPass.MaxLength = 30;
+            this.txt_ConfirmPass.Multiline = true;
+            this.txt_ConfirmPass.Name = "txt_ConfirmPass";
+            this.txt_ConfirmPass.PasswordChar = '*';
+            this.txt_ConfirmPass.Size = new System.Drawing.Size(195, 34);
+            this.txt_ConfirmPass.TabIndex = 6;
+            this.txt_ConfirmPass.Validating += new System.ComponentModel.CancelEventHandler(this.CheckPassword);
+            this.txt_ConfirmPass.Validated += new System.EventHandler(this.CheckAllInput);
             // 
             // label3
             // 
@@ -352,18 +371,18 @@
             this.label3.Text = "비밀번호";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // textBox3
+            // txt_Password
             // 
-            this.textBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox3.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox3.Location = new System.Drawing.Point(117, 309);
-            this.textBox3.MaxLength = 30;
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.PasswordChar = '*';
-            this.textBox3.Size = new System.Drawing.Size(195, 34);
-            this.textBox3.TabIndex = 5;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.txt_Password.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Password.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Password.Location = new System.Drawing.Point(117, 309);
+            this.txt_Password.MaxLength = 30;
+            this.txt_Password.Multiline = true;
+            this.txt_Password.Name = "txt_Password";
+            this.txt_Password.PasswordChar = '*';
+            this.txt_Password.Size = new System.Drawing.Size(195, 34);
+            this.txt_Password.TabIndex = 5;
+            this.txt_Password.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label2
             // 
@@ -377,17 +396,17 @@
             this.label2.Text = "아아디";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // textBox2
+            // txt_Id
             // 
-            this.textBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox2.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(117, 254);
-            this.textBox2.MaxLength = 30;
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(195, 34);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.txt_Id.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Id.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Id.Location = new System.Drawing.Point(117, 254);
+            this.txt_Id.MaxLength = 30;
+            this.txt_Id.Multiline = true;
+            this.txt_Id.Name = "txt_Id";
+            this.txt_Id.Size = new System.Drawing.Size(195, 34);
+            this.txt_Id.TabIndex = 3;
+            this.txt_Id.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label1
             // 
@@ -401,17 +420,17 @@
             this.label1.Text = "이름";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // txt_Name
             // 
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox1.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(117, 156);
-            this.textBox1.MaxLength = 30;
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(195, 34);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.txt_Name.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Name.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Name.Location = new System.Drawing.Point(117, 156);
+            this.txt_Name.MaxLength = 30;
+            this.txt_Name.Multiline = true;
+            this.txt_Name.Name = "txt_Name";
+            this.txt_Name.Size = new System.Drawing.Size(195, 34);
+            this.txt_Name.TabIndex = 1;
+            this.txt_Name.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // pictureBox1
             // 
@@ -430,6 +449,7 @@
             this.ClientSize = new System.Drawing.Size(462, 622);
             this.Controls.Add(this.panel1);
             this.Name = "Form_Resist";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "회원가입";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -443,33 +463,34 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_Name;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txt_Profile;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txt_Nickname;
+        private System.Windows.Forms.Button Btn_checkID;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txt_ConfirmPass;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txt_Password;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txt_frontAddress;
+        private System.Windows.Forms.TextBox txt_backAddress;
+        private System.Windows.Forms.TextBox txt_Address;
+        private System.Windows.Forms.ComboBox combo_Department;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button Btn_CancleResist;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private TextBox txt_Id;
+        private Label label_verify;
     }
 }

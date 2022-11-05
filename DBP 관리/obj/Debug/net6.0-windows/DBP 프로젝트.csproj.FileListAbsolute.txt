@@ -20,3 +20,36 @@ C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\refint\D
 C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.pdb
 C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.genruntimeconfig.cache
 C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\ref\DBP 프로젝트.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.exe
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.deps.json
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.runtimeconfig.json
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.pdb
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\Google.Protobuf.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\K4os.Compression.LZ4.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\K4os.Compression.LZ4.Streams.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\K4os.Hash.xxHash.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\MySql.Data.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\ZstdNet.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.csproj.AssemblyReference.cache
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_Dpt.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_Dpt_Plus.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_Dpt_Udt.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User_Chat.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User_DptChange.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User_Pri.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.Form_Login.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.Form_Resist.resources
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.csproj.GenerateResource.cache
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.AssemblyInfoInputs.cache
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.AssemblyInfo.cs
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.csproj.CoreCompileInputs.cache
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.csproj.CopyComplete
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\refint\DBP 프로젝트.dll
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.pdb
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.genruntimeconfig.cache
+C:\Users\ksuo1\Documents\GitHub\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\ref\DBP 프로젝트.dll

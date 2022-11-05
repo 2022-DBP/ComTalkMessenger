@@ -13,7 +13,7 @@ namespace DBP_관리
         private static LoginManager instance = new LoginManager();
         public static LoginManager Instance { get => instance; }
 
-        private const string code = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8 &AllowLoadLocalInfile=true;";
+        private const string code = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
         
         public void Login(string id, string pass)
         {
@@ -56,6 +56,32 @@ namespace DBP_관리
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
 
+                conn.Close();
+            }
+        }
+
+        public void CheckString(string check, string column, bool active)
+        {
+            using (MySqlConnection conn = new MySqlConnection(code))
+            {
+                conn.Open();
+                string query = $"SELECT {column} FROM USER WHERE {column} = '{check}'";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                // 데이터가 중복하는 경우
+                if(reader.HasRows)
+                {
+                    MessageBox.Show("해당 데이터는 중복됩니다.");
+                    active = false;
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("사용 가능합니다.");
+                    active = true;
+                }
+                reader.Close();
                 conn.Close();
             }
         }

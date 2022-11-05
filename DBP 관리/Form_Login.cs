@@ -12,6 +12,7 @@ namespace DBP_관리
 {
     public partial class Form_Login : Form
     {
+
         public Form_Login()
         {
             InitializeComponent();
@@ -20,21 +21,21 @@ namespace DBP_관리
 
         private void EnterLogin(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 MessageBox.Show("로그인");
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void ResistIn_Click(object sender, EventArgs e)
         {
-            Form_Resist f2 = new Form_Resist();
-            f2.Show();
+            // 현재 폼을 숨김
+            this.Hide();
+            Point tempPoint = this.Location;
+            Form_Resist resist = new Form_Resist();
+            resist.Location = tempPoint;
+            resist.Owner = this;
+            resist.Show();
         }
 
         // 체크 시 자동으로 로그인
@@ -48,5 +49,7 @@ namespace DBP_관리
         {
 
         }
+
     }
 }
+ 
