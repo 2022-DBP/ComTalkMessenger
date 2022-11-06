@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,10 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DBP_관리 {
-	public partial class FormAdmin_User_Chat : Form {
-		public FormAdmin_User_Chat() {
-			InitializeComponent();
-		}
-	}
+namespace DBP_관리
+{
+    public partial class FormAdmin_User_Chat : Form
+    {
+        public FormAdmin_User_Chat()
+        {
+            InitializeComponent();
+        }
+    }
 }
