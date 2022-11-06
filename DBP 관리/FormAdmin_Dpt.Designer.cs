@@ -27,14 +27,17 @@
             this.메인화면ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.사용자관리ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.로그아웃ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox_Dpt_Search = new System.Windows.Forms.TextBox();
             this.button_Dpt_Search = new System.Windows.Forms.Button();
             this.button_Dpt_Plus = new System.Windows.Forms.Button();
             this.label_Dpt_Title = new System.Windows.Forms.Label();
             this.button_Dpt_Udt = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -45,10 +48,10 @@
             this.메인화면ToolStripMenuItem,
             this.사용자관리ToolStripMenuItem,
             this.로그아웃ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 541);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 621);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(471, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(686, 30);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -57,7 +60,6 @@
             this.메인화면ToolStripMenuItem.Name = "메인화면ToolStripMenuItem";
             this.메인화면ToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
             this.메인화면ToolStripMenuItem.Text = "부서 관리";
-            this.메인화면ToolStripMenuItem.Click += new System.EventHandler(this.메인화면ToolStripMenuItem_Click);
             // 
             // 사용자관리ToolStripMenuItem
             // 
@@ -71,22 +73,15 @@
             this.로그아웃ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.로그아웃ToolStripMenuItem.Text = "로그아웃";
             // 
-            // textBox_Dpt_Search
-            // 
-            this.textBox_Dpt_Search.Location = new System.Drawing.Point(37, 87);
-            this.textBox_Dpt_Search.Name = "textBox_Dpt_Search";
-            this.textBox_Dpt_Search.Size = new System.Drawing.Size(282, 27);
-            this.textBox_Dpt_Search.TabIndex = 5;
-            // 
             // button_Dpt_Search
             // 
             this.button_Dpt_Search.BackColor = System.Drawing.Color.White;
             this.button_Dpt_Search.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_Dpt_Search.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button_Dpt_Search.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.button_Dpt_Search.Location = new System.Drawing.Point(342, 85);
+            this.button_Dpt_Search.Location = new System.Drawing.Point(371, 31);
             this.button_Dpt_Search.Name = "button_Dpt_Search";
-            this.button_Dpt_Search.Size = new System.Drawing.Size(94, 29);
+            this.button_Dpt_Search.Size = new System.Drawing.Size(66, 57);
             this.button_Dpt_Search.TabIndex = 6;
             this.button_Dpt_Search.Text = "검색";
             this.button_Dpt_Search.UseVisualStyleBackColor = false;
@@ -98,19 +93,20 @@
             this.button_Dpt_Plus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_Dpt_Plus.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button_Dpt_Plus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.button_Dpt_Plus.Location = new System.Drawing.Point(54, 493);
+            this.button_Dpt_Plus.Location = new System.Drawing.Point(408, 56);
             this.button_Dpt_Plus.Name = "button_Dpt_Plus";
-            this.button_Dpt_Plus.Size = new System.Drawing.Size(159, 29);
+            this.button_Dpt_Plus.Size = new System.Drawing.Size(96, 29);
             this.button_Dpt_Plus.TabIndex = 7;
-            this.button_Dpt_Plus.Text = "등록";
+            this.button_Dpt_Plus.Text = "부서 추가";
             this.button_Dpt_Plus.UseVisualStyleBackColor = false;
+            this.button_Dpt_Plus.Click += new System.EventHandler(this.button_Dpt_Plus_Click);
             // 
             // label_Dpt_Title
             // 
             this.label_Dpt_Title.AutoSize = true;
             this.label_Dpt_Title.Font = new System.Drawing.Font("맑은 고딕", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label_Dpt_Title.ForeColor = System.Drawing.Color.White;
-            this.label_Dpt_Title.Location = new System.Drawing.Point(154, 23);
+            this.label_Dpt_Title.Location = new System.Drawing.Point(37, 19);
             this.label_Dpt_Title.Name = "label_Dpt_Title";
             this.label_Dpt_Title.Size = new System.Drawing.Size(168, 46);
             this.label_Dpt_Title.TabIndex = 9;
@@ -122,44 +118,85 @@
             this.button_Dpt_Udt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_Dpt_Udt.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.button_Dpt_Udt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.button_Dpt_Udt.Location = new System.Drawing.Point(249, 493);
+            this.button_Dpt_Udt.Location = new System.Drawing.Point(527, 56);
             this.button_Dpt_Udt.Name = "button_Dpt_Udt";
-            this.button_Dpt_Udt.Size = new System.Drawing.Size(159, 29);
+            this.button_Dpt_Udt.Size = new System.Drawing.Size(96, 29);
             this.button_Dpt_Udt.TabIndex = 10;
-            this.button_Dpt_Udt.Text = "수정";
+            this.button_Dpt_Udt.Text = "부서 수정";
             this.button_Dpt_Udt.UseVisualStyleBackColor = false;
             // 
-            // dataGridView1
+            // groupBox1
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(37, 142);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(399, 319);
-            this.dataGridView1.TabIndex = 11;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.treeView1);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.button_Dpt_Search);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
+            this.groupBox1.Location = new System.Drawing.Point(37, 91);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(586, 514);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "조회";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("맑은 고딕", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(47, 74);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 23);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "확장";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("맑은 고딕", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(47, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 23);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "부서명";
+            // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(47, 100);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(390, 384);
+            this.treeView1.TabIndex = 13;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("맑은 고딕", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Location = new System.Drawing.Point(114, 31);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(251, 30);
+            this.textBox1.TabIndex = 12;
             // 
             // FormAdmin_Dpt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.ClientSize = new System.Drawing.Size(471, 571);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button_Dpt_Udt);
+            this.ClientSize = new System.Drawing.Size(686, 651);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label_Dpt_Title);
-            this.Controls.Add(this.button_Dpt_Plus);
-            this.Controls.Add(this.button_Dpt_Search);
-            this.Controls.Add(this.textBox_Dpt_Search);
+            this.Controls.Add(this.button_Dpt_Udt);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.button_Dpt_Plus);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormAdmin_Dpt";
             this.Text = "부서 관리";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,13 +205,16 @@
 		#endregion
 		private MenuStrip menuStrip1;
 		private ToolStripMenuItem 메인화면ToolStripMenuItem;
-		private TextBox textBox_Dpt_Search;
 		private Button button_Dpt_Search;
 		private Button button_Dpt_Plus;
 		private ToolStripMenuItem 사용자관리ToolStripMenuItem;
 		private ToolStripMenuItem 로그아웃ToolStripMenuItem;
 		private Label label_Dpt_Title;
 		private Button button_Dpt_Udt;
-		private DataGridView dataGridView1;
-	}
+        private GroupBox groupBox1;
+        private TextBox textBox1;
+        private TreeView treeView1;
+        private Label label1;
+        private Label label2;
+    }
 }
