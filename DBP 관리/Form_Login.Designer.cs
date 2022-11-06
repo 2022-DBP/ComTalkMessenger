@@ -73,6 +73,7 @@
             this.label4.Size = new System.Drawing.Size(118, 23);
             this.label4.TabIndex = 11;
             this.label4.Text = "관리자 로그인";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label3
             // 
