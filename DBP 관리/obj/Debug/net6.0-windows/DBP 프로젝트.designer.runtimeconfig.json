@@ -12,7 +12,7 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\JongHoon\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Ryo_ideapad_slim3\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\JongHoon\\.nuget\\packages"
     ],
     "configProperties": {
