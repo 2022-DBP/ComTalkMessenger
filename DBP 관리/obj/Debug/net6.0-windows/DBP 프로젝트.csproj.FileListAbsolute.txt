@@ -20,3 +20,26 @@ C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\refint\D
 C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.pdb
 C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.genruntimeconfig.cache
 C:\Users\PC\source\repos\DBP 관리\DBP 관리\obj\Debug\net6.0-windows\ref\DBP 프로젝트.dll
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.exe
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.deps.json
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.runtimeconfig.json
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.dll
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\bin\Debug\net6.0-windows\DBP 프로젝트.pdb
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.csproj.AssemblyReference.cache
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_Dpt.resources
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_Dpt_Plus.resources
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_Dpt_Udt.resources
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User.resources
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User_Chat.resources
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User_DptChange.resources
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP_관리.FormAdmin_User_Pri.resources
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.csproj.GenerateResource.cache
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.AssemblyInfoInputs.cache
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.AssemblyInfo.cs
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.csproj.CoreCompileInputs.cache
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.dll
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\refint\DBP 프로젝트.dll
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.pdb
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\DBP 프로젝트.genruntimeconfig.cache
+C:\Users\Ryo_ideapad_slim3\source\repos\2022-DBP\ComTalkMessenger\DBP 관리\obj\Debug\net6.0-windows\ref\DBP 프로젝트.dll
