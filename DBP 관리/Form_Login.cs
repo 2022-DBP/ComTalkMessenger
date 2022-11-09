@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,16 +17,9 @@ namespace DBP_관리
         public Form_Login()
         {
             InitializeComponent();
+            Debug.WriteLine(this.Location);
         }
 
-
-        private void EnterLogin(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                MessageBox.Show("로그인");
-            }
-        }
 
         private void ResistIn_Click(object sender, EventArgs e)
         {
@@ -52,12 +46,31 @@ namespace DBP_관리
 
         private void GoAdminLogin(object sender, EventArgs e)
         {
+<<<<<<< Updated upstream
             this.Hide();
             Point tempPoint = this.Location;
             Form_AdminLogin fal = new Form_AdminLogin();
             fal.Location = tempPoint;
             fal.Owner = this;
             fal.Show();
+=======
+            // 관리 부서 창 띄우기
+            this.Hide();
+            Debug.WriteLine(this.Location);
+
+            Point tempPoint = this.Location;
+            Debug.WriteLine(tempPoint);
+
+            Form_AdminLogin ad = new Form_AdminLogin();
+            ad.Location = tempPoint;
+            ad.Owner = this;
+            ad.Show();
+        }
+
+        private void AdminLogin(object sender, EventArgs e)
+        {
+            
+>>>>>>> Stashed changes
         }
     }
 }

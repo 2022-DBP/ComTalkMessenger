@@ -17,6 +17,7 @@ namespace DBP_관리
             InitializeComponent();
         }
 
+<<<<<<< Updated upstream
         private void AdminLogin(object sender, EventArgs e)
         {
 
@@ -30,6 +31,38 @@ namespace DBP_관리
             login.Location = tempPoint;
             login.Owner = this;
             login.Show();
+=======
+        private void btn_adminLogin_Click(object sender, EventArgs e)
+        {
+            Point tempPoint = this.Location;
+            this.Hide();
+            FormAdmin_Dpt frm = new FormAdmin_Dpt();
+            frm.Location = tempPoint;
+            frm.Owner = this;
+            frm.Show();
+        }
+
+        private void EnterLoginAdmin(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                Point tempPoint = this.Location;
+                this.Hide();
+                FormAdmin_Dpt frm = new FormAdmin_Dpt();
+                frm.Location = tempPoint;
+                frm.Owner = this;
+                frm.Show();
+            }
+        }
+
+        private void LoadImage(object sender, EventArgs e)
+        {
+            using (OpenFileDialog fd = new OpenFileDialog())
+            {
+                fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            }
+
+>>>>>>> Stashed changes
         }
     }
 }

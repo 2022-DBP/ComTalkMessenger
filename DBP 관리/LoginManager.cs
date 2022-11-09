@@ -15,6 +15,8 @@ namespace DBP_관리
 
         private const string code = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
         
+
+        // 로그인 기능
         public void Login(string id, string pass)
         {
             using (MySqlConnection conn = new MySqlConnection(code))
@@ -46,12 +48,18 @@ namespace DBP_관리
         public void Resist(string profile, string name, string nick, string id,
             string pass, string address, int department)
         {
+            FileStream fs = new FileStream(profile, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            byte[] imageData = br.ReadBytes((int)fs.Length);
+            br.Close();
+            fs.Close();
+
             using (MySqlConnection conn = new MySqlConnection(code))
             {
                 conn.Open();
 
                 string query = $"INSERT INTO USER" +
-                    $"VALUES('{profile}', '{name}', '{nick}', '{id}', '{pass}', '{address}', {department})";
+                    $"VALUES('{imageData}', '{name}', '{nick}', '{id}', '{pass}', '{address}', {department})";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
@@ -59,7 +67,13 @@ namespace DBP_관리
                 conn.Close();
             }
         }
+<<<<<<< Updated upstream
    
+=======
+        
+
+        // 아이디 중복 확인
+>>>>>>> Stashed changes
         public void CheckString(string check, string column, bool active)
         {
             using (MySqlConnection conn = new MySqlConnection(code))
@@ -83,6 +97,43 @@ namespace DBP_관리
                 }
                 reader.Close();
                 conn.Close();
+            }
+        }
+
+        public void LoadComboBoxColumnData(ComboBox combo, string column, string table)
+        {
+            string query = $"SELECT {column} FROM {table}";
+
+            using (MySqlConnection conn = new MySqlConnection(code))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                combo.Items.Clear();
+                
+                if(reader.HasRows)
+                {
+                    while(reader.Read())
+                    {
+                        combo.Items.Add(reader.Read());
+                    }
+                }
+                else
+                {
+                    reader.Close();
+                    conn.Close();
+                    return;
+                }
+                reader.Close();
+                conn.Close();
+            }
+
+        }
+        public void EnterLogin(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                MessageBox.Show("로그인");
             }
         }
     }

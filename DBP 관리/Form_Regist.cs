@@ -33,7 +33,11 @@ namespace DBP_관리
         private void Btn_ResistON(object sender, EventArgs e)
         {
             LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text
+<<<<<<< Updated upstream
                 , txt_Address.Text, combo_department.SelectedIndex);
+=======
+                , txt_Address.Text, (int)combo_Department.SelectedIndex);
+>>>>>>> Stashed changes
         }
 
 
@@ -78,12 +82,28 @@ namespace DBP_관리
                 isPass = false;
             }
         }
+
+        private void LoadImage(object sender, EventArgs e)
+        {
+            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = openFileDialog.FileName;
+                txt_Profile.Text = path;
+                profileBox.Load(path);
+                profileBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
+
+        private void Load_DepartmentData(object sender, EventArgs e)
+        {
+            LoginManager.Instance.LoadComboBoxColumnData(combo_Department, "dpt_name", "department");
+        }
         /*
-   프로세서 관리
-   Process[] mProcess = Process.GetProcessesByName(Application.ProductName);
-   Debug.WriteLine(mProcess);
-   foreach (Process p in mProcess)
-       p.Kill();
-   */
+프로세서 관리
+Process[] mProcess = Process.GetProcessesByName(Application.ProductName);
+Debug.WriteLine(mProcess);
+foreach (Process p in mProcess)
+p.Kill();
+*/
     }
 }
