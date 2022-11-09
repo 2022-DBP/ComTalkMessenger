@@ -39,21 +39,25 @@ namespace DBP_관리
         }
 
         // 체크 시 자동으로 로그인
-        private void AutoLogin(object sender, EventArgs e)
+        public void AutoLogin(object sender, EventArgs e)
         {
 
         }
 
         // 체크 시 자동으로 전에 로그인했던 유저의 아이디, 비번을 텍스트에 출력
-        private void AutoInput(object sender, EventArgs e)
+        public void AutoInput(object sender, EventArgs e)
         {
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        private void GoAdminLogin(object sender, EventArgs e)
         {
-            FormAdmin_Dpt frm = new FormAdmin_Dpt();
-            frm.Show();
+            this.Hide();
+            Point tempPoint = this.Location;
+            Form_AdminLogin fal = new Form_AdminLogin();
+            fal.Location = tempPoint;
+            fal.Owner = this;
+            fal.Show();
         }
     }
 }

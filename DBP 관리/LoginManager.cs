@@ -59,7 +59,7 @@ namespace DBP_관리
                 conn.Close();
             }
         }
-
+   
         public void CheckString(string check, string column, bool active)
         {
             using (MySqlConnection conn = new MySqlConnection(code))

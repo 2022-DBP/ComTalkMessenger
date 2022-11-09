@@ -19,85 +19,7 @@ namespace DBP_관리
             InitializeComponent();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
 
         // 회원가입 취소
         private void Cancle_Resist(object sender, EventArgs e)
@@ -111,28 +33,9 @@ namespace DBP_관리
         private void Btn_ResistON(object sender, EventArgs e)
         {
             LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text
-                , txt_Address.Text, combo_Department.SelectedIndex);
+                , txt_Address.Text, combo_department.SelectedIndex);
         }
 
-        private void textBox8_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox9_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void CheckID(object sender, EventArgs e)
         {
@@ -151,7 +54,7 @@ namespace DBP_관리
         {
             if(String.IsNullOrEmpty(txt_Name.Text) && String.IsNullOrEmpty(txt_Nickname.Text) &&
                 String.IsNullOrEmpty(txt_Id.Text) && String.IsNullOrEmpty(txt_Password.Text) &&
-                String.IsNullOrEmpty(txt_Address.Text) && String.IsNullOrEmpty(combo_Department.Text))
+                String.IsNullOrEmpty(txt_Address.Text) && String.IsNullOrEmpty(combo_department.Text))
             {
 
             }

@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Resist));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.combo_department = new System.Windows.Forms.ComboBox();
             this.label_verify = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.Btn_CancleResist = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.combo_Department = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.txt_backAddress = new System.Windows.Forms.TextBox();
@@ -60,6 +60,7 @@
             this.txt_Name = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -68,13 +69,13 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.panel1.Controls.Add(this.combo_department);
             this.panel1.Controls.Add(this.label_verify);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.Btn_CancleResist);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.combo_Department);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.txt_backAddress);
@@ -101,7 +102,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(467, 628);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // combo_department
+            // 
+            this.combo_department.FormattingEnabled = true;
+            this.combo_department.Location = new System.Drawing.Point(117, 508);
+            this.combo_department.Name = "combo_department";
+            this.combo_department.Size = new System.Drawing.Size(195, 28);
+            this.combo_department.TabIndex = 1001;
+            this.combo_department.Text = "부서를 선택해주세요";
             // 
             // label_verify
             // 
@@ -157,7 +166,6 @@
             this.label10.TabIndex = 24;
             this.label10.Text = "모든 정보를 기입해주세요";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label9
             // 
@@ -169,16 +177,6 @@
             this.label9.TabIndex = 23;
             this.label9.Text = "환영합니다";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // combo_Department
-            // 
-            this.combo_Department.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.combo_Department.FormattingEnabled = true;
-            this.combo_Department.Location = new System.Drawing.Point(117, 508);
-            this.combo_Department.Name = "combo_Department";
-            this.combo_Department.Size = new System.Drawing.Size(151, 28);
-            this.combo_Department.TabIndex = 8;
-            this.combo_Department.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -199,7 +197,6 @@
             this.button3.TabIndex = 7;
             this.button3.Text = "우편검색";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // txt_backAddress
             // 
@@ -212,7 +209,6 @@
             this.txt_backAddress.ReadOnly = true;
             this.txt_backAddress.Size = new System.Drawing.Size(90, 34);
             this.txt_backAddress.TabIndex = 19;
-            this.txt_backAddress.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // txt_Address
             // 
@@ -225,7 +221,6 @@
             this.txt_Address.ReadOnly = true;
             this.txt_Address.Size = new System.Drawing.Size(195, 34);
             this.txt_Address.TabIndex = 18;
-            this.txt_Address.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
             // label7
             // 
@@ -260,7 +255,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 15;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // button2
             // 
@@ -270,7 +264,6 @@
             this.button2.TabIndex = 999;
             this.button2.Text = "파일 찾기";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label6
             // 
@@ -282,7 +275,6 @@
             this.label6.Size = new System.Drawing.Size(61, 23);
             this.label6.TabIndex = 13;
             this.label6.Text = "프로필";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // txt_Profile
             // 
@@ -296,7 +288,6 @@
             this.txt_Profile.ReadOnly = true;
             this.txt_Profile.Size = new System.Drawing.Size(195, 34);
             this.txt_Profile.TabIndex = 120;
-            this.txt_Profile.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label5
             // 
@@ -308,7 +299,6 @@
             this.label5.Size = new System.Drawing.Size(44, 23);
             this.label5.TabIndex = 11;
             this.label5.Text = "별명";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // txt_Nickname
             // 
@@ -320,7 +310,6 @@
             this.txt_Nickname.Name = "txt_Nickname";
             this.txt_Nickname.Size = new System.Drawing.Size(195, 34);
             this.txt_Nickname.TabIndex = 2;
-            this.txt_Nickname.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // Btn_checkID
             // 
@@ -343,7 +332,6 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "비밀번호확인";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // txt_ConfirmPass
             // 
@@ -369,7 +357,6 @@
             this.label3.Size = new System.Drawing.Size(78, 23);
             this.label3.TabIndex = 6;
             this.label3.Text = "비밀번호";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txt_Password
             // 
@@ -382,7 +369,6 @@
             this.txt_Password.PasswordChar = '*';
             this.txt_Password.Size = new System.Drawing.Size(195, 34);
             this.txt_Password.TabIndex = 5;
-            this.txt_Password.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label2
             // 
@@ -394,7 +380,6 @@
             this.label2.Size = new System.Drawing.Size(61, 23);
             this.label2.TabIndex = 4;
             this.label2.Text = "아아디";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txt_Id
             // 
@@ -406,7 +391,6 @@
             this.txt_Id.Name = "txt_Id";
             this.txt_Id.Size = new System.Drawing.Size(195, 34);
             this.txt_Id.TabIndex = 3;
-            this.txt_Id.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label1
             // 
@@ -418,7 +402,6 @@
             this.label1.Size = new System.Drawing.Size(44, 23);
             this.label1.TabIndex = 2;
             this.label1.Text = "이름";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txt_Name
             // 
@@ -430,7 +413,6 @@
             this.txt_Name.Name = "txt_Name";
             this.txt_Name.Size = new System.Drawing.Size(195, 34);
             this.txt_Name.TabIndex = 1;
-            this.txt_Name.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // pictureBox1
             // 
@@ -441,6 +423,10 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
             // 
             // Form_Resist
             // 
@@ -481,7 +467,6 @@
         private System.Windows.Forms.TextBox txt_frontAddress;
         private System.Windows.Forms.TextBox txt_backAddress;
         private System.Windows.Forms.TextBox txt_Address;
-        private System.Windows.Forms.ComboBox combo_Department;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button Btn_CancleResist;
@@ -492,5 +477,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TextBox txt_Id;
         private Label label_verify;
+        private ComboBox combo_department;
+        private OpenFileDialog openFileDialog;
     }
 }

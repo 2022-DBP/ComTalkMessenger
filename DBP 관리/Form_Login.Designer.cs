@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Login));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label_AdminLogin = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.autoInputCheck = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -47,7 +47,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label_AdminLogin);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.autoInputCheck);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -62,18 +62,18 @@
             this.panel1.Size = new System.Drawing.Size(475, 561);
             this.panel1.TabIndex = 0;
             // 
-            // label4
+            // label_AdminLogin
             // 
-            this.label4.AutoSize = true;
-            this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label4.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(235, 478);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 23);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "관리자 로그인";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            this.label_AdminLogin.AutoSize = true;
+            this.label_AdminLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label_AdminLogin.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_AdminLogin.ForeColor = System.Drawing.Color.White;
+            this.label_AdminLogin.Location = new System.Drawing.Point(235, 478);
+            this.label_AdminLogin.Name = "label_AdminLogin";
+            this.label_AdminLogin.Size = new System.Drawing.Size(118, 23);
+            this.label_AdminLogin.TabIndex = 11;
+            this.label_AdminLogin.Text = "관리자 로그인";
+            this.label_AdminLogin.Click += new System.EventHandler(this.GoAdminLogin);
             // 
             // label3
             // 
@@ -211,7 +211,7 @@
         private System.Windows.Forms.CheckBox autoLoginCheck;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox autoInputCheck;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label_AdminLogin;
         private System.Windows.Forms.Label label3;
     }
 }
