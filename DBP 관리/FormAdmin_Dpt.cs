@@ -97,5 +97,37 @@ namespace DBP_관리 {
             FormAdmin_Dpt_Plus frm = new FormAdmin_Dpt_Plus();
             frm.ShowDialog();
         }
+
+        private void 부서관리ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			this.Hide();
+			Point tempPoint = this.Location;
+			FormAdmin_Dpt formDpt = new FormAdmin_Dpt();
+			formDpt.Location = tempPoint;
+			formDpt.Owner = this;
+			formDpt.Show();
+		}
+
+        private void 사용자관리ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			this.Hide();
+			Point tempPoint = this.Location;
+			FormAdmin_User formUser = new FormAdmin_User();
+			formUser.Location = tempPoint;
+			formUser.Owner = this;
+			formUser.Show();
+		}
+
+        private void 로그아웃ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("로그 아웃");
+
+			this.Hide();
+			Point tempPoint = this.Location;
+			Form_Login formLogin = new Form_Login();
+			formLogin.Location = tempPoint;
+			formLogin.Owner = this;
+			formLogin.Show();
+		}
     }
 }
