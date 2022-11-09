@@ -144,6 +144,7 @@ namespace DBP_관리 {
             frm.ShowDialog();
         }
 
+<<<<<<< HEAD
         /*'갱신' button click event*/
         private void button1_Click(object sender, EventArgs e)
         {
@@ -265,5 +266,38 @@ namespace DBP_관리 {
             userfrm.Show();
             this.Close();
         }
+=======
+        private void 부서관리ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			this.Hide();
+			Point tempPoint = this.Location;
+			FormAdmin_Dpt formDpt = new FormAdmin_Dpt();
+			formDpt.Location = tempPoint;
+			formDpt.Owner = this;
+			formDpt.Show();
+		}
+
+        private void 사용자관리ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+			this.Hide();
+			Point tempPoint = this.Location;
+			FormAdmin_User formUser = new FormAdmin_User();
+			formUser.Location = tempPoint;
+			formUser.Owner = this;
+			formUser.Show();
+		}
+
+        private void 로그아웃ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("로그 아웃");
+
+			this.Hide();
+			Point tempPoint = this.Location;
+			Form_Login formLogin = new Form_Login();
+			formLogin.Location = tempPoint;
+			formLogin.Owner = this;
+			formLogin.Show();
+		}
+>>>>>>> bc1da20e140216869602a172a2e2e76cbb3bceeb
     }
 }
