@@ -184,6 +184,7 @@
             this.btn_Login.TabIndex = 7;
             this.btn_Login.Text = "로그인";
             this.btn_Login.UseVisualStyleBackColor = false;
+            this.btn_Login.Click += new System.EventHandler(this.btn_Login_Click);
             // 
             // Form_Login
             // 

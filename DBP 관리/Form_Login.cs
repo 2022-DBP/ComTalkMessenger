@@ -52,8 +52,14 @@ namespace DBP_관리
 
         private void label4_Click(object sender, EventArgs e)
         {
-            FormAdmin_Dpt frm = new FormAdmin_Dpt();
+            FormAdmin_Login frm = new FormAdmin_Login();
             frm.Show();
+            this.Hide();
+        }
+
+        private void btn_Login_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
