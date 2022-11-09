@@ -10,7 +10,7 @@ namespace DBP_관리 {
 			InitializeComponent();
 		}
 
-        string pre_str; // Update에 사용될 전역변수
+        string pre_str = ""; // Update에 사용될 전역변수
 
 		private void Form1_Load(object sender, EventArgs e) {
             this.dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
@@ -144,7 +144,6 @@ namespace DBP_관리 {
             frm.ShowDialog();
         }
 
-<<<<<<< HEAD
         /*'갱신' button click event*/
         private void button1_Click(object sender, EventArgs e)
         {
@@ -260,13 +259,7 @@ namespace DBP_관리 {
 
         }
 
-        private void 사용자관리ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormAdmin_User userfrm = new FormAdmin_User();
-            userfrm.Show();
-            this.Close();
-        }
-=======
+
         private void 부서관리ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			this.Hide();
@@ -298,6 +291,5 @@ namespace DBP_관리 {
 			formLogin.Owner = this;
 			formLogin.Show();
 		}
->>>>>>> bc1da20e140216869602a172a2e2e76cbb3bceeb
     }
 }
