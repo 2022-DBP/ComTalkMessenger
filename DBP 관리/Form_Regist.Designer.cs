@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Resist));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.combo_department = new System.Windows.Forms.ComboBox();
+            this.combo_Department = new System.Windows.Forms.ComboBox();
             this.label_verify = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.Btn_CancleResist = new System.Windows.Forms.Button();
@@ -69,7 +69,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-            this.panel1.Controls.Add(this.combo_department);
+            this.panel1.Controls.Add(this.combo_Department);
             this.panel1.Controls.Add(this.label_verify);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.Btn_CancleResist);
@@ -102,18 +102,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(467, 628);
             this.panel1.TabIndex = 0;
-<<<<<<< Updated upstream
             // 
-            // combo_department
+            // combo_Department
             // 
-            this.combo_department.FormattingEnabled = true;
-            this.combo_department.Location = new System.Drawing.Point(117, 508);
-            this.combo_department.Name = "combo_department";
-            this.combo_department.Size = new System.Drawing.Size(195, 28);
-            this.combo_department.TabIndex = 1001;
-            this.combo_department.Text = "부서를 선택해주세요";
-=======
->>>>>>> Stashed changes
+            this.combo_Department.FormattingEnabled = true;
+            this.combo_Department.Location = new System.Drawing.Point(117, 508);
+            this.combo_Department.Name = "combo_Department";
+            this.combo_Department.Size = new System.Drawing.Size(195, 28);
+            this.combo_Department.TabIndex = 1001;
+            this.combo_Department.Text = "부서를 선택해주세요";
+            this.combo_Department.Enter += new System.EventHandler(this.combo_Department_Enter);
             // 
             // label_verify
             // 
@@ -181,23 +179,6 @@
             this.label9.Text = "환영합니다";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-<<<<<<< Updated upstream
-=======
-            // combo_Department
-            // 
-            this.combo_Department.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.combo_Department.FormattingEnabled = true;
-            this.combo_Department.Items.AddRange(new object[] {
-            "개발부서",
-            "어제부서"});
-            this.combo_Department.Location = new System.Drawing.Point(117, 508);
-            this.combo_Department.Name = "combo_Department";
-            this.combo_Department.Size = new System.Drawing.Size(151, 28);
-            this.combo_Department.TabIndex = 8;
-            this.combo_Department.Text = "부서를 골라주세요";
-            this.combo_Department.Enter += new System.EventHandler(this.Load_DepartmentData);
-            // 
->>>>>>> Stashed changes
             // label8
             // 
             this.label8.AutoSize = true;
@@ -268,15 +249,6 @@
             // 
             // profileBox
             // 
-<<<<<<< Updated upstream
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(327, 156);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(94, 83);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 15;
-            this.pictureBox2.TabStop = false;
-=======
             this.profileBox.Image = ((System.Drawing.Image)(resources.GetObject("profileBox.Image")));
             this.profileBox.Location = new System.Drawing.Point(327, 156);
             this.profileBox.Name = "profileBox";
@@ -284,7 +256,6 @@
             this.profileBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.profileBox.TabIndex = 15;
             this.profileBox.TabStop = false;
->>>>>>> Stashed changes
             // 
             // button2
             // 
@@ -294,10 +265,7 @@
             this.button2.TabIndex = 999;
             this.button2.Text = "파일 찾기";
             this.button2.UseVisualStyleBackColor = true;
-<<<<<<< Updated upstream
-=======
             this.button2.Click += new System.EventHandler(this.LoadImage);
->>>>>>> Stashed changes
             // 
             // label6
             // 
@@ -460,11 +428,7 @@
             // 
             // openFileDialog
             // 
-<<<<<<< Updated upstream
             this.openFileDialog.FileName = "openFileDialog1";
-=======
-            this.openFileDialog.FileName = "openFileDialog";
->>>>>>> Stashed changes
             // 
             // Form_Resist
             // 
@@ -515,10 +479,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private TextBox txt_Id;
         private Label label_verify;
-<<<<<<< Updated upstream
-        private ComboBox combo_department;
-=======
->>>>>>> Stashed changes
+        private ComboBox combo_Department;
         private OpenFileDialog openFileDialog;
     }
 }

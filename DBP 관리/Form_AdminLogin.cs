@@ -17,7 +17,6 @@ namespace DBP_관리
             InitializeComponent();
         }
 
-<<<<<<< Updated upstream
         private void AdminLogin(object sender, EventArgs e)
         {
 
@@ -31,7 +30,8 @@ namespace DBP_관리
             login.Location = tempPoint;
             login.Owner = this;
             login.Show();
-=======
+        }
+
         private void btn_adminLogin_Click(object sender, EventArgs e)
         {
             Point tempPoint = this.Location;
@@ -61,8 +61,6 @@ namespace DBP_관리
             {
                 fd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             }
-
->>>>>>> Stashed changes
         }
     }
 }

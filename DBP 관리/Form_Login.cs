@@ -46,19 +46,16 @@ namespace DBP_관리
 
         private void GoAdminLogin(object sender, EventArgs e)
         {
-<<<<<<< Updated upstream
             this.Hide();
             Point tempPoint = this.Location;
             Form_AdminLogin fal = new Form_AdminLogin();
             fal.Location = tempPoint;
             fal.Owner = this;
             fal.Show();
-=======
             // 관리 부서 창 띄우기
             this.Hide();
             Debug.WriteLine(this.Location);
 
-            Point tempPoint = this.Location;
             Debug.WriteLine(tempPoint);
 
             Form_AdminLogin ad = new Form_AdminLogin();
@@ -67,11 +64,6 @@ namespace DBP_관리
             ad.Show();
         }
 
-        private void AdminLogin(object sender, EventArgs e)
-        {
-            
->>>>>>> Stashed changes
-        }
     }
 }
  

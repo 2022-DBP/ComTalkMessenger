@@ -32,12 +32,7 @@ namespace DBP_관리
         // 회원가입 버튼
         private void Btn_ResistON(object sender, EventArgs e)
         {
-            LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text
-<<<<<<< Updated upstream
-                , txt_Address.Text, combo_department.SelectedIndex);
-=======
-                , txt_Address.Text, (int)combo_Department.SelectedIndex);
->>>>>>> Stashed changes
+
         }
 
 
@@ -58,7 +53,7 @@ namespace DBP_관리
         {
             if(String.IsNullOrEmpty(txt_Name.Text) && String.IsNullOrEmpty(txt_Nickname.Text) &&
                 String.IsNullOrEmpty(txt_Id.Text) && String.IsNullOrEmpty(txt_Password.Text) &&
-                String.IsNullOrEmpty(txt_Address.Text) && String.IsNullOrEmpty(combo_department.Text))
+                String.IsNullOrEmpty(txt_Address.Text) && String.IsNullOrEmpty(combo_Department.Text))
             {
 
             }
@@ -94,7 +89,7 @@ namespace DBP_관리
             }
         }
 
-        private void Load_DepartmentData(object sender, EventArgs e)
+        private void combo_Department_Enter(object sender, EventArgs e)
         {
             LoginManager.Instance.LoadComboBoxColumnData(combo_Department, "dpt_name", "department");
         }

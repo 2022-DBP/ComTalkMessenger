@@ -30,11 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Login));
             this.panel1 = new System.Windows.Forms.Panel();
-<<<<<<< Updated upstream
             this.label_AdminLogin = new System.Windows.Forms.Label();
-=======
             this.label_admin_Login = new System.Windows.Forms.Label();
->>>>>>> Stashed changes
             this.label3 = new System.Windows.Forms.Label();
             this.autoInputCheck = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -51,11 +48,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
-<<<<<<< Updated upstream
             this.panel1.Controls.Add(this.label_AdminLogin);
-=======
             this.panel1.Controls.Add(this.label_admin_Login);
->>>>>>> Stashed changes
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.autoInputCheck);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -70,7 +64,6 @@
             this.panel1.Size = new System.Drawing.Size(475, 561);
             this.panel1.TabIndex = 0;
             // 
-<<<<<<< Updated upstream
             // label_AdminLogin
             // 
             this.label_AdminLogin.AutoSize = true;
@@ -83,20 +76,7 @@
             this.label_AdminLogin.TabIndex = 11;
             this.label_AdminLogin.Text = "관리자 로그인";
             this.label_AdminLogin.Click += new System.EventHandler(this.GoAdminLogin);
-=======
-            // label_admin_Login
-            // 
-            this.label_admin_Login.AutoSize = true;
-            this.label_admin_Login.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label_admin_Login.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_admin_Login.ForeColor = System.Drawing.Color.White;
-            this.label_admin_Login.Location = new System.Drawing.Point(235, 478);
-            this.label_admin_Login.Name = "label_admin_Login";
-            this.label_admin_Login.Size = new System.Drawing.Size(118, 23);
-            this.label_admin_Login.TabIndex = 11;
-            this.label_admin_Login.Text = "관리자 로그인";
-            this.label_admin_Login.Click += new System.EventHandler(this.label4_Click);
->>>>>>> Stashed changes
+
             // 
             // label3
             // 
@@ -232,11 +212,8 @@
         private System.Windows.Forms.CheckBox autoLoginCheck;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox autoInputCheck;
-<<<<<<< Updated upstream
         private System.Windows.Forms.Label label_AdminLogin;
-=======
         private System.Windows.Forms.Label label_admin_Login;
->>>>>>> Stashed changes
         private System.Windows.Forms.Label label3;
     }
 }

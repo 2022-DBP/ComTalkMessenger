@@ -66,14 +66,9 @@ namespace DBP_관리
 
                 conn.Close();
             }
-        }
-<<<<<<< Updated upstream
-   
-=======
-        
+        }   
 
         // 아이디 중복 확인
->>>>>>> Stashed changes
         public void CheckString(string check, string column, bool active)
         {
             using (MySqlConnection conn = new MySqlConnection(code))
@@ -100,6 +95,7 @@ namespace DBP_관리
             }
         }
 
+        // 부서 데이터 출력
         public void LoadComboBoxColumnData(ComboBox combo, string column, string table)
         {
             string query = $"SELECT {column} FROM {table}";
@@ -129,12 +125,6 @@ namespace DBP_관리
             }
 
         }
-        public void EnterLogin(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                MessageBox.Show("로그인");
-            }
-        }
+        
     }
 }
