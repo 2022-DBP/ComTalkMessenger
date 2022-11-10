@@ -11,6 +11,8 @@ using System.Windows.Forms;
 
 namespace DBP_관리 {
     public partial class FormAdmin_User_Chat : Form {
+		//USER 폼에 이미 관련 UI가 있지만, 권한 조정이 USER 폼에 들어가고 로그 검색이 폼 열기로 바뀔 수 있으므로 일단 삭제하지 않고 남겨둠
+
 		private string user_name;
 		private int user_id;
 
