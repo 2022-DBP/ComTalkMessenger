@@ -206,6 +206,10 @@ namespace DBP_관리 {
                 button6.Visible = false;
                 button4.Text = "팀 수정";
 
+                button2.Text = "팀 추가";
+                label4.Visible = false;
+                textBox3.Visible = false;
+                button6.Visible = false;
                 search_data(keyword, table);
             }
         }
@@ -255,9 +259,20 @@ namespace DBP_관리 {
                 MessageBox.Show("부서를 선택해주세요.");
                 return;
             }
-            label4.Visible = true;
-            textBox3.Visible = true;
-            button5.Visible = true;
+            if(button2.Text == "팀 추가")
+            {
+                button2.Text = "취소";
+                label4.Visible = true;
+                textBox3.Visible = true;
+                button5.Visible = true;
+            }
+            else
+            {
+                button2.Text = "팀 추가";
+                label4.Visible = false;
+                textBox3.Visible = false;
+                button5.Visible = false;
+            }
         }
 
         /*'등록' Button click event*/
@@ -286,6 +301,7 @@ namespace DBP_관리 {
             if (button4.Text == "팀 수정")
             {
                 button4.Text = "수정 취소";
+                label4.Visible = false;
                 DataGridViewRow row = dataGridView1.SelectedRows[0];
                 string data = row.Cells[1].Value.ToString();
                 textBox3.Visible = true;
