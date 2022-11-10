@@ -114,9 +114,12 @@ namespace DBP_관리 {
                 return node;
         }
 
-
+        /*'검색'Button Click Event*/
 		private void button_Dpt_Search_Click(object sender, EventArgs e)
 		{
+            Visible_Init_Team_Add();
+            Visible_Init_Team_Update();
+            Visible_Init_Dpt_Add();
             string keyword = textBox1.Text;
             TreeNode SelectNode = SearchNode(keyword, treeView1.Nodes[0]);
             if(SelectNode !=null)
@@ -139,6 +142,63 @@ namespace DBP_관리 {
             
         }
 
+        /*init of '팀 수정'Button*/
+        private void Visible_Init_Team_Update()
+        {
+            Visible_Init_Team_Add();
+            button5.Visible = false;
+            button4.Text = "팀 수정";
+            button6.Visible = false;
+            textBox3.Visible = false;
+            label4.Visible = false;
+        }
+
+        /*init of '팀 추가'Button*/
+        private void Visible_Init_Team_Add()
+        {
+            button2.Text = "팀 추가";
+            label4.Visible = false;
+            textBox3.Visible = false;
+            button5.Visible = false;
+        }
+
+        /*init of '부서 추가'Button*/
+        private void Visible_Init_Dpt_Add()
+        {
+            button_Dpt_Udt.Text = "부서 수정";
+            button3.Visible = false;
+            textBox2.Enabled = false;
+        }
+
+        /*Click the '팀 수정'Button*/
+        private void Visible_Click_Team_Update()
+        {
+            Visible_Init_Team_Add();
+            button6.Visible = true;
+            textBox3.Visible = true;
+            button4.Text = "수정 취소";
+            label4.Visible = false;
+            button5.Visible = false;
+        }
+
+        /*Click the '팀 추가'Button*/
+        private void Visible_Click_Team_Add()
+        {
+            Visible_Init_Team_Update();
+            button2.Text = "취소";
+            label4.Visible = true;
+            textBox3.Visible = true;
+            button5.Visible = true;
+        }
+
+        /*Click the '부서 추가'Button*/
+        private void Visible_Click_Dpt_Add()
+        {
+            textBox2.Enabled = true;
+            button3.Visible = true;
+            button_Dpt_Udt.Text = "수정 취소";
+        }
+
         /*label text changed*/
         private void label2_Click(object sender, EventArgs e)
         {
@@ -156,6 +216,8 @@ namespace DBP_관리 {
 
         private void button_Dpt_Plus_Click(object sender, EventArgs e)
         {
+            Visible_Init_Team_Update();
+            Visible_Init_Team_Add();
             FormAdmin_Dpt_Plus frm = new FormAdmin_Dpt_Plus();
             frm.ShowDialog();
         }
@@ -163,6 +225,9 @@ namespace DBP_관리 {
         /*'갱신' button click event*/
         private void button1_Click(object sender, EventArgs e)
         {
+            Visible_Init_Team_Add();
+            Visible_Init_Team_Update();
+            Visible_Init_Dpt_Add();
             search_treeview();
         }
 
@@ -195,21 +260,14 @@ namespace DBP_관리 {
             //최상위 노드일 경우에만
             if(treeView1.SelectedNode.Parent == null) 
             {
-                textBox2.Enabled = false;
-                button3.Visible = false;
+                Visible_Init_Team_Add();
+                Visible_Init_Team_Update();
+                Visible_Init_Dpt_Add();
                 textBox2.Text = treeView1.SelectedNode.Text; //하위 팀노드 클릭 시 부서명에 팀명도 들어가는 버그 수정필요
                 dataGridView1.DataSource = null;
                 DataTable table = new DataTable();
                 string keyword = textBox2.Text;
 
-                textBox3.Visible = false;
-                button6.Visible = false;
-                button4.Text = "팀 수정";
-
-                button2.Text = "팀 추가";
-                label4.Visible = false;
-                textBox3.Visible = false;
-                button6.Visible = false;
                 search_data(keyword, table);
             }
         }
@@ -217,6 +275,8 @@ namespace DBP_관리 {
        /*UI change for department update*/
         private void button_Dpt_Udt_Click(object sender, EventArgs e)
         {
+            Visible_Init_Team_Add();
+            Visible_Init_Team_Update();
             pre_str = textBox2.Text;
             if(textBox2.Text == "")
             {
@@ -225,15 +285,12 @@ namespace DBP_관리 {
             }
             if(button_Dpt_Udt.Text == "부서 수정")
             {
-                textBox2.Enabled = true;
-                button3.Visible = true;
-                button_Dpt_Udt.Text = "수정 취소";
+                Visible_Click_Dpt_Add();
             }
             else
             {
-                button_Dpt_Udt.Text = "부서 수정";
-                button3.Visible = false;
-                textBox2.Enabled = false;
+                Visible_Init_Dpt_Add();
+                textBox2.Text = treeView1.SelectedNode.Text;
             }
         }
 
@@ -245,15 +302,14 @@ namespace DBP_관리 {
                 string keyword = textBox2.Text;
                 Update_dpt(pre_str, keyword);
                 MessageBox.Show("수정 완료!");
-                button3.Visible = false;
-                button_Dpt_Udt.Text = "부서 수정";
-                textBox2.Enabled = false;
+                Visible_Init_Dpt_Add();
             }
         }
 
         /*'팀 추가' Button click event*/
         private void button2_Click(object sender, EventArgs e)
         {
+            Visible_Init_Dpt_Add();
             if(textBox2.Text == "")
             {
                 MessageBox.Show("부서를 선택해주세요.");
@@ -261,17 +317,11 @@ namespace DBP_관리 {
             }
             if(button2.Text == "팀 추가")
             {
-                button2.Text = "취소";
-                label4.Visible = true;
-                textBox3.Visible = true;
-                button5.Visible = true;
+                Visible_Click_Team_Add();
             }
             else
             {
-                button2.Text = "팀 추가";
-                label4.Visible = false;
-                textBox3.Visible = false;
-                button5.Visible = false;
+                Visible_Init_Team_Add();
             }
         }
 
@@ -285,14 +335,14 @@ namespace DBP_관리 {
 
             DataTable table = new DataTable();
             search_data(keyword, table);
-            label4.Visible = false; 
-            textBox3.Visible = false;
-            button5.Visible = false;
+            Visible_Init_Team_Add();
+            textBox3.Text = "";
         }
 
         /*'팀 수정' Button click event*/
         private void button4_Click(object sender, EventArgs e)
         {
+            Visible_Init_Dpt_Add();
             if (dataGridView1.CurrentCell == null)
             { 
                 MessageBox.Show("선택된 팀이 없습니다.");
@@ -300,19 +350,14 @@ namespace DBP_관리 {
             }
             if (button4.Text == "팀 수정")
             {
-                button4.Text = "수정 취소";
-                label4.Visible = false;
+                Visible_Click_Team_Update();
                 DataGridViewRow row = dataGridView1.SelectedRows[0];
                 string data = row.Cells[1].Value.ToString();
-                textBox3.Visible = true;
                 textBox3.Text = data;
-                button6.Visible = true;
             }
             else
             {
-                button4.Text = "팀 수정";
-                textBox3.Visible = false;
-                button6.Visible = false;
+                Visible_Init_Team_Update();
             }
         }
 
@@ -349,6 +394,7 @@ namespace DBP_관리 {
 			formLogin.Show();
 		}
 
+        /*'수정완료'Button Click Event*/
         private void button6_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = dataGridView1.SelectedRows[0];
@@ -360,8 +406,7 @@ namespace DBP_관리 {
 
             DataTable table = new DataTable();
             search_data(textBox2.Text, table);
-            textBox3.Visible = false;
-            button6.Visible = false;
+            Visible_Init_Team_Update();
         }
     }
 }
