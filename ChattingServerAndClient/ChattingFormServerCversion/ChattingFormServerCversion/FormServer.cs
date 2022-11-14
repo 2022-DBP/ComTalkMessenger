@@ -5,11 +5,12 @@ using System.Text;
 namespace ChattingFormServerCversion
 {
     public partial class FormServer : Form
-    {
+    {//기존 대화가 있는지 query로 확인하고, 있으면 소켓 새로 생성, 없으면 기존 소켓에 연결하고 대화 내용 불러오기
         delegate void AppendTextDelegate(Control ctrl, string s);
         AppendTextDelegate _textAppender;
         Socket mainSock;
         IPAddress thisAddress;
+        Socket client;
 
         public FormServer()
         {
@@ -34,7 +35,7 @@ namespace ChattingFormServerCversion
         void AcceptCallback(IAsyncResult ar)
         {
             // 클라이언트의 연결 요청을 수락한다.
-            Socket client = mainSock.EndAccept(ar);
+            client = mainSock.EndAccept(ar);
 
             // 또 다른 클라이언트의 연결을 대기한다.
             mainSock.BeginAccept(AcceptCallback, null);
@@ -58,12 +59,13 @@ namespace ChattingFormServerCversion
             AsyncObject obj = (AsyncObject)ar.AsyncState;
 
             // 데이터 수신을 끝낸다.
-            int received = obj.WorkingSocket.EndReceive(ar);
-
-            // 받은 데이터가 없으면(연결끊어짐) 끝낸다.
-            if (received <= 0)
+            try
             {
-                obj.WorkingSocket.Close();
+                int received = obj.WorkingSocket.EndReceive(ar);
+            }
+            catch (Exception e)
+            { // 받은 데이터가 없으면(연결끊어짐) 끝낸다.
+                AppendText(textBoxHistory, string.Format("클라이언트 연결이 끊어졌습니다."));
                 return;
             }
 

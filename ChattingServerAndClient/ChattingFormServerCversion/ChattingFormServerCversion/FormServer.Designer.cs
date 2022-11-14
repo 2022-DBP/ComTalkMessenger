@@ -83,9 +83,9 @@
             // 
             this.buttonStart.Location = new System.Drawing.Point(600, 45);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(188, 83);
+            this.buttonStart.Size = new System.Drawing.Size(141, 38);
             this.buttonStart.TabIndex = 6;
-            this.buttonStart.Text = "서버 시작 버튼. port, address 입력하고 누르세요. 나중엔 자동";
+            this.buttonStart.Text = "서버 시작";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
