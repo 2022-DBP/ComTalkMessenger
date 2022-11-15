@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Resist));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label_birth = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.combo_team = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.combo_Department = new System.Windows.Forms.ComboBox();
             this.label_verify = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -69,6 +73,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.panel1.Controls.Add(this.label_birth);
+            this.panel1.Controls.Add(this.dateTimePicker1);
+            this.panel1.Controls.Add(this.combo_team);
+            this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.combo_Department);
             this.panel1.Controls.Add(this.label_verify);
             this.panel1.Controls.Add(this.label11);
@@ -100,17 +108,57 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(0, -3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(467, 628);
+            this.panel1.Size = new System.Drawing.Size(467, 764);
             this.panel1.TabIndex = 0;
+            // 
+            // label_birth
+            // 
+            this.label_birth.AutoSize = true;
+            this.label_birth.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label_birth.ForeColor = System.Drawing.Color.White;
+            this.label_birth.Location = new System.Drawing.Point(33, 415);
+            this.label_birth.Name = "label_birth";
+            this.label_birth.Size = new System.Drawing.Size(78, 23);
+            this.label_birth.TabIndex = 1005;
+            this.label_birth.Text = "생년월일";
+            this.label_birth.Click += new System.EventHandler(this.label_birth_Click);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(117, 415);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(195, 27);
+            this.dateTimePicker1.TabIndex = 1004;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            // 
+            // combo_team
+            // 
+            this.combo_team.FormattingEnabled = true;
+            this.combo_team.Location = new System.Drawing.Point(117, 619);
+            this.combo_team.Name = "combo_team";
+            this.combo_team.Size = new System.Drawing.Size(195, 28);
+            this.combo_team.TabIndex = 1003;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(44, 619);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(67, 23);
+            this.label12.TabIndex = 1002;
+            this.label12.Text = "팀 선택";
             // 
             // combo_Department
             // 
             this.combo_Department.FormattingEnabled = true;
-            this.combo_Department.Location = new System.Drawing.Point(117, 508);
+            this.combo_Department.Location = new System.Drawing.Point(117, 563);
             this.combo_Department.Name = "combo_Department";
             this.combo_Department.Size = new System.Drawing.Size(195, 28);
             this.combo_Department.TabIndex = 1001;
-            this.combo_Department.Text = "부서를 선택해주세요";
+            this.combo_Department.SelectedIndexChanged += new System.EventHandler(this.Load_TeamData);
             this.combo_Department.Enter += new System.EventHandler(this.combo_Department_Enter);
             // 
             // label_verify
@@ -135,20 +183,21 @@
             // 
             // Btn_CancleResist
             // 
-            this.Btn_CancleResist.Location = new System.Drawing.Point(236, 561);
+            this.Btn_CancleResist.BackColor = System.Drawing.Color.White;
+            this.Btn_CancleResist.Location = new System.Drawing.Point(235, 688);
             this.Btn_CancleResist.Name = "Btn_CancleResist";
             this.Btn_CancleResist.Size = new System.Drawing.Size(169, 42);
             this.Btn_CancleResist.TabIndex = 26;
             this.Btn_CancleResist.Text = "취소";
-            this.Btn_CancleResist.UseVisualStyleBackColor = true;
-            this.Btn_CancleResist.Click += new System.EventHandler(this.Cancle_Resist);
+            this.Btn_CancleResist.UseVisualStyleBackColor = false;
+            this.Btn_CancleResist.Click += new System.EventHandler(this.BackLogin);
             // 
             // button4
             // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.button4.BackColor = System.Drawing.Color.White;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(51, 561);
+            this.button4.Location = new System.Drawing.Point(50, 688);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(169, 42);
             this.button4.TabIndex = 25;
@@ -184,7 +233,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(27, 508);
+            this.label8.Location = new System.Drawing.Point(27, 563);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 23);
             this.label8.TabIndex = 21;
@@ -192,7 +241,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(327, 415);
+            this.button3.Location = new System.Drawing.Point(327, 467);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(94, 34);
             this.button3.TabIndex = 7;
@@ -203,7 +252,7 @@
             // 
             this.txt_backAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_backAddress.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txt_backAddress.Location = new System.Drawing.Point(222, 415);
+            this.txt_backAddress.Location = new System.Drawing.Point(222, 467);
             this.txt_backAddress.MaxLength = 30;
             this.txt_backAddress.Multiline = true;
             this.txt_backAddress.Name = "txt_backAddress";
@@ -215,11 +264,10 @@
             // 
             this.txt_Address.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_Address.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txt_Address.Location = new System.Drawing.Point(117, 455);
+            this.txt_Address.Location = new System.Drawing.Point(117, 507);
             this.txt_Address.MaxLength = 30;
             this.txt_Address.Multiline = true;
             this.txt_Address.Name = "txt_Address";
-            this.txt_Address.ReadOnly = true;
             this.txt_Address.Size = new System.Drawing.Size(195, 34);
             this.txt_Address.TabIndex = 18;
             // 
@@ -228,7 +276,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(50, 418);
+            this.label7.Location = new System.Drawing.Point(50, 470);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 23);
             this.label7.TabIndex = 17;
@@ -239,7 +287,7 @@
             // 
             this.txt_frontAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_frontAddress.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txt_frontAddress.Location = new System.Drawing.Point(117, 415);
+            this.txt_frontAddress.Location = new System.Drawing.Point(117, 467);
             this.txt_frontAddress.MaxLength = 30;
             this.txt_frontAddress.Multiline = true;
             this.txt_frontAddress.Name = "txt_frontAddress";
@@ -284,12 +332,12 @@
             this.txt_Profile.Enabled = false;
             this.txt_Profile.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txt_Profile.Location = new System.Drawing.Point(117, 106);
-            this.txt_Profile.MaxLength = 30;
+            this.txt_Profile.MaxLength = 100;
             this.txt_Profile.Multiline = true;
             this.txt_Profile.Name = "txt_Profile";
-            this.txt_Profile.ReadOnly = true;
             this.txt_Profile.Size = new System.Drawing.Size(195, 34);
             this.txt_Profile.TabIndex = 120;
+            this.txt_Profile.TextChanged += new System.EventHandler(this.txt_Profile_TextChanged);
             // 
             // label5
             // 
@@ -347,7 +395,6 @@
             this.txt_ConfirmPass.Size = new System.Drawing.Size(195, 34);
             this.txt_ConfirmPass.TabIndex = 6;
             this.txt_ConfirmPass.Validating += new System.ComponentModel.CancelEventHandler(this.CheckPassword);
-            this.txt_ConfirmPass.Validated += new System.EventHandler(this.CheckAllInput);
             // 
             // label3
             // 
@@ -434,7 +481,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 622);
+            this.ClientSize = new System.Drawing.Size(462, 753);
             this.Controls.Add(this.panel1);
             this.Name = "Form_Resist";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -481,5 +528,9 @@
         private Label label_verify;
         private ComboBox combo_Department;
         private OpenFileDialog openFileDialog;
+        private ComboBox combo_team;
+        private Label label12;
+        private Label label_birth;
+        private DateTimePicker dateTimePicker1;
     }
 }

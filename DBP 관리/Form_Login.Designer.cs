@@ -35,11 +35,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.autoInputCheck = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txt_Password = new System.Windows.Forms.TextBox();
             this.autoLoginCheck = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_Login = new System.Windows.Forms.TextBox();
             this.btn_Login = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -53,11 +53,11 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.autoInputCheck);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.txt_Password);
             this.panel1.Controls.Add(this.autoLoginCheck);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.txt_Login);
             this.panel1.Controls.Add(this.btn_Login);
             this.panel1.Location = new System.Drawing.Point(-7, 0);
             this.panel1.Name = "panel1";
@@ -76,7 +76,13 @@
             this.label_AdminLogin.TabIndex = 11;
             this.label_AdminLogin.Text = "관리자 로그인";
             this.label_AdminLogin.Click += new System.EventHandler(this.GoAdminLogin);
-
+            // 
+            // label_admin_Login
+            // 
+            this.label_admin_Login.Location = new System.Drawing.Point(0, 0);
+            this.label_admin_Login.Name = "label_admin_Login";
+            this.label_admin_Login.Size = new System.Drawing.Size(100, 23);
+            this.label_admin_Login.TabIndex = 12;
             // 
             // label3
             // 
@@ -116,16 +122,16 @@
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
-            // textBox2
+            // txt_Password
             // 
-            this.textBox2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.Location = new System.Drawing.Point(118, 296);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(255, 43);
-            this.textBox2.TabIndex = 4;
+            this.txt_Password.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Password.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Password.Location = new System.Drawing.Point(118, 296);
+            this.txt_Password.Multiline = true;
+            this.txt_Password.Name = "txt_Password";
+            this.txt_Password.PasswordChar = '*';
+            this.txt_Password.Size = new System.Drawing.Size(255, 43);
+            this.txt_Password.TabIndex = 4;
             // 
             // autoLoginCheck
             // 
@@ -161,19 +167,19 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "아이디";
             // 
-            // textBox1
+            // txt_Login
             // 
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(118, 236);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(255, 43);
-            this.textBox1.TabIndex = 2;
+            this.txt_Login.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txt_Login.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txt_Login.Location = new System.Drawing.Point(118, 236);
+            this.txt_Login.Multiline = true;
+            this.txt_Login.Name = "txt_Login";
+            this.txt_Login.Size = new System.Drawing.Size(255, 43);
+            this.txt_Login.TabIndex = 2;
             // 
             // btn_Login
             // 
-            this.btn_Login.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btn_Login.BackColor = System.Drawing.Color.White;
             this.btn_Login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btn_Login.FlatAppearance.BorderSize = 0;
             this.btn_Login.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -185,6 +191,7 @@
             this.btn_Login.TabIndex = 7;
             this.btn_Login.Text = "로그인";
             this.btn_Login.UseVisualStyleBackColor = false;
+            this.btn_Login.Click += new System.EventHandler(this.Login_Click);
             // 
             // Form_Login
             // 
@@ -206,9 +213,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_Login;
         private System.Windows.Forms.Button btn_Login;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_Password;
         private System.Windows.Forms.CheckBox autoLoginCheck;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox autoInputCheck;

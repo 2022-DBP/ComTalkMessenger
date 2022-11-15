@@ -17,7 +17,6 @@ namespace DBP_관리
         public Form_Login()
         {
             InitializeComponent();
-            Debug.WriteLine(this.Location);
         }
 
 
@@ -44,7 +43,11 @@ namespace DBP_관리
 
         }
 
-        private void GoAdminLogin(object sender, EventArgs e)
+        public void Login_Click(object sender, EventArgs e)
+        {
+            LoginManager.Instance.Login(txt_Login.Text, txt_Password.Text);
+        }
+        public void GoAdminLogin(object sender, EventArgs e)
         {
             this.Hide();
             Point tempPoint = this.Location;
