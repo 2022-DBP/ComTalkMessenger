@@ -41,7 +41,12 @@ namespace DBP_관리
                 // 데이터가 존재할 경우 일치하다고 판단하고 로그인
                 if (reader.HasRows)
                 {
-                    MessageBox.Show("로그인 성공");
+                    reader.Close();
+                    MessageBox.Show("로그인 성공", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+                    string logquery = $"insert into Login_log (user_id, log_time, log_type) " +
+                        $"values ((select ID from USER where USER_id = '{id}'), '{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}', 'in')";
+                    cmd.CommandText = logquery;
+                    cmd.ExecuteNonQuery();
                 }
                 // 데이터가 존재하지 않을 경우 아이디 또는 비밀번호가 일치하지 않음
                 else
@@ -50,7 +55,6 @@ namespace DBP_관리
                     reader.Close();
                     return;
                 }
-                reader.Close();
                 conn.Close();
             }
         }
@@ -136,7 +140,7 @@ namespace DBP_관리
             }
             return true;
         }
-
+        // 빈 칸 확인 기능
         private bool NullCheck(string profile, string name, string nickname, string id, string password,
             string address, string department, string team)
         {
