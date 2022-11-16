@@ -21,11 +21,11 @@ namespace DBP_관리 {
 
 			label_Pri_Title.Text = user_name + " 권한 조정";
 
-			load_listBox();
+			load_user_list();
 		}
 
-		private void load_listBox() {
-			//직원 리스트(현재 선택된 직원 제외) 출력하기(동명이인 문제의 경우 어떻게..? treeview 사용?)
+		private void load_user_list() {
+			//직원 리스트(현재 선택된 직원 제외) 출력하기
 
 		}
 
