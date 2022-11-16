@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DBP_관리 {
-	//수정 사항 : user_id 타입을 string으로 변경 혹은 USER.USER_id 대신 USER.id 사용
 	public partial class FormAdmin_User : Form {
 		public FormAdmin_User() {
 			InitializeComponent();
@@ -26,7 +25,7 @@ namespace DBP_관리 {
 
 			treeView_User.Nodes.Clear();
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "SELECT dpt_name, group_concat(USER_name) FROM s5469698.department left outer join USER on USER_department = department.id group by dpt_name";
+			string query = "SELECT dpt_name, group_concat(USER_name) FROM s5469698.department left outer join USER on department_id = department.id group by dpt_name";
 			//수정 사항 : 부서-팀-유저 단위로 출력해야함. 생각해볼것..
 			//아이디어 : 부서-팀(concat) 쿼리로 출력해 트리뷰를 만들고, 다시 부서-팀-직원(concat) 쿼리로 출력해서 해당하는 부서-팀에 따라(case? if?) 직원을 자식노드로 추가.
 
@@ -58,7 +57,7 @@ namespace DBP_관리 {
 			int user_id = 0;
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "SELECT USER_id FROM s5469698.USER, department WHERE USER_name = '" + user_name + "' AND department.dpt_name = '" + user_dpt + "' AND USER_department = department.id;";
+			string query = "SELECT USER.ID FROM s5469698.USER, department WHERE USER_name = '" + user_name + "' AND department.dpt_name = '" + user_dpt + "' AND department_id = department.id;";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
@@ -79,7 +78,7 @@ namespace DBP_관리 {
 
 			string user_dpt = "";
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "SELECT department.dpt_name, team.team_name FROM s5469698.USER, department, team WHERE USER_id = " + user_id + " AND USER_department = department.id AND USER_team = team.id;";
+			string query = "SELECT department.dpt_name, team.team_name FROM s5469698.USER, department, team WHERE USER.ID = " + user_id + " AND department_id = department.id AND team_id = team.id;";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
@@ -169,7 +168,7 @@ namespace DBP_관리 {
 			string user_dptchange_dpt = treeView_User_DptChange.SelectedNode.Parent.Text;
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "UPDATE s5469698.USER SET USER.USER_department = (SELECT department.id FROM department WHERE department.dpt_name = '" + user_dptchange_dpt + "'), USER.USER_team = (SELECT team.id FROM team WHERE team.team_name = '" + user_dptchange_team + "') WHERE USER.USER_id = '" + user_id + "';";
+			string query = "UPDATE s5469698.USER SET USER.department_id = (SELECT department.id FROM department WHERE department.dpt_name = '" + user_dptchange_dpt + "'), USER.team_id = (SELECT team.id FROM team WHERE team.team_name = '" + user_dptchange_team + "') WHERE USER.ID = " + user_id + ";";
 			//수정 사항 : 팀명으로 찾는 쿼리라서 다른 부서임에도 같은 팀명이 있어 오류 발생. 같은 부서명은 없을 것으로 생각하자..
 			//team 업데이트 부질의에서 team.dpt_id와 바꿀 department.id가 같다는 조건을 추가하면 될듯..?
 
