@@ -41,7 +41,7 @@ namespace DBP_관리
                 MessageBox.Show("비밀번호를 다시 확인해주세요");
                 return;
             }
-            if (LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text, txt_Address.Text, combo_Department.Text, combo_team.Text))
+            if (LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text, txt_Address.Text, combo_Department.Text, combo_team.Text, dateTimePicker1.Text))
                 BackLogin(sender, e);
             else
                 return;

@@ -116,7 +116,7 @@
             this.label_birth.AutoSize = true;
             this.label_birth.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label_birth.ForeColor = System.Drawing.Color.White;
-            this.label_birth.Location = new System.Drawing.Point(33, 415);
+            this.label_birth.Location = new System.Drawing.Point(33, 629);
             this.label_birth.Name = "label_birth";
             this.label_birth.Size = new System.Drawing.Size(78, 23);
             this.label_birth.TabIndex = 1005;
@@ -126,7 +126,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(117, 415);
+            this.dateTimePicker1.Location = new System.Drawing.Point(117, 629);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(195, 27);
             this.dateTimePicker1.TabIndex = 1004;
@@ -135,7 +135,7 @@
             // combo_team
             // 
             this.combo_team.FormattingEnabled = true;
-            this.combo_team.Location = new System.Drawing.Point(117, 619);
+            this.combo_team.Location = new System.Drawing.Point(117, 567);
             this.combo_team.Name = "combo_team";
             this.combo_team.Size = new System.Drawing.Size(195, 28);
             this.combo_team.TabIndex = 1003;
@@ -145,7 +145,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(44, 619);
+            this.label12.Location = new System.Drawing.Point(44, 567);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(67, 23);
             this.label12.TabIndex = 1002;
@@ -154,7 +154,7 @@
             // combo_Department
             // 
             this.combo_Department.FormattingEnabled = true;
-            this.combo_Department.Location = new System.Drawing.Point(117, 563);
+            this.combo_Department.Location = new System.Drawing.Point(117, 511);
             this.combo_Department.Name = "combo_Department";
             this.combo_Department.Size = new System.Drawing.Size(195, 28);
             this.combo_Department.TabIndex = 1001;
@@ -233,7 +233,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(27, 563);
+            this.label8.Location = new System.Drawing.Point(27, 511);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 23);
             this.label8.TabIndex = 21;
@@ -241,7 +241,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(327, 467);
+            this.button3.Location = new System.Drawing.Point(327, 415);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(94, 34);
             this.button3.TabIndex = 7;
@@ -252,7 +252,7 @@
             // 
             this.txt_backAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_backAddress.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txt_backAddress.Location = new System.Drawing.Point(222, 467);
+            this.txt_backAddress.Location = new System.Drawing.Point(222, 415);
             this.txt_backAddress.MaxLength = 30;
             this.txt_backAddress.Multiline = true;
             this.txt_backAddress.Name = "txt_backAddress";
@@ -264,7 +264,7 @@
             // 
             this.txt_Address.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_Address.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txt_Address.Location = new System.Drawing.Point(117, 507);
+            this.txt_Address.Location = new System.Drawing.Point(117, 455);
             this.txt_Address.MaxLength = 30;
             this.txt_Address.Multiline = true;
             this.txt_Address.Name = "txt_Address";
@@ -276,7 +276,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(50, 470);
+            this.label7.Location = new System.Drawing.Point(50, 418);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 23);
             this.label7.TabIndex = 17;
@@ -287,7 +287,7 @@
             // 
             this.txt_frontAddress.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txt_frontAddress.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txt_frontAddress.Location = new System.Drawing.Point(117, 467);
+            this.txt_frontAddress.Location = new System.Drawing.Point(117, 415);
             this.txt_frontAddress.MaxLength = 30;
             this.txt_frontAddress.Multiline = true;
             this.txt_frontAddress.Name = "txt_frontAddress";

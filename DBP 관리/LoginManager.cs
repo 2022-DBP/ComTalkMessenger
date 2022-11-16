@@ -59,7 +59,7 @@ namespace DBP_관리
         #region ===============================  회원가입 기능들  =======================================
         // 회원가입 기능 -> 회원가입 창에서 회원가입을 누를 시 데이터를 저장해주는 기능.
         public bool Resist(string profile, string name, string nick, string id,
-            string pass, string address, string department, string team)
+            string pass, string address, string department, string team, string date)
         {
             // 이미지 넣기 전 BLOB 형식에 넣을 수 있게 변환
             byte[] imageData = null;
@@ -81,17 +81,19 @@ namespace DBP_관리
                     try
                     {
                         string password = EncryptionSHA256(pass);
-                        string query = $"INSERT INTO USER (USER_image, USER_name, USER_nickname, USER_id, USER_password, USER_address, USER_department, USER_team)" +
+                        string query = $"INSERT INTO USER (USER_image, USER_name, USER_nickname, USER_id, USER_password, USER_address, USER_department, USER_team, USER_birth)" +
                             $"VALUES(@IMG, '{name}', '{nick}', '{id}', '{password}', '{address}', " +
                             $"(select id from department where dpt_name = '{department}')," +
-                            $"(select id from team where team_name = '{team}' and dpt_id = (select id from department where dpt_name = '{department}')))";
+                            $"(select id from team where team_name = '{team}' and dpt_id = (select id from department where dpt_name = '{department}'))," +
+                            $"'{date}')";
 
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.Add(new MySqlParameter("@IMG", imageData));
                         cmd.ExecuteNonQuery();
 
-
                         conn.Close();
+
+                        MessageBox.Show("회원가입이 완료되었습니다");
                     }
                     catch (Exception e)
                     {
