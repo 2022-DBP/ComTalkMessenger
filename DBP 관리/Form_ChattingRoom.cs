@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Chatting_Form
+namespace DBP_관리
 {
-    public partial class Form_Chatting : Form
+    public partial class Form_ChattingRoom : Form
     {
-        public Form_Chatting()
+        public Form_ChattingRoom()
         {
             InitializeComponent();
-        }
-
-        private void buttonSend_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
