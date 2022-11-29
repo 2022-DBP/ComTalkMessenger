@@ -428,6 +428,7 @@
             this.Controls.Add(this.button_Dpt_Plus);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormAdmin_Dpt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "부서 관리";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);

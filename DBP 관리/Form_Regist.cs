@@ -19,88 +19,8 @@ namespace DBP_관리
             InitializeComponent();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        // 회원가입 취소
-        private void Cancle_Resist(object sender, EventArgs e)
+        // 로그인을 되돌아가기
+        private void BackLogin(object sender, EventArgs e)
         {
             Owner.Location = this.Location;
             Owner.Show();
@@ -110,29 +30,23 @@ namespace DBP_관리
         // 회원가입 버튼
         private void Btn_ResistON(object sender, EventArgs e)
         {
-            LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text
-                , txt_Address.Text, combo_Department.SelectedIndex);
+            if(!isID)
+            {
+                MessageBox.Show("아이디 중복 체크를 다시 해주세요");
+                return;
+            }
+ 
+            if(!isPass)
+            {
+                MessageBox.Show("비밀번호를 다시 확인해주세요");
+                return;
+            }
+            if (LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text, txt_Address.Text, combo_Department.Text, combo_team.Text, dateTimePicker1.Text))
+                BackLogin(sender, e);
+            else
+                return;
         }
 
-        private void textBox8_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox9_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void CheckID(object sender, EventArgs e)
         {
@@ -143,20 +57,7 @@ namespace DBP_관리
             }
             else
             {
-                LoginManager.Instance.CheckString(txt_Id.Text, "USER_id", isID);
-            }
-        }
-
-        private void CheckAllInput(object sender, EventArgs e)
-        {
-            if(String.IsNullOrEmpty(txt_Name.Text) && String.IsNullOrEmpty(txt_Nickname.Text) &&
-                String.IsNullOrEmpty(txt_Id.Text) && String.IsNullOrEmpty(txt_Password.Text) &&
-                String.IsNullOrEmpty(txt_Address.Text) && String.IsNullOrEmpty(combo_Department.Text))
-            {
-
-            }
-            else
-            {
+                isID = LoginManager.Instance.CheckID(txt_Id.Text, "USER_id", isID);
             }
         }
 
@@ -175,12 +76,51 @@ namespace DBP_관리
                 isPass = false;
             }
         }
+
+        // 이미지 넣기 기능
+        private void LoadImage(object sender, EventArgs e)
+        {
+            // 파일 열기 확장자 필터링 - 사진만 넣을 수 있게 함. All 추가 시 All Files(*.*)|*.*
+            openFileDialog.Filter = "JPG Files(*.jpg)|*.jpg|PNG Files(*.png)|*.png";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = openFileDialog.FileName.ToString();
+                txt_Profile.Text = path;
+                profileBox.ImageLocation = path;
+                profileBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
+
+        private void combo_Department_Enter(object sender, EventArgs e)
+        {
+            LoginManager.Instance.LoadComboBoxColumnData(combo_Department, combo_team, "dpt_name", "department", LoginManager.OutputSort.Department);
+        }
+
+        private void label_birth_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Load_TeamData(object sender, EventArgs e)
+        {
+            LoginManager.Instance.LoadComboBoxColumnData(combo_Department, combo_team, "team_name", "team", LoginManager.OutputSort.Team);
+        }
+
+        private void txt_Profile_TextChanged(object sender, EventArgs e)
+        {
+
+        }
         /*
-   프로세서 관리
-   Process[] mProcess = Process.GetProcessesByName(Application.ProductName);
-   Debug.WriteLine(mProcess);
-   foreach (Process p in mProcess)
-       p.Kill();
-   */
+프로세서 관리
+Process[] mProcess = Process.GetProcessesByName(Application.ProductName);
+Debug.WriteLine(mProcess);
+foreach (Process p in mProcess)
+p.Kill();
+*/
     }
 }

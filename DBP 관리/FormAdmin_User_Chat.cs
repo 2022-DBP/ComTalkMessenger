@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,13 +19,14 @@ namespace DBP_관리 {
 			this.user_name = user_name;
 			this.user_id = user_id;
 
-			label_Chat_Title.Text = user_name + " 로그 검색";
+			label_Chat_Title.Text = user_name + " 대화 검색";
 
 			load_listBox();
 		}
 
 		private void load_listBox() {
-			//사용자의 로그(대화, 접속 시간..) 출력
+			//사용자의 대화 리스트 출력
+			//선택 후에 따로 대화창 출력 혹은 UI 옆에 따로 만들어서 대화 내용 보여주기
 
 		}
 

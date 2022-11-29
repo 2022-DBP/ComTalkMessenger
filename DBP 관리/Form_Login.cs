@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -39,25 +40,43 @@ namespace DBP_관리
         }
 
         // 체크 시 자동으로 로그인
-        private void AutoLogin(object sender, EventArgs e)
+        public void AutoLogin(object sender, EventArgs e)
         {
 
         }
 
         // 체크 시 자동으로 전에 로그인했던 유저의 아이디, 비번을 텍스트에 출력
-        private void AutoInput(object sender, EventArgs e)
+        public void AutoInput(object sender, EventArgs e)
         {
 
         }
 
-        private void label4_Click(object sender, EventArgs e)
+        public void Login_Click(object sender, EventArgs e)
         {
-            FormAdmin_Login frm = new FormAdmin_Login();
-            frm.Show();
+            LoginManager.Instance.Login(txt_Login.Text, txt_Password.Text);
+        }
+
+        public void GoAdminLogin(object sender, EventArgs e)
+        {
             this.Hide();
+            Point tempPoint = this.Location;
+            FormAdmin_Login fal = new FormAdmin_Login();
+            fal.Location = tempPoint;
+            fal.Owner = this;
+            fal.Show();
+            // 관리 부서 창 띄우기
+            //this.Hide();
+            //Debug.WriteLine(this.Location);
+
+            //Debug.WriteLine(tempPoint);
+
+			//FormAdmin_Login ad = new FormAdmin_Login();
+            //ad.Location = tempPoint;
+            //ad.Owner = this;
+            //ad.Show();
         }
 
-        private void btn_Login_Click(object sender, EventArgs e)
+        private void Form_Login_Load(object sender, EventArgs e)
         {
 
         }
