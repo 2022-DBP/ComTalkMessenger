@@ -17,22 +17,12 @@ namespace DBP_관리 {
             InitializeComponent();
 
 			this.user_name = user_name;
-			this.user_id = user_id;
+			this.user_id = user_id; //이는 USER 테이블의 User_id가 아닌, ID임(인덱스).
 
 			label_Chat_Title.Text = user_name + " 대화 검색";
 
-			load_listBox();
-		}
-
-		private void load_listBox() {
-			//사용자의 대화 리스트 출력
-			//선택 후에 따로 대화창 출력 혹은 UI 옆에 따로 만들어서 대화 내용 보여주기
-
-		}
-
-		private void button_Chat_Search_Click(object sender, EventArgs e) {
-			//textBox에 입력된 값이 해당하는 대화 검색
-
+			//이후 기능 추가하기 각 탭별로 리스트박스/트리뷰 로드
+			//트리뷰는 현재 사용자를 제외하고 출력할 것
 		}
 	}
 }
