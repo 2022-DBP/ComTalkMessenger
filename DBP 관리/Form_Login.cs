@@ -76,6 +76,10 @@ namespace DBP_관리
             //ad.Show();
         }
 
+        private void Form_Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
  
