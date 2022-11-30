@@ -10,11 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using static Google.Protobuf.Collections.MapField<TKey, TValue>;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DBP_관리 {
 	public partial class FormAdmin_User_Pri : Form {
+		List<string> checkedUserList = new List<string>();
 		private string user_name;
 		private int user_id;
 
@@ -124,32 +124,20 @@ namespace DBP_관리 {
 				connection.Open();
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
-
+				
 				while (rdr.Read()) {
 					string department_name = rdr[0].ToString();
 					string team_name = rdr[1].ToString();
 					string[] user_list = rdr[2].ToString().Split(",");
 
+					TreeNode dptNode = SearchNode(department_name, treeView_Pri_Chat.Nodes[0]);
+					TreeNode teamNode = SearchNode(team_name, dptNode);
 					foreach (string user_name in user_list) {
-						TreeNode[] userNode = treeView_Pri_Chat.Nodes.Find(user_name, true);
+						TreeNode userNode = SearchNode(user_name, teamNode);
 
-						foreach(TreeNode nodeU in userNode) {
-							TreeNode[] dptNode = treeView_Pri_Chat.Nodes.Find(department_name, true);
-
-							foreach (TreeNode nodeD in dptNode) {
-								TreeNode[] teamNode = treeView_Pri_Chat.Nodes.Find(team_name, true);
-
-								foreach (TreeNode nodeT in teamNode) {
-									
-									if (nodeU.Parent.Parent == nodeD)
-										if (nodeU.Parent == nodeT) {
-											nodeU.Checked = true;
-											ParentNodeChecking(nodeU); //자식 노드가 모두 체크되면 부모도 체크
-										}
-								}
-							}
-						}
+						userNode.Checked = true;
 					}
+					
 				}
 			}
 		}
@@ -179,11 +167,22 @@ namespace DBP_관리 {
 		}
 
 		private void treeView_Pri_Chat_AfterCheck(object sender, TreeViewEventArgs e) {
-			//체크한 노드에 대해서 자식과 부모 노드 체크 처리
+			//노드가 체크되었을 경우 체크한 노드에 대해서 자식과 부모 노드 체크 처리
 			treeView_Pri_Chat.AfterCheck -= treeView_Pri_Chat_AfterCheck;
 			ChildNodeChecking(e.Node);
 			ParentNodeChecking(e.Node);
 			treeView_Pri_Chat.AfterCheck += treeView_Pri_Chat_AfterCheck;
+
+			if (e.Node.Checked == true) {
+				if (e.Node.Parent != null && e.Node.Parent.Parent != null)
+					checkedUserList.Add(e.Node.Parent.Parent.Text + " " + e.Node.Parent.Text + " " + e.Node.Text);
+			}
+			else {
+				if (e.Node.Parent != null && e.Node.Parent.Parent != null)
+					checkedUserList.Remove(e.Node.Parent.Parent.Text + " " + e.Node.Parent.Text + " " + e.Node.Text);
+			}
+			
+
 		}
 
 		private void treeView_Pri_Chat_AfterSelect(object sender, TreeViewEventArgs e) {
@@ -192,7 +191,7 @@ namespace DBP_관리 {
 		}
 
 		private void button_Pri_Chat_Click(object sender, EventArgs e) {
-			//체크한 항목 하나씩 하나씩 INSERT하기. 그전에 다 지우기..? 흠...
+			//체크한 항목 하나씩 하나씩 INSERT하기. 그전에 User_ID = user_id인 경우는 다 지우기?(선택 해제시 반영하기위해서...)
 
 			string selected_user_id = "";
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
@@ -204,7 +203,7 @@ namespace DBP_관리 {
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
 				while (rdr.Read()) {
-
+					
 				}
 			}
 		}
