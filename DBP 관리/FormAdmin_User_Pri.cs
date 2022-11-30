@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static Google.Protobuf.Collections.MapField<TKey, TValue>;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DBP_관리 {
 	public partial class FormAdmin_User_Pri : Form {
@@ -20,9 +25,188 @@ namespace DBP_관리 {
 			this.user_id = user_id;	//이는 USER 테이블의 User_id가 아닌, ID임(인덱스).
 
 			label_Pri_Title.Text = user_name + " 권한 조정";
+
+			load_treeView_Pri_Chat(user_id);
 		}
 
-		//트리뷰(체크박스)에서 선택된 직원들/부서/팀에 대해서 처리(체크박스를 사용해서 해당 부서를 선택하면 최하단 노드(직원들)을 선택되게 만듬)
-		//직원 트리뷰 출력시에는 본인은 제외하고 출력
+		private TreeNode SearchNode(string SearchText, TreeNode StartNode) {
+			TreeNode node = null;
+
+			while (StartNode != null) {
+				if (StartNode.Text.ToLower().Contains(SearchText.ToLower())) {
+					node = StartNode;
+					break;
+				};
+				if (StartNode.Nodes.Count != 0) {
+					node = SearchNode(SearchText, StartNode.Nodes[0]);  //Recursive Search
+					if (node != null) {
+						break;
+					};
+				};
+				StartNode = StartNode.NextNode;
+			};
+
+			return node;
+		}
+
+		private void load_treeView_Pri_Chat(int user_id) {
+			//대화 권한 트리뷰(부서-팀-직원, 선택한 유저 제외) 출력
+
+			treeView_Pri_Chat.Nodes.Clear();
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_name) FROM s5469698.department, team, USER WHERE department.id = team.dpt_id AND USER.team_id = team.id AND USER.ID != " + user_id + " GROUP BY department.dpt_name, team.team_name;";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+				TreeNode department = null;
+
+				int i = 0; //두번째부터 중복확인하기 위한 변수
+				int x = 0; //부서가 중복인지 확인하기 위한 변수
+
+				while (rdr.Read()) {
+					TreeNode tn = null;
+					if (i >= 1)
+						tn = SearchNode(rdr[0].ToString(), treeView_Pri_Chat.Nodes[0]); //부서컬럼이 현재트리에 있는지확인
+
+					TreeNode team = null;
+					string username = null;
+					string teamname = null;
+
+					if (tn == null) { //부서가 중복이 안되어있으면
+						x = 0;
+						department = new TreeNode(rdr[0].ToString());
+
+						if (rdr[1].ToString() != null)
+							team = new TreeNode(rdr[1].ToString());
+					}
+					else { //부서 중복이 된 경우
+						x = 1;
+						tn = SearchNode(rdr[0].ToString(), treeView_Pri_Chat.Nodes[0]);
+
+						if (rdr[1].ToString() != null)
+							team = new TreeNode(rdr[1].ToString());
+					}
+
+					if (rdr[2].ToString() != null) { //팀원이 있으면 팀원 추가
+						username = rdr[2].ToString();
+						string[] str_list = username.Split(",");
+
+						if (department != null)
+							foreach (string str in str_list) {
+								team.Nodes.Add(str);
+							}
+					}
+
+					department.Nodes.Add(team);
+
+					if (x == 0) //부서가 중복이 안되있으면 상위노드(부서노드) 트리뷰에 추가
+						treeView_Pri_Chat.Nodes.Add(department);
+
+					i++;
+				}
+			}
+
+			treeView_Pri_Chat.ExpandAll();
+
+			Check_Unable_Users();
+		}
+
+		private void Check_Unable_Users() {
+			//이미 사용자와 대화 제한을 걸었던 부서, 팀, 직원은 체크를 해둬야함
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "SELECT department.dpt_name, team.team_name, group_concat(USER.USER_name) FROM department, team, USER, USER_PriChat WHERE USER_PriChat.UnableChat_User_ID = USER.ID AND USER_PriChat.User_id = " + user_id + " AND department.id = USER.department_id AND team.id = USER.team_id GROUP BY department.dpt_name, team.team_name;";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				while (rdr.Read()) {
+					string department_name = rdr[0].ToString();
+					string team_name = rdr[1].ToString();
+					string[] user_list = rdr[2].ToString().Split(",");
+
+					foreach (string user_name in user_list) {
+						TreeNode[] userNode = treeView_Pri_Chat.Nodes.Find(user_name, true);
+
+						foreach(TreeNode nodeU in userNode) {
+							TreeNode[] dptNode = treeView_Pri_Chat.Nodes.Find(department_name, true);
+
+							foreach (TreeNode nodeD in dptNode) {
+								TreeNode[] teamNode = treeView_Pri_Chat.Nodes.Find(team_name, true);
+
+								foreach (TreeNode nodeT in teamNode) {
+									
+									if (nodeU.Parent.Parent == nodeD)
+										if (nodeU.Parent == nodeT) {
+											nodeU.Checked = true;
+											ParentNodeChecking(nodeU); //자식 노드가 모두 체크되면 부모도 체크
+										}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		private void ChildNodeChecking(TreeNode selectNode) {
+			//선택한 노드의 자식 노드들 체크
+			foreach(TreeNode tn in selectNode.Nodes) {
+				tn.Checked = selectNode.Checked;
+				ChildNodeChecking(tn);
+			}
+			return;
+		}
+
+		private void ParentNodeChecking(TreeNode selectNode) {
+			//선택한 노드가 부모의 유일한 자식 노드라면, 부모 노드도 체크
+			TreeNode t = selectNode.Parent;
+			if (t != null) {
+				t.Checked = true;
+				foreach (TreeNode tn in t.Nodes) {
+					if (!tn.Checked) {
+						t.Checked = false;
+						break;
+					}
+				}
+				ParentNodeChecking(t);
+			}
+		}
+
+		private void treeView_Pri_Chat_AfterCheck(object sender, TreeViewEventArgs e) {
+			//체크한 노드에 대해서 자식과 부모 노드 체크 처리
+			treeView_Pri_Chat.AfterCheck -= treeView_Pri_Chat_AfterCheck;
+			ChildNodeChecking(e.Node);
+			ParentNodeChecking(e.Node);
+			treeView_Pri_Chat.AfterCheck += treeView_Pri_Chat_AfterCheck;
+		}
+
+		private void treeView_Pri_Chat_AfterSelect(object sender, TreeViewEventArgs e) {
+			//체크박스만 체크하도록 이름 선택시 선택 해제
+			treeView_Pri_Chat.SelectedNode = null;
+		}
+
+		private void button_Pri_Chat_Click(object sender, EventArgs e) {
+			//체크한 항목 하나씩 하나씩 INSERT하기. 그전에 다 지우기..? 흠...
+
+			string selected_user_id = "";
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "INSERT IGNORE INTO USER_PriChat(User_ID, UnableChat_User_ID) VALUES (" + user_id + ", " + selected_user_id + ");";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				while (rdr.Read()) {
+
+				}
+			}
+		}
 	}
 }

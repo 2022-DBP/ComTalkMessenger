@@ -109,11 +109,14 @@
 			// 
 			// treeView_Pri_Chat
 			// 
+			this.treeView_Pri_Chat.CheckBoxes = true;
 			this.treeView_Pri_Chat.Location = new System.Drawing.Point(21, 45);
 			this.treeView_Pri_Chat.Margin = new System.Windows.Forms.Padding(2);
 			this.treeView_Pri_Chat.Name = "treeView_Pri_Chat";
 			this.treeView_Pri_Chat.Size = new System.Drawing.Size(361, 341);
 			this.treeView_Pri_Chat.TabIndex = 8;
+			this.treeView_Pri_Chat.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView_Pri_Chat_AfterCheck);
+			this.treeView_Pri_Chat.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_Pri_Chat_AfterSelect);
 			// 
 			// button_Pri_Chat
 			// 
@@ -128,6 +131,7 @@
 			this.button_Pri_Chat.TabIndex = 4;
 			this.button_Pri_Chat.Text = "적용하기";
 			this.button_Pri_Chat.UseVisualStyleBackColor = false;
+			this.button_Pri_Chat.Click += new System.EventHandler(this.button_Pri_Chat_Click);
 			// 
 			// label_Pri_Chat
 			// 

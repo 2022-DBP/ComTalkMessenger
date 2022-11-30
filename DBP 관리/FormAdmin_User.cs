@@ -54,7 +54,10 @@ namespace DBP_관리 {
 			treeView_User.Nodes.Clear();
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_name) FROM s5469698.department left outer join team on department.id = team.dpt_id left outer join USER on USER.team_id = team.id group by department.dpt_name, team.team_name;";
+			string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_name) FROM s5469698.department, team, USER WHERE department.id = team.dpt_id AND USER.team_id = team.id GROUP BY department.dpt_name, team.team_name;";
+
+			//사람이 없는 부서도 모두 출력시 아래 쿼리 사용
+			//SELECT department.dpt_name, team.team_name, group_concat(USER_name) FROM s5469698.department left outer join team on department.id = team.dpt_id left outer join USER on USER.team_id = team.id group by department.dpt_name, team.team_name;
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
@@ -107,6 +110,8 @@ namespace DBP_관리 {
 					i++;
 				}
 			}
+
+			treeView_User.ExpandAll();
 		}
 
 		private int get_user_id(string user_name, string user_dpt, string user_team) {
