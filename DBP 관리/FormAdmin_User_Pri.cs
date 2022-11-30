@@ -181,8 +181,8 @@ namespace DBP_관리 {
 				if (e.Node.Parent != null && e.Node.Parent.Parent != null)
 					checkedUserList.Remove(e.Node.Parent.Parent.Text + " " + e.Node.Parent.Text + " " + e.Node.Text);
 			}
-			
 
+			checkedUserList = checkedUserList.Distinct().ToList();	//리스트 중복 제거
 		}
 
 		private void treeView_Pri_Chat_AfterSelect(object sender, TreeViewEventArgs e) {
@@ -190,12 +190,13 @@ namespace DBP_관리 {
 			treeView_Pri_Chat.SelectedNode = null;
 		}
 
-		private void button_Pri_Chat_Click(object sender, EventArgs e) {
-			//체크한 항목 하나씩 하나씩 INSERT하기. 그전에 User_ID = user_id인 경우는 다 지우기?(선택 해제시 반영하기위해서...)
+		private int get_user_id(string user_name, string user_dpt, string user_team) {
+			//사용자의 이름, 소속 부서명, 소속 팀명을 가져와서 사용자 id 반환
 
-			string selected_user_id = "";
+			int user_id = 0;
+
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "INSERT IGNORE INTO USER_PriChat(User_ID, UnableChat_User_ID) VALUES (" + user_id + ", " + selected_user_id + ");";
+			string query = "SELECT USER.ID FROM s5469698.USER, department, team WHERE USER_name = '" + user_name + "' AND department.dpt_name = '" + user_dpt + "' AND team.team_name = '" + user_team + "' AND department_id = department.id AND team_id = team.id;";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
@@ -203,9 +204,51 @@ namespace DBP_관리 {
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
 				while (rdr.Read()) {
-					
+					string str = rdr[0].ToString();
+					user_id = Int32.Parse(str);
 				}
 			}
+
+			return user_id;
+		}
+
+		private void button_Pri_Chat_Click(object sender, EventArgs e) {
+			//INSERT 전에 체크 해제, 즉 기존의 대화 제한을 해제했을 수 있으므로 선택한 사용자의 대화 제한 목록을 DELETE하기
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "DELETE FROM USER_PriChat WHERE User_ID = " + user_id + ";";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				while (rdr.Read()) { }
+			}
+
+			//이후 리스트에 저장된 목록을 불러 하나씩 하나씩 INSERT하기
+
+			foreach (string str in checkedUserList) {
+				string[] info = str.Split(" ");
+				string selected_dpt_name = info[0];
+				string selected_team_name = info[1];
+				string selected_user_name = info[2];
+				int selected_user_id = get_user_id(selected_user_name, selected_dpt_name, selected_team_name);
+				MessageBox.Show("번호: " + selected_user_id);
+
+				query = "INSERT INTO USER_PriChat(User_ID, UnableChat_User_ID) VALUES (" + user_id + ", " + selected_user_id + ");";
+
+				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
+
+					while (rdr.Read()) { }
+				}
+			}
+
+			MessageBox.Show("대화 제한 갱신 완료");
+			load_treeView_Pri_Chat(user_id);
 		}
 	}
 }

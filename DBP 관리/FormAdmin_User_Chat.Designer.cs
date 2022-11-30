@@ -106,6 +106,7 @@
 			this.listBox_Chat_Time_Search.Name = "listBox_Chat_Time_Search";
 			this.listBox_Chat_Time_Search.Size = new System.Drawing.Size(318, 319);
 			this.listBox_Chat_Time_Search.TabIndex = 20;
+			this.listBox_Chat_Time_Search.SelectedIndexChanged += new System.EventHandler(this.listBox_Chat_Time_Search_SelectedIndexChanged);
 			// 
 			// label_Chat_Time_Search
 			// 
@@ -130,6 +131,7 @@
 			this.button_Chat_Time_Search.TabIndex = 17;
 			this.button_Chat_Time_Search.Text = "검색";
 			this.button_Chat_Time_Search.UseVisualStyleBackColor = false;
+			this.button_Chat_Time_Search.Click += new System.EventHandler(this.button_Chat_Time_Search_Click);
 			// 
 			// tabPage_Chat_Keyword_Search
 			// 
@@ -154,6 +156,7 @@
 			this.listBox_Chat_Keyword_Search.Name = "listBox_Chat_Keyword_Search";
 			this.listBox_Chat_Keyword_Search.Size = new System.Drawing.Size(318, 319);
 			this.listBox_Chat_Keyword_Search.TabIndex = 16;
+			this.listBox_Chat_Keyword_Search.SelectedIndexChanged += new System.EventHandler(this.listBox_Chat_Keyword_Search_SelectedIndexChanged);
 			// 
 			// label_Chat_Keyword_Search
 			// 
@@ -178,6 +181,7 @@
 			this.button_Chat_Keyword_Search.TabIndex = 13;
 			this.button_Chat_Keyword_Search.Text = "검색";
 			this.button_Chat_Keyword_Search.UseVisualStyleBackColor = false;
+			this.button_Chat_Keyword_Search.Click += new System.EventHandler(this.button_Chat_Keyword_Search_Click);
 			// 
 			// textBox_Chat_Keyword_Search
 			// 
@@ -215,6 +219,7 @@
 			this.treeView_Chat_User_Search.Name = "treeView_Chat_User_Search";
 			this.treeView_Chat_User_Search.Size = new System.Drawing.Size(318, 347);
 			this.treeView_Chat_User_Search.TabIndex = 22;
+			this.treeView_Chat_User_Search.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_Chat_User_Search_AfterSelect);
 			// 
 			// groupBox_Chat_Search
 			// 
