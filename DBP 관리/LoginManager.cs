@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using System.Net;
 
 namespace DBP_관리
 {
@@ -26,12 +27,52 @@ namespace DBP_관리
 
         #region ===============================  로그인 기능들  =======================================
         // 로그인 기능
+        public void Login(string id, string pass, int auto_info, int auto_login, string ip)
+        {
+            using (MySqlConnection conn = new MySqlConnection(code))
+            {
+                conn.Open();
+
+                string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256))))";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                // 데이터가 존재할 경우 일치하다고 판단하고 로그인
+                if (reader.HasRows)
+                {
+                    reader.Close();
+                    MessageBox.Show("로그인 성공", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+                    string logquery = $"insert into Login_log (user_id, log_time, log_type) " +
+                        $"values ((select ID from USER where USER_id = '{id}'), '{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}', 'in')";
+                    cmd.CommandText = logquery;
+                    cmd.ExecuteNonQuery();
+                    logquery = $"update USER set auto_info = {auto_info}, auto_login = {auto_login}, ip = '{ip}' where USER_id = '{id}'";
+                    cmd.CommandText = logquery;
+                    cmd.ExecuteNonQuery();
+                }
+                // 데이터가 존재하지 않을 경우 아이디 또는 비밀번호가 일치하지 않음
+                else
+                {
+                    MessageBox.Show("아이디 또는 비밀번호가 일치하지 않습니다.");
+                    reader.Close();
+                    return;
+                }
+                conn.Close();
+            }
+        }
+
         public void Login(string id, string pass)
         {
             using (MySqlConnection conn = new MySqlConnection(code))
             {
                 conn.Open();
+<<<<<<< Updated upstream
                 string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = '{password}'";
+=======
+
+                string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256))))";
+>>>>>>> Stashed changes
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -56,12 +97,84 @@ namespace DBP_관리
                 conn.Close();
             }
         }
+
+        public void AutoBox(CheckBox info, CheckBox login, TextBox txt_Login, TextBox txt_Password)
+        {
+            using (MySqlConnection conn = new MySqlConnection(code))
+            {
+                conn.Open();
+
+                string query = $"select auto_info, auto_login from USER where ip = '{getIP()}'";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if(reader.HasRows)
+                {
+                    while(reader.Read())
+                    {
+                        info.Checked = Convert.ToBoolean(reader["auto_info"]);
+                        login.Checked = Convert.ToBoolean(reader["auto_login"]);
+                    }
+
+                }
+                else
+                {
+                    reader.Close();
+                    conn.Close();
+                    return;
+                }
+                // hex(aes_encrypt('{pass}', SHA2('abcabc', 256)))
+                reader.Close();
+                query = $"select USER_id, AES_DECRYPT(unhex(USER_password), sha2('abcabc', 256)) from USER where ip = '{getIP()}'";
+                cmd.CommandText = query;
+                reader = cmd.ExecuteReader();
+                if(reader.HasRows)
+                {
+                    string log ="";
+                    string pas = "";
+                    while (reader.Read())
+                    {
+                        log = reader["USER_id"].ToString();
+                        BinaryReader br = new BinaryReader(File.Open("test.bin", FileMode.Open));
+                        pas = .ToString();
+
+                        pas = ASCIIEncoding.ASCII.GetBytes(pas).ToString();
+                        Debug.Write(pas);
+                    }
+                    if (login.Checked)
+                    {
+                        Login(log, pas);
+                    }
+                    if (info.Checked)
+                    {
+                        txt_Login.Text = log;
+                        txt_Password.Text = pas;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+                reader.Close();
+
+                conn.Close();
+            }
+        }
+
+        public string getIP()
+        {
+            String strHostName = string.Empty;
+            IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
+            IPAddress[] addr = ipEntry.AddressList;
+            return addr[0].ToString();
+        }
         #endregion
 
         #region ===============================  회원가입 기능들  =======================================
         // 회원가입 기능 -> 회원가입 창에서 회원가입을 누를 시 데이터를 저장해주는 기능.
         public bool Resist(string profile, string name, string nick, string id,
-            string pass, string address, string department, string team, string date)
+            string pass, string zipcode, string landlord, string road, string department, string team, string date)
         {
             // 이미지 넣기 전 BLOB 형식에 넣을 수 있게 변환
             byte[] imageData = null;
@@ -75,19 +188,27 @@ namespace DBP_관리
             BinaryReader br = new BinaryReader(fs);
             imageData = br.ReadBytes((int)fs.Length);
 
-            if (NullCheck(profile, name, nick, id, pass, address, department, team))
+            if (NullCheck(profile, name, nick, id, pass, landlord, department, team))
             {
                 using (MySqlConnection conn = new MySqlConnection(code))
                 {
                     conn.Open();
                     try
                     {
+<<<<<<< Updated upstream
                         string query = $"INSERT INTO USER (USER_image, USER_name, USER_nickname, USER_id, USER_password, USER_address, USER_department, USER_team, USER_birth)" +
                             $"VALUES(@IMG, '{name}', '{nick}', '{id}', '{pass}', '{address}', " +
                             $"(select id from department where dpt_name = '{department}')," +
                             $"(select id from team where team_name = '{team}' and dpt_id = (select id from department where dpt_name = '{department}'))," +
+=======
+                        string query = $"INSERT INTO USER (USER_image, USER_name, USER_nickname, USER_id, USER_password, zipcode, USER_roadAddress, USER_landlordAddress, " +
+                            $"department_id, team_id, USER_birth)" +
+                            $"VALUES(@IMG, '{name}', '{nick}', '{id}', (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256)))), {zipcode}, '{road}', '{landlord}', " +
+                            $"(select id from department where dpt_name = '{department}'), " +
+                            $"(select id from team where team_name = '{team}' and dpt_id = (select id from department where dpt_name = '{department}')), " +
+>>>>>>> Stashed changes
                             $"'{date}')";
-
+                        Debug.WriteLine(query);
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         cmd.Parameters.Add(new MySqlParameter("@IMG", imageData));
                         cmd.ExecuteNonQuery();

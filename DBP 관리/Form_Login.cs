@@ -39,21 +39,10 @@ namespace DBP_관리
             resist.Show();
         }
 
-        // 체크 시 자동으로 로그인
-        public void AutoLogin(object sender, EventArgs e)
-        {
-
-        }
-
-        // 체크 시 자동으로 전에 로그인했던 유저의 아이디, 비번을 텍스트에 출력
-        public void AutoInput(object sender, EventArgs e)
-        {
-
-        }
 
         public void Login_Click(object sender, EventArgs e)
         {
-            LoginManager.Instance.Login(txt_Login.Text, txt_Password.Text);
+            LoginManager.Instance.Login(txt_Login.Text, txt_Password.Text, Convert.ToInt32(autoInputCheck.Checked), Convert.ToInt32(autoLoginCheck.Checked), LoginManager.Instance.getIP());
         }
 
         public void GoAdminLogin(object sender, EventArgs e)
@@ -76,6 +65,10 @@ namespace DBP_관리
             //ad.Show();
         }
 
+        private void Form_Login_Load(object sender, EventArgs e)
+        {
+            LoginManager.Instance.AutoBox(autoInputCheck, autoLoginCheck, this.txt_Login, this.txt_Password);
+        }
     }
 }
  

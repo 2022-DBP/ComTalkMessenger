@@ -14,6 +14,8 @@ namespace DBP_관리
     {
         private bool isID = false;
         private bool isPass = false;
+        public string ReceivedData;
+        private string txt_address;
         public Form_Resist()
         {
             InitializeComponent();
@@ -41,7 +43,7 @@ namespace DBP_관리
                 MessageBox.Show("비밀번호를 다시 확인해주세요");
                 return;
             }
-            if (LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text, txt_Address.Text, combo_Department.Text, combo_team.Text, dateTimePicker1.Text))
+            if (LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text, txt_zipCode.Text, txt_landlordAddress.Text, txt_roadAddress.Text, combo_Department.Text, combo_team.Text, dateTimePicker1.Text))
                 BackLogin(sender, e);
             else
                 return;
@@ -114,6 +116,30 @@ namespace DBP_관리
         private void txt_Profile_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_searchAddress_Click(object sender, EventArgs e)
+        {
+            Point tempPoint = this.Location;
+            Form_Address address = new Form_Address("test");
+            address.Location = tempPoint;
+            address.Owner = this;
+            address.ShowDialog();
+
+            if(address.ShowDialog() == DialogResult.OK)
+            {
+                txt_address = ReceivedData;
+                var ad = txt_address.Split('\n');
+
+                txt_zipCode.Text = ad[0];
+                txt_roadAddress.Text = ad[1];
+                txt_landlordAddress.Text = ad[2];
+            }
+        }
+
+        private void Form_Exit_Control(object sender, FormClosingEventArgs e)
+        {
+            Owner.Show();
         }
         /*
 프로세서 관리
