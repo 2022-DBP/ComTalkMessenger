@@ -31,8 +31,6 @@ namespace DBP_관리
             using (MySqlConnection conn = new MySqlConnection(code))
             {
                 conn.Open();
-
-                string password = EncryptionSHA256(pass);
                 string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = '{password}'";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
@@ -84,9 +82,8 @@ namespace DBP_관리
                     conn.Open();
                     try
                     {
-                        string password = EncryptionSHA256(pass);
                         string query = $"INSERT INTO USER (USER_image, USER_name, USER_nickname, USER_id, USER_password, USER_address, USER_department, USER_team, USER_birth)" +
-                            $"VALUES(@IMG, '{name}', '{nick}', '{id}', '{password}', '{address}', " +
+                            $"VALUES(@IMG, '{name}', '{nick}', '{id}', '{pass}', '{address}', " +
                             $"(select id from department where dpt_name = '{department}')," +
                             $"(select id from team where team_name = '{team}' and dpt_id = (select id from department where dpt_name = '{department}'))," +
                             $"'{date}')";
@@ -140,6 +137,7 @@ namespace DBP_관리
             }
             return true;
         }
+
         // 빈 칸 확인 기능
         private bool NullCheck(string profile, string name, string nickname, string id, string password,
             string address, string department, string team)
@@ -187,6 +185,8 @@ namespace DBP_관리
 
             return true;
         }
+
+
         // 부서 및 팀 콤보 박스 데이터 출력
         public void LoadComboBoxColumnData(ComboBox department, ComboBox team, string column, string table, OutputSort sort = OutputSort.None)
         {
@@ -247,27 +247,6 @@ namespace DBP_관리
                     }
                         break;
             }
-        }
-        // 비밀번호 암호화
-        private string EncryptionSHA256(string message)
-        {
-            byte[] array = Encoding.Default.GetBytes(message);
-            byte[] hashValue;
-            string result = string.Empty;
-
-            // 바이트배열을 암호화된 32byte 해쉬값으로
-            using (SHA256 mySHA256 = SHA256.Create())
-            {
-                hashValue = mySHA256.ComputeHash(array);
-            }
-
-            // 32byte 해쉬값을 16진수로 변환하여 64자리로 만듬
-            for (int i = 0; i < hashValue.Length; i++)
-            {
-                result += hashValue[i].ToString("x2");
-            }
-
-            return result;
         }
         #endregion
     }
