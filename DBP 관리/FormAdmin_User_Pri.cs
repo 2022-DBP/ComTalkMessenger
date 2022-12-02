@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DBP_관리 {
 	public partial class FormAdmin_User_Pri : Form {
-		List<string> checkedUserList = new List<string>();
+		List<string> checkedPriChatList = new List<string>();
+		List<string> checkedPriVisibleList = new List<string>();
 		private string user_name;
 		private int user_id;
 
@@ -26,7 +28,8 @@ namespace DBP_관리 {
 
 			label_Pri_Title.Text = user_name + " 권한 조정";
 
-			load_treeView_Pri_Chat(user_id);
+			Load_treeView_Pri_Chat(user_id);
+			Load_treeView_Pri_Visible(user_id);
 		}
 
 		private TreeNode SearchNode(string SearchText, TreeNode StartNode) {
@@ -49,7 +52,7 @@ namespace DBP_관리 {
 			return node;
 		}
 
-		private void load_treeView_Pri_Chat(int user_id) {
+		private void Load_treeView_Pri_Chat(int user_id) {
 			//대화 권한 트리뷰(부서-팀-직원, 선택한 유저 제외) 출력
 
 			treeView_Pri_Chat.Nodes.Clear();
@@ -111,10 +114,10 @@ namespace DBP_관리 {
 
 			treeView_Pri_Chat.ExpandAll();
 
-			Check_Unable_Users();
+			Check_Unable_Chat_Users(user_id);
 		}
 
-		private void Check_Unable_Users() {
+		private void Check_Unable_Chat_Users(int user_id) {
 			//이미 사용자와 대화 제한을 걸었던 부서, 팀, 직원은 체크를 해둬야함
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
@@ -142,8 +145,140 @@ namespace DBP_관리 {
 			}
 		}
 
+		private void Load_treeView_Pri_Visible(int user_id) {
+			//보기 권한 트리뷰(부서-팀-직원, 선택한 유저 제외) 출력
+
+			treeView_Pri_Visible.Nodes.Clear();
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_name) FROM s5469698.department, team, USER WHERE department.id = team.dpt_id AND USER.team_id = team.id AND USER.ID != " + user_id + " GROUP BY department.dpt_name, team.team_name;";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+				TreeNode department = null;
+
+				int i = 0; //두번째부터 중복확인하기 위한 변수
+				int x = 0; //부서가 중복인지 확인하기 위한 변수
+
+				while (rdr.Read()) {
+					TreeNode tn = null;
+					if (i >= 1)
+						tn = SearchNode(rdr[0].ToString(), treeView_Pri_Visible.Nodes[0]); //부서컬럼이 현재트리에 있는지확인
+
+					TreeNode team = null;
+					string username = null;
+					string teamname = null;
+
+					if (tn == null) { //부서가 중복이 안되어있으면
+						x = 0;
+						department = new TreeNode(rdr[0].ToString());
+
+						if (rdr[1].ToString() != null)
+							team = new TreeNode(rdr[1].ToString());
+					}
+					else { //부서 중복이 된 경우
+						x = 1;
+						tn = SearchNode(rdr[0].ToString(), treeView_Pri_Visible.Nodes[0]);
+
+						if (rdr[1].ToString() != null)
+							team = new TreeNode(rdr[1].ToString());
+					}
+
+					if (rdr[2].ToString() != null) { //팀원이 있으면 팀원 추가
+						username = rdr[2].ToString();
+						string[] str_list = username.Split(",");
+
+						if (department != null)
+							foreach (string str in str_list) {
+								team.Nodes.Add(str);
+							}
+					}
+
+					department.Nodes.Add(team);
+
+					if (x == 0) //부서가 중복이 안되있으면 상위노드(부서노드) 트리뷰에 추가
+						treeView_Pri_Visible.Nodes.Add(department);
+
+					i++;
+				}
+			}
+
+			treeView_Pri_Visible.ExpandAll();
+
+			Check_Invisible_Users(user_id);
+		}
+
+		private void Check_Invisible_Users(int user_id) {
+			//이미 사용자와 보기 제한을 걸었던 부서, 팀, 직원은 체크를 해둬야함.
+
+			//부서 체크
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "SELECT department.dpt_name FROM department, USER_Visible WHERE USER_Visible.UnableChat_Dpt_ID = department.id AND USER_Visible.User_ID = " + user_id +";";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				while (rdr.Read()) {
+					string department_name = rdr[0].ToString();
+					TreeNode dptNode = SearchNode(department_name, treeView_Pri_Visible.Nodes[0]);
+
+					dptNode.Checked = true;
+				}
+			}
+			
+			//팀 체크
+			query = "SELECT department.dpt_name, group_concat(team.team_name) FROM department, team, USER_Visible WHERE USER_Visible.UnableChat_Team_ID = team.id AND USER_Visible.User_ID = " + user_id + " AND department.id = team.dpt_id GROUP BY department.dpt_name;";
+			
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				while (rdr.Read()) {
+					string department_name = rdr[0].ToString();
+					string[] team_list = rdr[1].ToString().Split(",");
+
+					TreeNode dptNode = SearchNode(department_name, treeView_Pri_Visible.Nodes[0]);
+					foreach (string team_name in team_list) {
+						TreeNode teamNode = SearchNode(team_name, dptNode);
+
+						if (teamNode.Checked == false)
+							teamNode.Checked = true;
+					}
+				}
+			}
+
+			//직원 체크
+			query = "SELECT department.dpt_name, team.team_name, group_concat(USER.USER_name) FROM department, team, USER, USER_Visible WHERE USER_Visible.UnableChat_User_ID = USER.ID AND USER_Visible.User_ID = " + user_id + " AND department.id = USER.department_id AND team.id = USER.team_id GROUP BY department.dpt_name, team.team_name;";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				while (rdr.Read()) {
+					string department_name = rdr[0].ToString();
+					string team_name = rdr[1].ToString();
+					string[] user_list = rdr[2].ToString().Split(",");
+
+					TreeNode dptNode = SearchNode(department_name, treeView_Pri_Visible.Nodes[0]);
+					TreeNode teamNode = SearchNode(team_name, dptNode);
+					foreach (string user_name in user_list) {
+						TreeNode userNode = SearchNode(user_name, teamNode);
+
+						if (userNode.Checked == false)
+							userNode.Checked = true;
+					}
+				}
+			}
+		}
+
 		private void ChildNodeChecking(TreeNode selectNode) {
-			//선택한 노드의 자식 노드들 체크
+			//체크한 노드의 자식 노드들 체크
 			foreach(TreeNode tn in selectNode.Nodes) {
 				tn.Checked = selectNode.Checked;
 				ChildNodeChecking(tn);
@@ -152,7 +287,7 @@ namespace DBP_관리 {
 		}
 
 		private void ParentNodeChecking(TreeNode selectNode) {
-			//선택한 노드가 부모의 유일한 자식 노드라면, 부모 노드도 체크
+			//체크한 노드가 부모의 유일한 자식 노드라면, 부모 노드도 체크
 			TreeNode t = selectNode.Parent;
 			if (t != null) {
 				t.Checked = true;
@@ -173,21 +308,83 @@ namespace DBP_관리 {
 			ParentNodeChecking(e.Node);
 			treeView_Pri_Chat.AfterCheck += treeView_Pri_Chat_AfterCheck;
 
+			//이하 체크된 값 리스트에 저장
 			if (e.Node.Checked == true) {
-				if (e.Node.Parent != null && e.Node.Parent.Parent != null)
-					checkedUserList.Add(e.Node.Parent.Parent.Text + " " + e.Node.Parent.Text + " " + e.Node.Text);
+				if (e.Node.Parent != null && e.Node.Parent.Parent != null)  //직원 체크
+					checkedPriChatList.Add(e.Node.Parent.Parent.Text + " " + e.Node.Parent.Text + " " + e.Node.Text);
 			}
 			else {
 				if (e.Node.Parent != null && e.Node.Parent.Parent != null)
-					checkedUserList.Remove(e.Node.Parent.Parent.Text + " " + e.Node.Parent.Text + " " + e.Node.Text);
+					checkedPriChatList.Remove(e.Node.Parent.Parent.Text + " " + e.Node.Parent.Text + " " + e.Node.Text);
 			}
 
-			checkedUserList = checkedUserList.Distinct().ToList();	//리스트 중복 제거
+			checkedPriChatList = checkedPriChatList.Distinct().ToList();	//리스트 중복 제거
+		}
+
+		private void treeView_Pri_Visible_AfterCheck(object sender, TreeViewEventArgs e) {
+			//노드가 체크되었을 경우 체크한 노드에 대해서 자식과 부모 노드 체크 처리
+			treeView_Pri_Visible.AfterCheck -= treeView_Pri_Visible_AfterCheck;
+			ChildNodeChecking(e.Node);
+			ParentNodeChecking(e.Node);
+			treeView_Pri_Visible.AfterCheck += treeView_Pri_Visible_AfterCheck;
+
+			//체크된 값 리스트에 저장
+			if (e.Node.Checked == true)
+				checkedPriVisibleList.Add(e.Node.Text);
+			else
+				checkedPriVisibleList.Remove(e.Node.Text);
+
+			checkedPriVisibleList = checkedPriVisibleList.Distinct().ToList();  //리스트 중복 제거
+
+			//만약 체크된 노드가 부서 노드라면
+			if (e.Node.Checked == true && e.Node.Parent == null) {
+				string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+				string query = "SELECT team_name, GROUP_CONCAT(USER_name) FROM USER, department, team WHERE department.dpt_name = '" + e.Node.Text + "' AND USER.department_id = department.id AND team.dpt_id = department_id AND USER.team_id = team.id AND USER.ID != " + user_id + " GROUP BY team_name;";
+
+				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
+
+					while (rdr.Read()) {
+						string team_name = rdr[0].ToString();
+						string[] user_list = rdr[1].ToString().Split(",");
+
+						checkedPriVisibleList.Remove(team_name);
+
+						foreach (string user_name in user_list) {
+							checkedPriVisibleList.Remove(user_name);
+						}
+					}
+				}
+			}
+			//체크된 노드가 팀이라면
+			else if (e.Node.Checked == true && e.Node.Parent != null && e.Node.Parent.Parent == null) {
+				string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+				string query = "SELECT USER_name FROM USER, team WHERE team.team_name = '" + e.Node.Text + "' AND USER.team_id = team.id AND USER.ID != " + user_id + ";";
+
+				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
+
+					while (rdr.Read()) {
+						string user_name = rdr[0].ToString();
+
+						checkedPriVisibleList.Remove(user_name);
+					}
+				}
+			}
 		}
 
 		private void treeView_Pri_Chat_AfterSelect(object sender, TreeViewEventArgs e) {
 			//체크박스만 체크하도록 이름 선택시 선택 해제
 			treeView_Pri_Chat.SelectedNode = null;
+		}
+
+		private void treeView_Pri_Visible_AfterSelect(object sender, TreeViewEventArgs e) {
+			//체크박스만 체크하도록 이름 선택시 선택 해제
+			treeView_Pri_Visible.SelectedNode = null;
 		}
 
 		private int get_user_id(string user_name, string user_dpt, string user_team) {
@@ -228,13 +425,12 @@ namespace DBP_관리 {
 
 			//이후 리스트에 저장된 목록을 불러 하나씩 하나씩 INSERT하기
 
-			foreach (string str in checkedUserList) {
+			foreach (string str in checkedPriChatList) {
 				string[] info = str.Split(" ");
 				string selected_dpt_name = info[0];
 				string selected_team_name = info[1];
 				string selected_user_name = info[2];
 				int selected_user_id = get_user_id(selected_user_name, selected_dpt_name, selected_team_name);
-				MessageBox.Show("번호: " + selected_user_id);
 
 				query = "INSERT INTO USER_PriChat(User_ID, UnableChat_User_ID) VALUES (" + user_id + ", " + selected_user_id + ");";
 
@@ -248,7 +444,53 @@ namespace DBP_관리 {
 			}
 
 			MessageBox.Show("대화 제한 갱신 완료");
-			load_treeView_Pri_Chat(user_id);
+			Load_treeView_Pri_Chat(user_id);
+		}
+
+		private void button_Pri_Visible_Click(object sender, EventArgs e) {
+			//INSERT 전에 체크 해제, 즉 기존의 보기 제한을 해제했을 수 있으므로 선택한 사용자의 보기 제한 목록을 DELETE하기
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "DELETE FROM USER_Visible WHERE User_ID = " + user_id + ";";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				while (rdr.Read()) { }
+			}
+
+			//이후 리스트에 저장된 목록을 불러 하나씩 하나씩 INSERT하기
+
+			foreach (string str in checkedPriVisibleList) {
+				string department = "";
+				string team = "";
+				string user = "";
+				if (str.Contains("부서")) {
+					department = str;
+					query = "INSERT INTO USER_Visible VALUES(" + user_id + ", (SELECT department.id FROM department WHERE department.dpt_name = '" + department + "'), 0, 0);";
+				}
+				else if (str.Contains("팀")) {
+					team = str;
+					query = "INSERT INTO USER_Visible VALUES(" + user_id + ", 0, (SELECT team.id FROM team WHERE team.team_name = '" + team + "'), 0);";
+				}
+				else {
+					user = str;
+					query = "INSERT INTO USER_Visible VALUES(" + user_id + ", 0, 0, (SELECT USER.id FROM USER WHERE USER.USER_name = '" + user + "'));";
+				}
+
+				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
+
+					while (rdr.Read()) { }
+				}
+			}
+
+			MessageBox.Show("보기 제한 갱신 완료");
+			Load_treeView_Pri_Visible(user_id);
 		}
 	}
 }
