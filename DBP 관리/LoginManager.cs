@@ -67,12 +67,7 @@ namespace DBP_관리
             using (MySqlConnection conn = new MySqlConnection(code))
             {
                 conn.Open();
-<<<<<<< Updated upstream
-                string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = '{password}'";
-=======
-
                 string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256))))";
->>>>>>> Stashed changes
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -137,7 +132,6 @@ namespace DBP_관리
                     {
                         log = reader["USER_id"].ToString();
                         BinaryReader br = new BinaryReader(File.Open("test.bin", FileMode.Open));
-                        pas = .ToString();
 
                         pas = ASCIIEncoding.ASCII.GetBytes(pas).ToString();
                         Debug.Write(pas);
@@ -195,18 +189,11 @@ namespace DBP_관리
                     conn.Open();
                     try
                     {
-<<<<<<< Updated upstream
-                        string query = $"INSERT INTO USER (USER_image, USER_name, USER_nickname, USER_id, USER_password, USER_address, USER_department, USER_team, USER_birth)" +
-                            $"VALUES(@IMG, '{name}', '{nick}', '{id}', '{pass}', '{address}', " +
-                            $"(select id from department where dpt_name = '{department}')," +
-                            $"(select id from team where team_name = '{team}' and dpt_id = (select id from department where dpt_name = '{department}'))," +
-=======
                         string query = $"INSERT INTO USER (USER_image, USER_name, USER_nickname, USER_id, USER_password, zipcode, USER_roadAddress, USER_landlordAddress, " +
                             $"department_id, team_id, USER_birth)" +
                             $"VALUES(@IMG, '{name}', '{nick}', '{id}', (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256)))), {zipcode}, '{road}', '{landlord}', " +
                             $"(select id from department where dpt_name = '{department}'), " +
                             $"(select id from team where team_name = '{team}' and dpt_id = (select id from department where dpt_name = '{department}')), " +
->>>>>>> Stashed changes
                             $"'{date}')";
                         Debug.WriteLine(query);
                         MySqlCommand cmd = new MySqlCommand(query, conn);
