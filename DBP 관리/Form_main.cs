@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,16 +16,19 @@ namespace DBP_관리
 {
     public partial class Form_main : Form
     {
-        public Form_main()
+        public string receivedData;
+        public Form_main(string Data)
         {
             InitializeComponent();
+            receivedData = Data;
         }
 
         private void Form_main_Load(object sender, EventArgs e)
         {
             search_treeview();
             view_list();
-            
+            // 로딩 시 데이터 자동 로드
+            LoginManager.Instance.LoadUserData(receivedData, main_profile, txt_nick, txt_department, txt_team);
         }
         private TreeNode SearchNode(string SearchText, TreeNode StartNode) //문자열로 노드 찾는 메서드
         {
@@ -184,23 +188,21 @@ namespace DBP_관리
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btn_main_logout_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("로그아웃 되었습니다.");
+            Owner.Show();
+            this.Close();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void label_profile_click(object sender, EventArgs e)
         {
-
+            LoginManager.Instance.SetImage(openFileDialog1, main_profile, receivedData);
         }
 
-        private void group_profile_Enter(object sender, EventArgs e)
+        private void Form_main_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
+            Owner.Show();
 
         }
     }

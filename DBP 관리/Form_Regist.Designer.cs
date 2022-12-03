@@ -121,7 +121,6 @@
             this.label_birth.Size = new System.Drawing.Size(78, 23);
             this.label_birth.TabIndex = 1005;
             this.label_birth.Text = "생년월일";
-            this.label_birth.Click += new System.EventHandler(this.label_birth_Click);
             // 
             // dateTimePicker1
             // 
@@ -130,7 +129,6 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(195, 27);
             this.dateTimePicker1.TabIndex = 1004;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // combo_team
             // 
@@ -341,7 +339,6 @@
             this.txt_Profile.Name = "txt_Profile";
             this.txt_Profile.Size = new System.Drawing.Size(195, 34);
             this.txt_Profile.TabIndex = 120;
-            this.txt_Profile.TextChanged += new System.EventHandler(this.txt_Profile_TextChanged);
             // 
             // label5
             // 

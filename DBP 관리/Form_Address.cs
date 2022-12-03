@@ -48,7 +48,8 @@ namespace DBP_°ü¸®
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(results);
             XmlNodeList xnList = xml.GetElementsByTagName("newAddressListAreaCdSearchAll");
-            
+
+            list.Items.Clear();
             foreach(XmlNode xn in xnList)
             {
                 string zipNo = xn["zipNo"].InnerText;
