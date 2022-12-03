@@ -13,8 +13,11 @@ namespace ChattingFormServerCversion
         public TcpClient tcpClient { get; set; }
         public Byte[] readBuffer { get; set; }
         public StringBuilder currentMsg { get; set; }
+        public string clientID { get; set; }//
+
         public string clientName { get; set; }
-        public int clientNumber { get; set; }
+        public string clientNickName { get; set; }
+        public int clientNumber { get; set; }//User table의 ID
 
         public ClientData(TcpClient tcpClient)
         {
