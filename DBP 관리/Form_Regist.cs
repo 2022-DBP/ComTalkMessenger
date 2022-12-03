@@ -12,8 +12,13 @@ namespace DBP_관리
 {
     public partial class Form_Resist : Form
     {
+        // 아이디 중복체크
         private bool isID = false;
+        // 비밀번호 체크
         private bool isPass = false;
+        public string ReceivedData;
+        private string txt_address;
+
         public Form_Resist()
         {
             InitializeComponent();
@@ -41,7 +46,7 @@ namespace DBP_관리
                 MessageBox.Show("비밀번호를 다시 확인해주세요");
                 return;
             }
-            if (LoginManager.Instance.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text, txt_Address.Text, combo_Department.Text, combo_team.Text, dateTimePicker1.Text))
+            if (LoginManager._Regist.Resist(txt_Profile.Text, txt_Name.Text, txt_Nickname.Text, txt_Id.Text, txt_Password.Text, txt_zipCode.Text, txt_landlordAddress.Text, txt_roadAddress.Text, combo_Department.Text, combo_team.Text, dateTimePicker1.Text))
                 BackLogin(sender, e);
             else
                 return;
@@ -57,7 +62,7 @@ namespace DBP_관리
             }
             else
             {
-                isID = LoginManager.Instance.CheckID(txt_Id.Text, "USER_id", isID);
+                isID = LoginManager._Regist.CheckID(txt_Id.Text, "USER_id", isID);
             }
         }
 
@@ -81,46 +86,41 @@ namespace DBP_관리
         private void LoadImage(object sender, EventArgs e)
         {
             // 파일 열기 확장자 필터링 - 사진만 넣을 수 있게 함. All 추가 시 All Files(*.*)|*.*
-            openFileDialog.Filter = "JPG Files(*.jpg)|*.jpg|PNG Files(*.png)|*.png";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string path = openFileDialog.FileName.ToString();
-                txt_Profile.Text = path;
-                profileBox.ImageLocation = path;
-                profileBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            }
+            LoginManager.Instance.SetImage(this.openFileDialog, this.txt_Profile, this.profileBox);
         }
 
         private void combo_Department_Enter(object sender, EventArgs e)
         {
-            LoginManager.Instance.LoadComboBoxColumnData(combo_Department, combo_team, "dpt_name", "department", LoginManager.OutputSort.Department);
-        }
-
-        private void label_birth_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
+            LoginManager._Regist.LoadComboBoxColumnData(combo_Department, combo_team, "dpt_name", "department", OutputSort.Department);
         }
 
         private void Load_TeamData(object sender, EventArgs e)
         {
-            LoginManager.Instance.LoadComboBoxColumnData(combo_Department, combo_team, "team_name", "team", LoginManager.OutputSort.Team);
+            LoginManager._Regist.LoadComboBoxColumnData(combo_Department, combo_team, "team_name", "team", OutputSort.Team);
         }
 
-        private void txt_Profile_TextChanged(object sender, EventArgs e)
+        private void btn_searchAddress_Click(object sender, EventArgs e)
         {
+            Point tempPoint = this.Location;
+            Form_Address address = new Form_Address("test");
+            address.Location = tempPoint;
+            address.Owner = this;
+            address.ShowDialog();
 
+            if(address.ShowDialog() == DialogResult.OK)
+            {
+                txt_address = ReceivedData;
+                var ad = txt_address.Split('\n');
+
+                txt_zipCode.Text = ad[0];
+                txt_roadAddress.Text = ad[1];
+                txt_landlordAddress.Text = ad[2];
+            }
         }
-        /*
-프로세서 관리
-Process[] mProcess = Process.GetProcessesByName(Application.ProductName);
-Debug.WriteLine(mProcess);
-foreach (Process p in mProcess)
-p.Kill();
-*/
+
+        private void Form_Exit_Control(object sender, FormClosingEventArgs e)
+        {
+            Owner.Show();
+        }
     }
 }
