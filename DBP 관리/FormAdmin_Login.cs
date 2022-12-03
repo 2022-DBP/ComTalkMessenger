@@ -26,8 +26,7 @@ namespace DBP_관리
 
         public void LOGIN(string str1, string str2)
         {
-            LoginManager login = new LoginManager();
-            login.Login(str1, str2);
+            LoginManager._Login.OnLogin(str1, str2);
         }
 
         private void button1_Click(object sender, EventArgs e)

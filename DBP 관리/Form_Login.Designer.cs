@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Login));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_AdminLogin = new System.Windows.Forms.Label();
             this.label_admin_Login = new System.Windows.Forms.Label();
@@ -117,7 +116,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::DBP_관리.Properties.Resources.Image;
             this.pictureBox1.ImageLocation = "";
             this.pictureBox1.Location = new System.Drawing.Point(117, 23);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
