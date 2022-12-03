@@ -116,8 +116,9 @@ namespace DBP_관리
         //대화방 불러오기 기능 이것도 유저가  A라고 가정후 실시 
         public void view_list()
         {
+            listBox1.Items.Clear();
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
-            string query = "SELECT idRoom, USER1, USER2 From Room WHERE idRoom IN (SELECT idRoom FROM Room WHERE USER1 = 'A' OR USER2 = 'A' GROUP BY idRoom);";
+            string query = "SELECT distinct USER1, USER2 From Room WHERE idRoom IN (SELECT idRoom FROM Room WHERE USER1 = 'A' OR USER2 = 'A' GROUP BY idRoom);";
 
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
@@ -129,16 +130,21 @@ namespace DBP_관리
                 dt.Load(rdr);
                 foreach (DataRow row in dt.Rows)
                 {
-                    listBox1.Items.Add(row["idRoom"]);
+                    listBox1.Items.Add(row["USER1"]);
+                    listBox1.Items.Add(row["USER2"]);
+                    listBox1.Items.Remove("A");
                 }
             }
+
         }
 
         //대화 연결
         private void listBoxChattingList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-         
+            Form_ChattingRoom Chatting = new Form_ChattingRoom();//여기에 상대 정보와 나의 정보가 들어가면 댐
+
+            Chatting.Show();
+
         }
 
 
@@ -155,23 +161,25 @@ namespace DBP_관리
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
-                while (rdr.Read())
-                {
+                
                     //만약 값이 널이라면 룸 생성
                     //널값 구분??
-                    if (rdr[0].ToString() == null)
+                    if (rdr.HasRows)
                     {
-                        string query2 = "INSERT INTO Room values('고유값', 'A', '" + e.Node.Text + "');";
-                        MySqlConnection connect = new MySqlConnection(conn);
-                        connect.Open();
-                        MySqlCommand cmd2 = new MySqlCommand(query2, connect);
-                        MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                    MessageBox.Show("이미 대화방이 존재합니다.");
+           
                     }
                     else
                     {
-                        MessageBox.Show("이미 대화방이 존재합니다.");
-                    }
+                    string query2 = "INSERT INTO Room (USER1,USER2) values('A', '" + e.Node.Text + "');";
+                    MySqlConnection connect = new MySqlConnection(conn);
+                    connect.Open();
+                    MySqlCommand cmd2 = new MySqlCommand(query2, connect);
+                    MySqlDataReader rdr2 = cmd2.ExecuteReader();
+                    connect.Close();
+                    view_list();
                 }
+                
             }
 
 
