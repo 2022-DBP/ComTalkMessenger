@@ -114,7 +114,6 @@
             this.autoInputCheck.TabIndex = 9;
             this.autoInputCheck.Text = "ID / PW 자동입력";
             this.autoInputCheck.UseVisualStyleBackColor = true;
-            this.autoInputCheck.CheckedChanged += new System.EventHandler(this.AutoInput);
             // 
             // pictureBox1
             // 
@@ -153,7 +152,6 @@
             this.autoLoginCheck.TabIndex = 5;
             this.autoLoginCheck.Text = "자동 로그인";
             this.autoLoginCheck.UseVisualStyleBackColor = true;
-            this.autoLoginCheck.CheckedChanged += new System.EventHandler(this.AutoLogin);
             // 
             // label2
             // 
