@@ -60,14 +60,14 @@ namespace DBP_관리
         }
         #endregion
 
+
         #region ===============================  회원가입 기능들  =======================================
-        // 회원가입 기능 -> 회원가입 창에서 회원가입을 누를 시 데이터를 저장해주는 기능.
         public bool Resist(string profile, string name, string nick, string id,
             string pass, string address, string department, string team, string date)
         {
             // 이미지 넣기 전 BLOB 형식에 넣을 수 있게 변환
             byte[] imageData = null;
-            if(string.IsNullOrEmpty(profile))
+            if (string.IsNullOrEmpty(profile))
             {
                 MessageBox.Show("프로필 이미지를 넣어주세요");
                 return false; ;
@@ -110,7 +110,7 @@ namespace DBP_관리
 
             return true;
 
-        }   
+        }
 
 
         // 아이디 중복 확인
@@ -124,7 +124,7 @@ namespace DBP_관리
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 // 데이터가 중복하는 경우
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     MessageBox.Show("해당 데이터는 중복됩니다.");
                     active = false;
@@ -229,9 +229,9 @@ namespace DBP_관리
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         MySqlDataReader reader = cmd.ExecuteReader();
                         team.Items.Clear();
-                        if(reader.HasRows)
+                        if (reader.HasRows)
                         {
-                            while(reader.Read())
+                            while (reader.Read())
                             {
                                 team.Items.Add(reader[column].ToString());
                             }
@@ -245,7 +245,7 @@ namespace DBP_관리
                         reader.Close();
                         conn.Close();
                     }
-                        break;
+                    break;
             }
         }
         // 비밀번호 암호화

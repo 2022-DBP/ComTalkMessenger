@@ -32,6 +32,8 @@ namespace DBP_관리
 
         private void button1_Click(object sender, EventArgs e)
         {
+            LoginManager login = new LoginManager();
+            login.Login(textBox1.Text, textBox2.Text); //LoginManager.cs 메서드에서 로그인 여부 반환값 추가해야함
             FormAdmin_Dpt frm = new FormAdmin_Dpt();
             frm.Show();
             this.Close();
