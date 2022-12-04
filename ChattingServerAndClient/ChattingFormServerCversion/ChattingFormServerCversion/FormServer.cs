@@ -39,7 +39,7 @@ namespace ChattingFormServerCversion
             }
             MainServerStart();//다른 스렐드에서 메인 서버가 클라이언트 msg를 listen
             ClientManager.messageParsingAction += MessageParsing;//이벤트 추가
-            ClientManager.ChatngeListBoxAction += ChangeListBox;
+            ClientManager.ChangeListBoxAction += ChangeListBox;
 
 
             listBoxChattingLog.DataSource = chattingLogList;//리스트를 리스트 박스에 바인딩
@@ -79,14 +79,6 @@ namespace ChattingFormServerCversion
             listbox.ValueMember = ValueName;
         }
     
-    private void buttonStart_Click(object sender, EventArgs e)
-        {        
-            
-        }
-
-        private void buttonSend_Click(object sender, EventArgs e)
-        {
-        }
 
         private void ConnectCheckLoop()
         {
@@ -116,8 +108,9 @@ namespace ChattingFormServerCversion
             ClientData? result = null;
             ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
             string leaveLog = string.Format("[{0}] {1} Leave Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientName);
-            ChangeListBox(leaveLog, StaticDefine.ADD_ACCESS_LIST);
-            ChangeListBox(result.clientName, StaticDefine.REMOVE_USER_LIST);
+            //AccessLogList.Add(leaveLog);
+            //ListBoxRefresh();
+            //ChangeListBox(result.clientName, StaticDefine.REMOVE_USER_LIST);
         }
 
         private void ChangeListBox(string Message, int key)
@@ -231,6 +224,12 @@ namespace ChattingFormServerCversion
                 byte[] sendByteData = new byte[parsedMessage.Length];
                 sendByteData = Encoding.Default.GetBytes(parsedMessage);
 
+                if (parsedMessage.Contains("CloseClient"))
+                {
+                    RemoveClient(ClientManager.clientDic[int.Parse(receiverID)]);
+                    return;
+                }
+
                 //1.현재 유저 리스트 보내기
                 if (parsedMessage.Contains("<GiveMeUserList>"))
                 {
@@ -293,7 +292,7 @@ namespace ChattingFormServerCversion
                     if (isRoom == "")//방을 nickname 통해서 검색해야하나?
                     {
                         //채팅방 생성
-                        dbmanager.RunQuery("insert into Room(User1,User2) VALUES("+receiverNickName+","+senderNickName+")");//roomtable에 insert
+                        dbmanager.RunQuery("insert into Room(User1,User2) VALUES(\""+receiverNickName+"\",\""+senderNickName+"\")");//roomtable에 insert
                        
                     }
                     else

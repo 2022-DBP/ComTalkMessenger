@@ -15,7 +15,7 @@ namespace ChattingFormServerCversion
         FormServer formServer1 = new FormServer("str");
         public static ConcurrentDictionary<int, ClientData> clientDic = new ConcurrentDictionary<int, ClientData>();
         public static event Action<string, string>? messageParsingAction = null;
-        public static event Action<string, int>? ChatngeListBoxAction = null;
+        public static event Action<string, int>? ChangeListBoxAction = null;
         DBManager dbmanager = DBManager.GetInstance();
 
         public void AddClient(TcpClient newClient)
@@ -50,15 +50,15 @@ namespace ChattingFormServerCversion
 
                 if (string.IsNullOrEmpty(client.clientID))
                 {
-                    if (ChatngeListBoxAction != null)
+                    if (ChangeListBoxAction != null)
                     {
                         if (CheckID(strData))
                         {
                             string userID = strData.Substring(3);//로그인때 사용한 ID
                             client.clientID = userID;//ID를 통해 본인의 이름(), 닉네임 저장해두자.
-                            ChatngeListBoxAction.Invoke(client.clientID, StaticDefine.ADD_USER_LIST);
+                            ChangeListBoxAction.Invoke(client.clientID, StaticDefine.ADD_USER_LIST);
                             string accessLog = string.Format("[{0}] {1} Access Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), client.clientID);
-                            ChatngeListBoxAction.Invoke(accessLog, StaticDefine.ADD_ACCESS_LIST);
+                            ChangeListBoxAction.Invoke(accessLog, StaticDefine.ADD_ACCESS_LIST);
                             File.AppendAllText("AccessRecored.txt", accessLog + "\n");
                             return;
                         }
@@ -75,8 +75,17 @@ namespace ChattingFormServerCversion
             }
             catch (Exception e)
             {
-                //RemoveClient(client);
+                RemoveClient(client);
             }
+        }
+        private void RemoveClient(ClientData targetClient)
+        {
+            ClientData? result = null;
+            ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
+            string leaveLog = string.Format("[{0}] {1} Leave Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientName);
+            ChangeListBoxAction.Invoke(leaveLog, StaticDefine.ADD_ACCESS_LIST);
+
+            ChangeListBoxAction.Invoke(result.clientName, StaticDefine.REMOVE_USER_LIST);
         }
 
 
