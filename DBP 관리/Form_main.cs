@@ -400,7 +400,7 @@ namespace DBP_관리
                 {
                     listBox1.Items.Add(row["USER1"]);
                     listBox1.Items.Add(row["USER2"]);
-                    listBox1.Items.Remove("A");
+                    listBox1.Items.Remove("" + myNickName + "");
                 }
             }
 
@@ -426,7 +426,7 @@ namespace DBP_관리
                     }
                     else
                     {
-                    string query2 = "INSERT INTO Room (USER1,USER2) values('A', '" + e.Node.Text + "');";
+                    string query2 = "INSERT INTO Room (USER1,USER2) values('" + myNickName + "', '" + e.Node.Text + "');";
                     MySqlConnection connect = new MySqlConnection(conn);
                     connect.Open();
                     MySqlCommand cmd2 = new MySqlCommand(query2, connect);
@@ -619,6 +619,13 @@ namespace DBP_관리
 
             //변경된 테마 적용
             SELECT_Font(ID);
+        }
+
+        private void listBox_click(object sender, EventArgs e)
+        {
+            OneOnOneReceiverName = listBox1.SelectedItem.ToString();
+            OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
+            Chatting_Start();
         }
     }
 }
