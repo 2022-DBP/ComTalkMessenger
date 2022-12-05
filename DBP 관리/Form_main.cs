@@ -210,5 +210,16 @@ namespace DBP_관리
             Owner.Show();
 
         }
+
+		private void 생일ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Form_Birthday formBirthday = new Form_Birthday();
+            formBirthday.ShowDialog();
+		}
+
+        private void 테마변경ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Form_BackColor formBackColor = new Form_BackColor();    //인자로 사용자 정보를 줘야함(DB에서 불러와야하므로. USER.ID 사용.)
+            formBackColor.ShowDialog();
+            //닫으면 메인 폼 다시 로드해야함(테마 변경 적용해야하므로)
+        }
     }
 }
