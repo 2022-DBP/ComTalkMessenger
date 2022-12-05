@@ -161,6 +161,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAdmin_Login";
             this.Text = "관리자 로그인";
+            this.Load += new System.EventHandler(this.FormAdmin_Login_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

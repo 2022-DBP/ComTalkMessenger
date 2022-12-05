@@ -1,192 +1,354 @@
-using System.Net.Sockets;
-using System.Net;
+using System.Collections.ObjectModel;
 using System.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
+
 
 namespace ChattingFormServerCversion
 {
     public partial class FormServer : Form
     {
-        delegate void AppendTextDelegate(Control ctrl, string s);
-        AppendTextDelegate _textAppender;
-        Socket mainSock;
-        IPAddress thisAddress;
+        private object lockObj = new object();
+        public static List<string>? chattingLogList = new List<string>();
+        public static List<string>? userList = new List<string>();
+        public static List<string>? usersList = new List<string>();
+        public static List<string>? AccessLogList = new List<string>();
+        Task? conntectCheckThread = null;//연결을 체크하는 스레드
+        string roomID = null;
+
+        DBManager dbmanager = DBManager.GetInstance();
 
         public FormServer()
         {
+            
             InitializeComponent();
-            mainSock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-            _textAppender = new AppendTextDelegate(AppendText);
-        }
-
-        void AppendText(Control ctrl, string s)
-        {
-            if (ctrl.InvokeRequired) ctrl.Invoke(_textAppender, ctrl, s);
+            string debugCheck = "디버깅용 테스트서버를 사용하시려면 예, 실제 채팅프로그램 사용하려면 아니오를 눌러주세요";
+            DialogResult nameMessageBoxResult = MessageBox.Show(debugCheck, "Question", MessageBoxButtons.YesNo);
+            if (nameMessageBoxResult == DialogResult.Yes)
+            {
+                ClientData.isdebug = true;
+            }
             else
             {
-                string source = ctrl.Text;
-                ctrl.Text = source + Environment.NewLine + s;
+                ClientData.isdebug = false;
             }
+            MainServerStart();//다른 스렐드에서 메인 서버가 클라이언트 msg를 listen
+            ClientManager.messageParsingAction += MessageParsing;//이벤트 추가
+            ClientManager.ChatngeListBoxAction += ChangeListBox;
+
+
+            listBoxChattingLog.DataSource = chattingLogList;//리스트를 리스트 박스에 바인딩
+            listBoxAccessLog.DataSource = AccessLogList;
+            listBoxUser.DataSource = userList;
+
+
+
+            conntectCheckThread = new Task(ConnectCheckLoop);//연결 체크 스레드 
+            conntectCheckThread.Start(); //실행
+
+
         }
-
-        
-
-        List<Socket> connectedClients = new List<Socket>();
-        void AcceptCallback(IAsyncResult ar)
+        public FormServer(string str)
         {
-            // 클라이언트의 연결 요청을 수락한다.
-            Socket client = mainSock.EndAccept(ar);
 
-            // 또 다른 클라이언트의 연결을 대기한다.
-            mainSock.BeginAccept(AcceptCallback, null);
-
-            AsyncObject obj = new AsyncObject(4096);
-            obj.WorkingSocket = client;
-
-            // 연결된 클라이언트 리스트에 추가해준다.
-            connectedClients.Add(client);
-
-            // 텍스트박스에 클라이언트가 연결되었다고 써준다.
-            AppendText(textBoxHistory, string.Format("클라이언트 (@ {0})가 연결되었습니다.", client.RemoteEndPoint));
-
-            // 클라이언트의 데이터를 받는다.
-            client.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
         }
-
-        void DataReceived(IAsyncResult ar)
-        {
-            // BeginReceive에서 추가적으로 넘어온 데이터를 AsyncObject 형식으로 변환한다.
-            AsyncObject obj = (AsyncObject)ar.AsyncState;
-
-            // 데이터 수신을 끝낸다.
-            int received = obj.WorkingSocket.EndReceive(ar);
-
-            // 받은 데이터가 없으면(연결끊어짐) 끝낸다.
-            if (received <= 0)
-            {
-                obj.WorkingSocket.Close();
-                return;
-            }
-
-            // 텍스트로 변환한다.
-            string text = Encoding.UTF8.GetString(obj.Buffer);
-
-            // 0x01 기준으로 짜른다.
-            // tokens[0] - 보낸 사람 IP
-            // tokens[1] - 보낸 메세지
-            string[] tokens = text.Split('\x01');
-            string ip = tokens[0];
-            string msg = tokens[1];
-
-            // 텍스트박스에 추가해준다.
-            // 비동기식으로 작업하기 때문에 폼의 UI 스레드에서 작업을 해줘야 한다.
-            // 따라서 대리자를 통해 처리한다.
-            AppendText(textBoxHistory, string.Format("[받음]{0}: {1}", ip, msg));
-
-            // for을 통해 "역순"으로 클라이언트에게 데이터를 보낸다.
-            for (int i = connectedClients.Count - 1; i >= 0; i--)
-            {
-                Socket socket = connectedClients[i];
-                if (socket != obj.WorkingSocket)
-                {
-                    try { socket.Send(obj.Buffer); }
-                    catch
-                    {
-                        // 오류 발생하면 전송 취소하고 리스트에서 삭제한다.
-                        try { socket.Dispose(); } catch { }
-                        connectedClients.RemoveAt(i);
-                    }
-                }
-            }
-
-            // 데이터를 받은 후엔 다시 버퍼를 비워주고 같은 방법으로 수신을 대기한다.
-            obj.ClearBuffer();
-
-            // 수신 대기
-            obj.WorkingSocket.BeginReceive(obj.Buffer, 0, 4096, 0, DataReceived, obj);
-        }
-
-       
-
         private void FormServer_Load(object sender, EventArgs e)
         {
-            IPHostEntry he = Dns.GetHostEntry(Dns.GetHostName());
-
-            // 처음으로 발견되는 ipv4 주소를 사용한다.
-            foreach (IPAddress addr in he.AddressList)
-            {
-                if (addr.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    thisAddress = addr;
-                    break;
-                }
-            }
-
-            // 주소가 없다면..
-            if (thisAddress == null)
-                // 로컬호스트 주소를 사용한다.
-                thisAddress = IPAddress.Loopback;
-
-            textBoxAddress.Text = thisAddress.ToString();
+            
         }
+        private void ListBoxRefresh()
+        {
+            listBoxChattingLog.DataSource = null;//리스트를 리스트 박스에 바인딩
+            listBoxAccessLog.DataSource = null;
+            listBoxUser.DataSource = null;
 
-        private void buttonStart_Click(object sender, EventArgs e)
-        {           
-                int port;
-                if (!int.TryParse(textBoxPort.Text, out port))
-                {
-                    MessageBox.Show("포트 번호가 잘못 입력되었거나 입력되지 않았습니다.");
-                    textBoxPort.Focus();
-                    textBoxPort.SelectAll();
-                    return;
-                }
-
-                // 서버에서 클라이언트의 연결 요청을 대기하기 위해
-                // 소켓을 열어둔다.
-                IPEndPoint serverEP = new IPEndPoint(thisAddress, port);
-                mainSock.Bind(serverEP);
-                mainSock.Listen(10);
-
-                // 비동기적으로 클라이언트의 연결 요청을 받기 시작
-                mainSock.BeginAccept(AcceptCallback, null);//AcceptCallback으로 가서 요청 수락, 클라이언트 데이터 대기            
+            listBoxChattingLog.DataSource = chattingLogList;//리스트를 리스트 박스에 바인딩
+            listBoxAccessLog.DataSource = AccessLogList;
+            listBoxUser.DataSource = userList;
+        }
+        private void ListBoxRefresh(ListBox listbox, List<string> list, string DisplayName, string ValueName)
+        {
+            listbox.DataSource = null;
+            listbox.DataSource = list;
+            listbox.DisplayMember = DisplayName;
+            listbox.ValueMember = ValueName;
+        }
+    
+    private void buttonStart_Click(object sender, EventArgs e)
+        {        
+            
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
         {
-            // 서버가 대기중인지 확인한다.
-            if (!mainSock.IsBound)
-            {
-                MessageBox.Show("서버가 실행되고 있지 않습니다!");
-                return;
-            }
+        }
 
-            // 보낼 텍스트
-            string tts = textBoxSend.Text.Trim();
-            if (string.IsNullOrEmpty(tts))
+        private void ConnectCheckLoop()
+        {
+            while (true)
             {
-                MessageBox.Show("텍스트가 입력되지 않았습니다!");
-                textBoxSend.Focus();
-                return;
-            }
-
-            // 문자열을 utf8 형식의 바이트로 변환한다.
-            byte[] bDts = Encoding.UTF8.GetBytes(thisAddress.ToString() + '\x01' + tts);
-
-            // 연결된 모든 클라이언트에게 전송한다.
-            for (int i = connectedClients.Count - 1; i >= 0; i--)
-            {
-                Socket socket = connectedClients[i];
-                try { socket.Send(bDts); }
-                catch
+                foreach (var item in ClientManager.clientDic)
                 {
-                    // 오류 발생하면 전송 취소하고 리스트에서 삭제한다.
-                    try { socket.Dispose(); } catch { }
-                    connectedClients.RemoveAt(i);
+                    try
+                    {
+                        string sendStringData = "관리자<TEST>";
+                        byte[] sendByteData = new byte[sendStringData.Length];
+                        sendByteData = Encoding.Default.GetBytes(sendStringData);
+
+                        item.Value.tcpClient.GetStream().Write(sendByteData, 0, sendByteData.Length);
+                    }
+                    catch (Exception e)
+                    {
+                        RemoveClient(item.Value);
+                    }
+                }
+                Thread.Sleep(1000);
+            }
+        }
+
+        private void RemoveClient(ClientData targetClient)
+        {
+            ClientData? result = null;
+            ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
+            string leaveLog = string.Format("[{0}] {1} Leave Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientName);
+            ChangeListBox(leaveLog, StaticDefine.ADD_ACCESS_LIST);
+            ChangeListBox(result.clientName, StaticDefine.REMOVE_USER_LIST);
+        }
+
+        private void ChangeListBox(string Message, int key)
+        {
+            ChangeListBox(Message, key, chattingLogList);
+        }
+
+        private void ChangeListBox(string Message, int key, List<string>? chattingLogList)
+        {
+            switch (key)
+            {
+                case StaticDefine.ADD_ACCESS_LIST:
+                    {//스레드에 대한 작업 항목 큐를 관리한다.
+
+                        if (this.listBoxAccessLog.InvokeRequired)
+                        {
+                            this.listBoxAccessLog.Invoke(new MethodInvoker(delegate { AccessLogList.Add(Message); ListBoxRefresh();;
+                            }));
+                        }
+                        break;
+                    }
+                case StaticDefine.ADD_CHATTING_LIST:
+                    {
+                        if (this.listBoxChattingLog.InvokeRequired)
+                        {
+                            this.listBoxChattingLog.Invoke(new MethodInvoker(delegate {
+                                chattingLogList.Add(Message); ListBoxRefresh(); ;
+                            }));
+                        }
+                        break;
+                    }
+                case StaticDefine.ADD_USER_LIST:
+                    {
+                        if (this.listBoxUser.InvokeRequired)
+                        {
+                            this.listBoxUser.Invoke(new MethodInvoker(delegate {
+                                userList.Add(Message); ListBoxRefresh(); ;
+                            }));
+                        }
+                        break;
+                    }
+                case StaticDefine.REMOVE_USER_LIST:
+                    {
+                        if (this.listBoxUser.InvokeRequired)
+                        {
+                            this.listBoxUser.Invoke(new MethodInvoker(delegate {
+                                userList.Remove(Message); ListBoxRefresh(); ;
+                            }));
+                        }
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        public void MessageParsing(string sender, string message)
+        {
+            lock (lockObj)
+            {
+                List<string> msgList = new List<string>();
+
+                string[] msgArray = message.Split('>');
+                foreach (var item in msgArray)
+                {
+                    if (string.IsNullOrEmpty(item))
+                        continue;
+                    msgList.Add(item);
+                }
+                SendMsgToClient(msgList, sender);
+            }
+        }
+
+        private void SendMsgToClient(List<string> msgList, string senderID)//클라이언트에게 받은 메세지에 따라서 응답
+        {//sender는 id가 따로
+            //receiver는 id가 msg안에 포함
+            string parsedMessage = "";
+            string receiverID = "";
+            string receiverNickName = "";
+            string senderNickName = "";
+            senderNickName = dbmanager.RunQuery("SELECT USER_nickname FROM s5469698.USER WHERE ID=\"" + senderID+"\"");//로그인 시 본인의 이름, ID 저장해둘 수 있음
+
+            int senderNumber = -1;
+            int receiverNumber = -1;
+
+            foreach (var item in msgList)
+            {
+                string[] splitedMsg = item.Split('<');//앞부분 받는사람, 뒷부분 메세지
+
+                receiverID = splitedMsg[0];
+                parsedMessage = string.Format("{0}%{1}<{2}>", senderID, senderNickName, splitedMsg[1]);//sendMsg, RoomList용 nickname splited안됐음ㄴ
+
+
+                    string[] splitSender = receiverID.Split("%");//받는사람 ID랑 닉네임 구분해줌
+                    receiverID = splitSender[0];
+                receiverNickName = splitSender[1];
+                
+                senderNumber = GetClinetNumber(senderID);//ID를 고유 번호로 하여 전송 구분에 사용한다.
+                receiverNumber = GetClinetNumber(receiverID);
+
+                //0.상대방이 접속 중이 아니라면 table에만 저장해둔다.
+                if (senderNumber == -1 || receiverNumber == -1)//유저 현재 접속 중이 아님?
+                {
+
+                    dbmanager.RunQuery("insert into Chatting VALUES("+ IsRoom(senderNickName, receiverNickName)//접속 중이 아니라면 chatting table에 저장
+                        + ",\"" + receiverID + "\",\"" + senderID + "\",\"" + splitedMsg[1] + "\",\"n\",\"" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\")");
+                    MessageBox.Show("유저가 접속 중이 아님");
+                    return;
+                }
+
+                byte[] sendByteData = new byte[parsedMessage.Length];
+                sendByteData = Encoding.Default.GetBytes(parsedMessage);
+
+                //1.현재 유저 리스트 보내기
+                if (parsedMessage.Contains("<GiveMeUserList>"))
+                {
+                    string userListStringData = "관리자<";
+                    foreach (var el in userList)
+                    {
+                        string elName = dbmanager.RunQuery("SELECT USER_nickname FROM s5469698.USER WHERE ID=\"" + el+"\"");
+                        userListStringData += string.Format("${0}%{1}", el, elName);
+                    }
+                    userListStringData += ">";
+                    byte[] userListByteData = new byte[userListStringData.Length];
+                    userListByteData = Encoding.Default.GetBytes(userListStringData);
+                    ClientManager.clientDic[receiverNumber].tcpClient.GetStream().Write(userListByteData, 0, userListByteData.Length);
+                    return;
+                }
+                //2.존재 전체 유저 리스트 보내기->트리로 어떻게 되나?
+                if (parsedMessage.Contains("<GiveMeAllUserList>"))
+                {
+                    string userListStringData = "모든유저<";
+                    
+                    string[] AllNickName = dbmanager.RunQueryArray("SELECT USER_nickname FROM s5469698.USER ");// 닉네임 모두 불러옴 일단베열.
+                    string[] AllID = dbmanager.RunQueryArray("SELECT USER_ID FROM s5469698.USER ");// 닉네임 모두 불러옴 일단베열.
+
+                    for (int i = 0; i < AllID.Length; i++)
+                    {
+                        userListStringData += string.Format("${0}%{1}", AllID[i], AllNickName[i]);//형태맞춰서
+                    }
+
+                    userListStringData += ">";
+                    byte[] userListByteData = new byte[userListStringData.Length];
+                    userListByteData = Encoding.Default.GetBytes(userListStringData);
+                    ClientManager.clientDic[receiverNumber].tcpClient.GetStream().Write(userListByteData, 0, userListByteData.Length);
+                    return;
+                }
+                //3.내가 속한 방 리스트 보내기
+                if (parsedMessage.Contains("<GiveMeRoomList>"))
+                {
+                    string userListStringData = "채팅방<";
+                    List<string> RoomList = new List<string>();
+
+                    RoomList.AddRange(dbmanager.RunQueryArray("select user1 from Room where user2=\""+senderNickName+"\" GROUP BY idRoom;"));//찾는 유저가 user2에 있든 user1에 있든 찾을 수 있도록
+                    RoomList.AddRange(dbmanager.RunQueryArray("select user2 from Room where user1=\""+ senderNickName + "\" GROUP BY idRoom;"));
+
+                    foreach (var itemRoom in RoomList)
+                    {
+                        userListStringData += string.Format("${0}", itemRoom);//형태맞춰서
+                    }
+
+                    userListStringData += ">";
+                    byte[] userListByteData = new byte[userListStringData.Length];
+                    userListByteData = Encoding.Default.GetBytes(userListStringData);
+                    ClientManager.clientDic[receiverNumber].tcpClient.GetStream().Write(userListByteData, 0, userListByteData.Length);
+                    return;
+                }
+
+                //4.채팅 시작하기->기존 채팅방 유무 확인
+                if (parsedMessage.Contains("<ChattingStart>"))
+                {//기존 채팅방이 있는지->sender, receiver userID로 query 검색
+                    string isRoom = IsRoom(senderNickName, receiverNickName);
+                    if (isRoom == "")//방을 nickname 통해서 검색해야하나?
+                    {
+                        //채팅방 생성
+                        dbmanager.RunQuery("insert into Room(User1,User2) VALUES("+receiverNickName+","+senderNickName+")");//roomtable에 insert
+                       
+                    }
+                    else
+                    {//기존에 채팅방 있음.
+                        
+                    }
+                    parsedMessage = string.Format("{0}%{1}<{2}#ChattingStart>", receiverID, receiverNickName, isRoom);//실시간 채팅 시작 부분
+                    sendByteData = Encoding.Default.GetBytes(parsedMessage);
+                    ClientManager.clientDic[senderNumber].tcpClient.GetStream().Write(sendByteData, 0, sendByteData.Length);
+
+                    parsedMessage = string.Format("{0}%{1}<{2}#ChattingStart>", senderID, senderNickName, isRoom);
+                    sendByteData = Encoding.Default.GetBytes(parsedMessage);
+                    ClientManager.clientDic[receiverNumber].tcpClient.GetStream().Write(sendByteData, 0, sendByteData.Length);
+                    return;
+                }
+                
+
+                //5.메세지 보내기
+                if (parsedMessage.Contains(""))
+                {
+                    roomID = splitedMsg[1].Split('#')[0];
+                    splitedMsg[1] = splitedMsg[1].Split('#')[1];
+                    ClientManager.clientDic[receiverNumber].tcpClient.GetStream().Write(sendByteData, 0, sendByteData.Length);//채팅 때마다 테이블에 추가. 아직 room 없음
+                    //실시간 채팅 상태이므로 읽음 상태 y
+                    dbmanager.RunQuery("insert into Chatting VALUES("+ int.Parse(roomID) + ",\"" + receiverID + "\",\"" + senderID + "\",\"" + splitedMsg[1] + "\",\"y\",\""+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\")");
                 }
             }
+        }
 
-            // 전송 완료 후 텍스트박스에 추가하고, 원래의 내용은 지운다.
-            AppendText(textBoxHistory, string.Format("[보냄]{0}: {1}", thisAddress.ToString(), tts));
-            textBoxSend.Clear();
+        private int GetClinetNumber(string targetClientName)//올바른 ClientData를 통해 ClientNumber를 찾는 과정
+        {
+            foreach (var item in ClientManager.clientDic)
+            {
+                if (item.Value.clientID == targetClientName)
+                {
+                    return item.Value.clientNumber;
+                }
+            }
+            return -1;
+        }
+        private string IsRoom(string senderNickName,string receiverNickName)//채팅방 있는지 확인해주고 있으면 룸아이디 반환
+        {
+            string isRoom = dbmanager.RunQuery("SELECT distinct idRoom\r\nFROM Room\r\nWHERE " +
+                        "(Room.USER1 = \"" + receiverNickName + "\" AND Room.USER2=\"" + senderNickName + "\") OR" +
+                        " (Room.USER1 =\"" + senderNickName + "\" AND Room.USER2 = \"" + receiverNickName + "\");\r\n");
+            return isRoom;
+        }
+        private void RoomManager(string senderNickName,string receiverNickName)
+        {
+
+        }
+
+        private void MainServerStart()
+        {
+            MainServer a = new MainServer();
         }
     }
 }

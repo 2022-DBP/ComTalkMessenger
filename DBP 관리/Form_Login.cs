@@ -13,7 +13,6 @@ namespace DBP_관리
 {
     public partial class Form_Login : Form
     {
-
         public Form_Login()
         {
             InitializeComponent();
@@ -39,21 +38,10 @@ namespace DBP_관리
             resist.Show();
         }
 
-        // 체크 시 자동으로 로그인
-        public void AutoLogin(object sender, EventArgs e)
-        {
-
-        }
-
-        // 체크 시 자동으로 전에 로그인했던 유저의 아이디, 비번을 텍스트에 출력
-        public void AutoInput(object sender, EventArgs e)
-        {
-
-        }
 
         public void Login_Click(object sender, EventArgs e)
         {
-            LoginManager.Instance.Login(txt_Login.Text, txt_Password.Text);
+            LoginManager._Login.OnLogin(txt_Login.Text, txt_Password.Text, Convert.ToInt32(autoInputCheck.Checked), Convert.ToInt32(autoLoginCheck.Checked), LoginManager.Instance.getIP(), this);
         }
 
         public void GoAdminLogin(object sender, EventArgs e)
@@ -64,22 +52,14 @@ namespace DBP_관리
             fal.Location = tempPoint;
             fal.Owner = this;
             fal.Show();
-            // 관리 부서 창 띄우기
-            //this.Hide();
-            //Debug.WriteLine(this.Location);
-
-            //Debug.WriteLine(tempPoint);
-
-			//FormAdmin_Login ad = new FormAdmin_Login();
-            //ad.Location = tempPoint;
-            //ad.Owner = this;
-            //ad.Show();
         }
 
         private void Form_Login_Load(object sender, EventArgs e)
         {
-
+            Debug.WriteLine("로그아웃");
+            LoginManager._Login.AutoBox(autoInputCheck, autoLoginCheck, this.txt_Login, this.txt_Password, this);
         }
+
     }
 }
  

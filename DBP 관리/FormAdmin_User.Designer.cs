@@ -32,18 +32,21 @@
 			this.사용자관리ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.로그아웃ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label_User_Title = new System.Windows.Forms.Label();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label2 = new System.Windows.Forms.Label();
+			this.groupBox_User_Dpt = new System.Windows.Forms.GroupBox();
+			this.label_User_Dpt = new System.Windows.Forms.Label();
 			this.groupBox_User_DptChange = new System.Windows.Forms.GroupBox();
 			this.label_User_DptChange_Name2 = new System.Windows.Forms.Label();
 			this.label_User_DptChange_Name1 = new System.Windows.Forms.Label();
 			this.treeView_User_DptChange = new System.Windows.Forms.TreeView();
 			this.groupBox_User_Log = new System.Windows.Forms.GroupBox();
-			this.dateTimePicker_User_Log = new System.Windows.Forms.DateTimePicker();
+			this.label_User_Log_Date = new System.Windows.Forms.Label();
+			this.dateTimePicker_User_Log2 = new System.Windows.Forms.DateTimePicker();
+			this.button_User_Log = new System.Windows.Forms.Button();
+			this.dateTimePicker_User_Log1 = new System.Windows.Forms.DateTimePicker();
 			this.dataGridView_User_Log = new System.Windows.Forms.DataGridView();
 			this.button_User_Chat = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
-			this.groupBox1.SuspendLayout();
+			this.groupBox_User_Dpt.SuspendLayout();
 			this.groupBox_User_DptChange.SuspendLayout();
 			this.groupBox_User_Log.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView_User_Log)).BeginInit();
@@ -90,7 +93,7 @@
 			this.button_User_Pri.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_User_Pri.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_User_Pri.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_User_Pri.Location = new System.Drawing.Point(725, 87);
+			this.button_User_Pri.Location = new System.Drawing.Point(738, 87);
 			this.button_User_Pri.Name = "button_User_Pri";
 			this.button_User_Pri.Size = new System.Drawing.Size(94, 29);
 			this.button_User_Pri.TabIndex = 4;
@@ -145,29 +148,29 @@
 			this.label_User_Title.TabIndex = 6;
 			this.label_User_Title.Text = "사용자 관리";
 			// 
-			// groupBox1
+			// groupBox_User_Dpt
 			// 
-			this.groupBox1.Controls.Add(this.label2);
-			this.groupBox1.Controls.Add(this.treeView_User);
-			this.groupBox1.ForeColor = System.Drawing.Color.White;
-			this.groupBox1.Location = new System.Drawing.Point(37, 91);
-			this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-			this.groupBox1.Size = new System.Drawing.Size(467, 580);
-			this.groupBox1.TabIndex = 7;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "조회";
+			this.groupBox_User_Dpt.Controls.Add(this.label_User_Dpt);
+			this.groupBox_User_Dpt.Controls.Add(this.treeView_User);
+			this.groupBox_User_Dpt.ForeColor = System.Drawing.Color.White;
+			this.groupBox_User_Dpt.Location = new System.Drawing.Point(37, 91);
+			this.groupBox_User_Dpt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_Dpt.Name = "groupBox_User_Dpt";
+			this.groupBox_User_Dpt.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_Dpt.Size = new System.Drawing.Size(467, 580);
+			this.groupBox_User_Dpt.TabIndex = 7;
+			this.groupBox_User_Dpt.TabStop = false;
+			this.groupBox_User_Dpt.Text = "조회";
 			// 
-			// label2
+			// label_User_Dpt
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(18, 25);
-			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(139, 20);
-			this.label2.TabIndex = 1;
-			this.label2.Text = "부서별 사용자 목록";
+			this.label_User_Dpt.AutoSize = true;
+			this.label_User_Dpt.Location = new System.Drawing.Point(18, 25);
+			this.label_User_Dpt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label_User_Dpt.Name = "label_User_Dpt";
+			this.label_User_Dpt.Size = new System.Drawing.Size(139, 20);
+			this.label_User_Dpt.TabIndex = 1;
+			this.label_User_Dpt.Text = "부서별 사용자 목록";
 			// 
 			// groupBox_User_DptChange
 			// 
@@ -177,9 +180,9 @@
 			this.groupBox_User_DptChange.Controls.Add(this.button_User_DptChange);
 			this.groupBox_User_DptChange.ForeColor = System.Drawing.Color.White;
 			this.groupBox_User_DptChange.Location = new System.Drawing.Point(522, 121);
-			this.groupBox_User_DptChange.Margin = new System.Windows.Forms.Padding(4);
+			this.groupBox_User_DptChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox_User_DptChange.Name = "groupBox_User_DptChange";
-			this.groupBox_User_DptChange.Padding = new System.Windows.Forms.Padding(4);
+			this.groupBox_User_DptChange.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox_User_DptChange.Size = new System.Drawing.Size(606, 271);
 			this.groupBox_User_DptChange.TabIndex = 8;
 			this.groupBox_User_DptChange.TabStop = false;
@@ -208,7 +211,7 @@
 			// treeView_User_DptChange
 			// 
 			this.treeView_User_DptChange.Location = new System.Drawing.Point(13, 32);
-			this.treeView_User_DptChange.Margin = new System.Windows.Forms.Padding(4);
+			this.treeView_User_DptChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.treeView_User_DptChange.Name = "treeView_User_DptChange";
 			this.treeView_User_DptChange.Size = new System.Drawing.Size(284, 215);
 			this.treeView_User_DptChange.TabIndex = 0;
@@ -216,31 +219,66 @@
 			// 
 			// groupBox_User_Log
 			// 
-			this.groupBox_User_Log.Controls.Add(this.dateTimePicker_User_Log);
+			this.groupBox_User_Log.Controls.Add(this.label_User_Log_Date);
+			this.groupBox_User_Log.Controls.Add(this.dateTimePicker_User_Log2);
+			this.groupBox_User_Log.Controls.Add(this.button_User_Log);
+			this.groupBox_User_Log.Controls.Add(this.dateTimePicker_User_Log1);
 			this.groupBox_User_Log.Controls.Add(this.dataGridView_User_Log);
 			this.groupBox_User_Log.ForeColor = System.Drawing.Color.White;
 			this.groupBox_User_Log.Location = new System.Drawing.Point(522, 400);
-			this.groupBox_User_Log.Margin = new System.Windows.Forms.Padding(4);
+			this.groupBox_User_Log.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox_User_Log.Name = "groupBox_User_Log";
-			this.groupBox_User_Log.Padding = new System.Windows.Forms.Padding(4);
+			this.groupBox_User_Log.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox_User_Log.Size = new System.Drawing.Size(606, 271);
 			this.groupBox_User_Log.TabIndex = 9;
 			this.groupBox_User_Log.TabStop = false;
 			this.groupBox_User_Log.Text = "로그 검색";
 			// 
-			// dateTimePicker_User_Log
+			// label_User_Log_Date
 			// 
-			this.dateTimePicker_User_Log.Location = new System.Drawing.Point(13, 27);
-			this.dateTimePicker_User_Log.Name = "dateTimePicker_User_Log";
-			this.dateTimePicker_User_Log.Size = new System.Drawing.Size(250, 27);
-			this.dateTimePicker_User_Log.TabIndex = 3;
-			this.dateTimePicker_User_Log.ValueChanged += new System.EventHandler(this.dateTimePicker_User_Log_ValueChanged);
+			this.label_User_Log_Date.AutoSize = true;
+			this.label_User_Log_Date.Location = new System.Drawing.Point(238, 33);
+			this.label_User_Log_Date.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.label_User_Log_Date.Name = "label_User_Log_Date";
+			this.label_User_Log_Date.Size = new System.Drawing.Size(20, 20);
+			this.label_User_Log_Date.TabIndex = 13;
+			this.label_User_Log_Date.Text = "~";
+			// 
+			// dateTimePicker_User_Log2
+			// 
+			this.dateTimePicker_User_Log2.Location = new System.Drawing.Point(265, 27);
+			this.dateTimePicker_User_Log2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dateTimePicker_User_Log2.Name = "dateTimePicker_User_Log2";
+			this.dateTimePicker_User_Log2.Size = new System.Drawing.Size(217, 27);
+			this.dateTimePicker_User_Log2.TabIndex = 12;
+			// 
+			// button_User_Log
+			// 
+			this.button_User_Log.BackColor = System.Drawing.Color.White;
+			this.button_User_Log.Enabled = false;
+			this.button_User_Log.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.button_User_Log.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.button_User_Log.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
+			this.button_User_Log.Location = new System.Drawing.Point(499, 28);
+			this.button_User_Log.Name = "button_User_Log";
+			this.button_User_Log.Size = new System.Drawing.Size(94, 29);
+			this.button_User_Log.TabIndex = 11;
+			this.button_User_Log.Text = "검색하기";
+			this.button_User_Log.UseVisualStyleBackColor = false;
+			this.button_User_Log.Click += new System.EventHandler(this.button_User_Log_Click);
+			// 
+			// dateTimePicker_User_Log1
+			// 
+			this.dateTimePicker_User_Log1.Location = new System.Drawing.Point(13, 27);
+			this.dateTimePicker_User_Log1.Name = "dateTimePicker_User_Log1";
+			this.dateTimePicker_User_Log1.Size = new System.Drawing.Size(217, 27);
+			this.dateTimePicker_User_Log1.TabIndex = 3;
 			// 
 			// dataGridView_User_Log
 			// 
 			this.dataGridView_User_Log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView_User_Log.Location = new System.Drawing.Point(13, 68);
-			this.dataGridView_User_Log.Margin = new System.Windows.Forms.Padding(4);
+			this.dataGridView_User_Log.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.dataGridView_User_Log.Name = "dataGridView_User_Log";
 			this.dataGridView_User_Log.RowHeadersWidth = 51;
 			this.dataGridView_User_Log.RowTemplate.Height = 25;
@@ -254,7 +292,7 @@
 			this.button_User_Chat.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_User_Chat.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_User_Chat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_User_Chat.Location = new System.Drawing.Point(828, 87);
+			this.button_User_Chat.Location = new System.Drawing.Point(837, 87);
 			this.button_User_Chat.Name = "button_User_Chat";
 			this.button_User_Chat.Size = new System.Drawing.Size(94, 29);
 			this.button_User_Chat.TabIndex = 10;
@@ -271,21 +309,21 @@
 			this.Controls.Add(this.button_User_Chat);
 			this.Controls.Add(this.groupBox_User_Log);
 			this.Controls.Add(this.groupBox_User_DptChange);
-			this.Controls.Add(this.groupBox1);
+			this.Controls.Add(this.groupBox_User_Dpt);
 			this.Controls.Add(this.label_User_Title);
 			this.Controls.Add(this.menuStrip1);
 			this.Controls.Add(this.button_User_Pri);
 			this.Controls.Add(this.label_User_Name);
 			this.Name = "FormAdmin_User";
 			this.Text = "사용자 관리";
-			this.Load += new System.EventHandler(this.FormAdmin_User_Load);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
+			this.groupBox_User_Dpt.ResumeLayout(false);
+			this.groupBox_User_Dpt.PerformLayout();
 			this.groupBox_User_DptChange.ResumeLayout(false);
 			this.groupBox_User_DptChange.PerformLayout();
 			this.groupBox_User_Log.ResumeLayout(false);
+			this.groupBox_User_Log.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView_User_Log)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -303,15 +341,18 @@
 		private ToolStripMenuItem 사용자관리ToolStripMenuItem;
 		private ToolStripMenuItem 로그아웃ToolStripMenuItem;
 		private Label label_User_Title;
-		private GroupBox groupBox1;
+		private GroupBox groupBox_User_Dpt;
 		private GroupBox groupBox_User_DptChange;
 		private TreeView treeView_User_DptChange;
 		private Label label_User_DptChange_Name1;
 		private GroupBox groupBox_User_Log;
-		private Label label2;
+		private Label label_User_Dpt;
 		private DataGridView dataGridView_User_Log;
 		private Label label_User_DptChange_Name2;
 		private Button button_User_Chat;
-		private DateTimePicker dateTimePicker_User_Log;
+		private DateTimePicker dateTimePicker_User_Log1;
+		private Button button_User_Log;
+		private DateTimePicker dateTimePicker_User_Log2;
+		private Label label_User_Log_Date;
 	}
 }
