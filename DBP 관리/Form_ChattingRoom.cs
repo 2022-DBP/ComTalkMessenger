@@ -29,7 +29,7 @@ namespace DBP_관리
         private ObservableCollection<string> messageList = new ObservableCollection<string>();
 
 
-        public Form_ChattingRoom(TcpClient client, string chattingPartner, string RoomID)
+        public Form_ChattingRoom(TcpClient client, string chattingPartner, string RoomID, string user_ID)
         {
             string[] SplitedSender = chattingPartner.Split('%');
             chattingRoomID = RoomID;
@@ -39,7 +39,9 @@ namespace DBP_관리
             this.client = client;
             InitializeComponent();
 
-            listBoxHistory.Items.Add(messageList.ToString());
+			Load_User_Config(user_ID);
+
+			listBoxHistory.Items.Add(messageList.ToString());
             messageList.Add(string.Format("{0}님이 입장하였습니다.", chattingPartnerName));
             this.Text = chattingPartnerName + "님과의 채팅방";
 
@@ -52,7 +54,48 @@ namespace DBP_관리
                 return;
             }
         }
-        private void buttonSend_Click(object sender, EventArgs e)
+
+		private void Load_User_Config(string user_ID) {
+			//원래 저장된 테마 데이터 불러오기 및 적용
+			string selectedColor = "";
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "SELECT Back_Color FROM USER_Config WHERE User_ID = " + user_ID + ";";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				if (!rdr.Read()) {
+					//기존 데이터가 없다면 기본 다크 모드
+					selectedColor = "DarkMode";
+				}
+
+				selectedColor = rdr[0].ToString();
+			}
+
+			Apply_Mode(selectedColor);
+		}
+
+		private void Apply_Mode(string selectedColor) {
+			if (selectedColor.Equals("DarkMode")) {
+				this.BackColor = Color.FromArgb(66, 66, 66);
+				this.ForeColor = Color.White;
+			}
+			else {
+				this.BackColor = Color.White;
+				this.ForeColor = Color.FromArgb(66, 66, 66);
+			}
+			this.label1.BackColor = this.BackColor;
+			this.label1.ForeColor = this.ForeColor;
+			this.label2.BackColor = this.BackColor;
+			this.label2.ForeColor = this.ForeColor;
+			this.buttonSend.BackColor = this.ForeColor;
+			this.buttonSend.ForeColor = this.BackColor;
+		}
+
+		private void buttonSend_Click(object sender, EventArgs e)
         {
             SendMessage(sender);
         }

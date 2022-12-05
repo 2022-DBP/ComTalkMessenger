@@ -329,7 +329,6 @@ namespace DBP_관리 {
 			string user_team = treeView_User.SelectedNode.Parent.Text;
 			int user_id = get_user_id(user_name, user_dpt, user_team);
 
-			Point tempPoint = this.Location;
 			FormAdmin_User_Chat formChat = new FormAdmin_User_Chat(user_name, user_id);
 			formChat.ShowDialog();
 		}
