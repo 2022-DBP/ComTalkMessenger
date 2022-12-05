@@ -552,5 +552,10 @@ namespace DBP_관리
 			Form_News formNews = new Form_News(ID);
 			formNews.ShowDialog();
 		}
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
