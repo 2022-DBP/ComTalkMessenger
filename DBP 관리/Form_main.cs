@@ -301,5 +301,11 @@ namespace DBP_관리
             //변경된 테마 적용
 			Load_User_Config(ID);
 		}
+
+        private void 뉴스검색ToolStripMenuItem_Click(object sender, EventArgs e) {
+			string ID = Get_ID(receivedData);
+            Form_News formNews = new Form_News(ID);
+            formNews.ShowDialog();
+		}
     }
 }

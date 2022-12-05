@@ -43,10 +43,11 @@
 			this.main_profile = new System.Windows.Forms.PictureBox();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.추가기능ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.생일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.테마변경ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.뉴스검색ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.groupBox1.SuspendLayout();
 			this.group_profile.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.main_profile)).BeginInit();
@@ -215,24 +216,12 @@
 			// 
 			this.openFileDialog1.FileName = "openFileDialog1";
 			// 
-			// menuStrip1
-			// 
-			this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.추가기능ToolStripMenuItem});
-			this.menuStrip1.Location = new System.Drawing.Point(0, 458);
-			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-			this.menuStrip1.Size = new System.Drawing.Size(1047, 24);
-			this.menuStrip1.TabIndex = 4;
-			this.menuStrip1.Text = "menuStrip1";
-			// 
 			// 추가기능ToolStripMenuItem
 			// 
 			this.추가기능ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.생일ToolStripMenuItem,
-            this.테마변경ToolStripMenuItem});
+            this.테마변경ToolStripMenuItem,
+            this.뉴스검색ToolStripMenuItem});
 			this.추가기능ToolStripMenuItem.Name = "추가기능ToolStripMenuItem";
 			this.추가기능ToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
 			this.추가기능ToolStripMenuItem.Text = "추가 기능";
@@ -250,6 +239,26 @@
 			this.테마변경ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
 			this.테마변경ToolStripMenuItem.Text = "테마 변경";
 			this.테마변경ToolStripMenuItem.Click += new System.EventHandler(this.테마변경ToolStripMenuItem_Click);
+			// 
+			// 뉴스검색ToolStripMenuItem
+			// 
+			this.뉴스검색ToolStripMenuItem.Name = "뉴스검색ToolStripMenuItem";
+			this.뉴스검색ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+			this.뉴스검색ToolStripMenuItem.Text = "뉴스 검색";
+			this.뉴스검색ToolStripMenuItem.Click += new System.EventHandler(this.뉴스검색ToolStripMenuItem_Click);
+			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.추가기능ToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 458);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+			this.menuStrip1.Size = new System.Drawing.Size(1047, 24);
+			this.menuStrip1.TabIndex = 4;
+			this.menuStrip1.Text = "menuStrip1";
 			// 
 			// Form_main
 			// 
@@ -296,9 +305,10 @@
         private Label txt_nick;
         private Button btn_main_logout;
         private OpenFileDialog openFileDialog1;
-		private MenuStrip menuStrip1;
 		private ToolStripMenuItem 추가기능ToolStripMenuItem;
-		private ToolStripMenuItem 테마변경ToolStripMenuItem;
 		private ToolStripMenuItem 생일ToolStripMenuItem;
+		private ToolStripMenuItem 테마변경ToolStripMenuItem;
+		private ToolStripMenuItem 뉴스검색ToolStripMenuItem;
+		private MenuStrip menuStrip1;
 	}
 }
