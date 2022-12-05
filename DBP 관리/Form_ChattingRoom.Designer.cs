@@ -133,7 +133,6 @@
             this.Name = "FormChatting";
             this.Text = "채팅";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_ChattingRoom_FormClosing);
-            this.Load += new System.EventHandler(this.Form_ChattingRoom_Load);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Form_ChattingRoom_PreviewKeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

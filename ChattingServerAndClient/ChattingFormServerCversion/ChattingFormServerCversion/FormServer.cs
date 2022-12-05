@@ -212,12 +212,26 @@ namespace ChattingFormServerCversion
                 receiverNumber = GetClinetNumber(receiverID);
 
                 //0.상대방이 접속 중이 아니라면 table에만 저장해둔다.
-                if (senderNumber == -1 || receiverNumber == -1)//유저 현재 접속 중이 아님?
+                if (senderNumber == -1 || receiverNumber == -1)//유저 현재 접속 중이 아닐 경우의 메세지 보내기/방 생성
                 {
+                    if(splitedMsg[1]=="ChattingStart")
+                    {
+                        string isRoom = IsRoom(senderNickName, receiverNickName);
+                        if (isRoom == "")
+                        {
+                            //채팅방 생성
+                            dbmanager.RunQuery("insert into Room(User1,User2) VALUES(\"" + receiverNickName + "\",\"" + senderNickName + "\")");//roomtable에 insert
+                            isRoom = IsRoom(senderNickName, receiverNickName);
 
-                    dbmanager.RunQuery("insert into Chatting VALUES("+ IsRoom(senderNickName, receiverNickName)//접속 중이 아니라면 chatting table에 저장
-                        + ",\"" + receiverID + "\",\"" + senderID + "\",\"" + splitedMsg[1] + "\",\"n\",\"" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\")");
-                    MessageBox.Show("유저가 접속 중이 아님");
+                        }
+                        parsedMessage = string.Format("{0}%{1}<{2}#ChattingStart>", receiverID, receiverNickName, isRoom);
+                        byte[] ByteData = Encoding.Default.GetBytes(parsedMessage);
+                        ClientManager.clientDic[senderNumber].tcpClient.GetStream().Write(ByteData, 0, ByteData.Length);
+                        return;
+                    }
+
+                    dbmanager.RunQuery("insert into Chatting VALUES("+ splitedMsg[1].Split('#')[0]//접속 중이 아니라면 chatting table에 저장
+                        + ",\"" + receiverID + "\",\"" + senderID + "\",\"" + splitedMsg[1].Split('#')[1] + "\",\"n\",\"" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\")");
                     return;
                 }
 

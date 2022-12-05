@@ -21,14 +21,12 @@ namespace DBP_관리
     {
 
         public static string myID = null;
+        public static string myNickName = null;
         TcpClient client = null;
         Thread ReceiveThread = null;
         Form_ChattingRoom chattingWindow = null;
         Dictionary<string, ChattingThreadData> chattingThreadDic = new Dictionary<string, ChattingThreadData>();
-
         private static ObservableCollection<User> currentUserList = new ObservableCollection<User>();
-        private static ObservableCollection<string> currentRoomList = new ObservableCollection<string>();
-        public string RoomMemeber;
 
         private List<string> ChattingUserList = new List<string>();
         private string oneOnOneReceiverID { get; set; }
@@ -124,53 +122,10 @@ namespace DBP_관리
                         }
                         currentUserList.Clear();
 
-                        /*
-                        //유저 리스트에 받아온 유저 리스트 추가 아마 필요없는 것 같음 
-                        if (this.listBoxMember.InvokeRequired)
-                        {
-                            this.listBoxMember.Invoke(new MethodInvoker(delegate
-                            {
-                                foreach (var item1 in tempUserList)
-                                {
-                                    currentUserList.Add(item1); RefreshListBoxMember();
-
-                                }
-                            }));
-                        }
-                        */
                         messageList.Clear();
                         return;
                     }
-                    if (chattingPartner == "채팅방")
-                    {
-                        ObservableCollection<string> tempRoomList = new ObservableCollection<string>();
-                        string[] splitedRoom = message.Split('$');
-                        foreach (var el in splitedRoom)
-                        {
-                            if (string.IsNullOrEmpty(el))
-                                continue;
-                            tempRoomList.Add(el);//새로운 유저 들어오면 Add
-                        }
-                        currentRoomList.Clear();
-
-                        /*
-                        //아마 이부분도 이미 보이기 때문에 필요 없을 것 같음.
-                        if (this.listBoxMember.InvokeRequired)
-                        {
-                            this.listBoxRoom.Invoke(new MethodInvoker(delegate
-                            {
-                                foreach (var item1 in tempRoomList)
-                                {
-                                    currentRoomList.Add(item1); RefreshListBoxRoom();
-
-                                }
-                            }));
-                        }
-                        messageList.Clear();
-                        */
-                        return;
-                    }
-
+                    
                     // 1:1채팅
 
                     if (!chattingThreadDic.ContainsKey(chattingPartner))
@@ -198,43 +153,22 @@ namespace DBP_관리
             }
             messageList.Clear();
         }
-        /*
-        //아마 필요없을 것 같음 현재 리스트가 뜨기 때문
-        private void RefreshListBoxMember()
-        {
-            listBoxMember.DataSource = null;
-            listBoxMember.DataSource = currentUserList;
-            listBoxMember.DisplayMember = "userName";
-        }
-        */
-        private void RefreshListBoxRoom()
-        {
-            listBoxRoom.DataSource = null;
-            listBoxRoom.DataSource = currentRoomList;
-        }
+        
         private void ThreadStartingPoint(string chattingPartner, string RoomID)
         {
             chattingWindow = new Form_ChattingRoom(client, chattingPartner, RoomID);
             chattingThreadDic.Add(chattingPartner, new ChattingThreadData(Thread.CurrentThread, chattingWindow));
-
             chattingWindow.ShowDialog();
-            MessageBox.Show("채팅이 종료되었습니다.");
             chattingThreadDic.Remove(chattingPartner);
-
         }
-
-
-   
-
         public string receivedData;
         public Form_main(string Data)
         {
             InitializeComponent();
             receivedData = Data;
-            textBoxMyID.Text = "1";//로그인할때 정보를 받아올 것
+            myID = "park";//로그인할때 정보를 받아올 것
             //로그인할 때 쓰는 User_id 말고 int형인 ID여야 합니다.->추후 clientNumber로 사용
             textBoxIPAdress.Text = "127.0.0.1";
-            listBoxRoom.DataSource = currentRoomList;
 
             Login();
         }
@@ -244,7 +178,7 @@ namespace DBP_관리
             {
                 string ip = textBoxIPAdress.Text;
                 string parsedID = "%^&";
-                parsedID += textBoxMyID.Text;
+                parsedID += myID;
                 client = new TcpClient();
                 client.Connect(ip, 9999);//직접 설정한 ip로 연결
 
@@ -252,8 +186,9 @@ namespace DBP_관리
                 byteData = UTF8Encoding.UTF8.GetBytes(parsedID);//Name추가해서 보내기
                 client.GetStream().Write(byteData, 0, byteData.Length);
 
-                Info.Text = string.Format("{0} 님 반갑습니다 ", textBoxMyID.Text);
-                myID = textBoxMyID.Text;
+                myNickName = SearchNickNamewithID(myID);
+                label1.Text = myNickName;
+                Info.Text = string.Format("{0} 님 반갑습니다 ", myNickName);
 
                 ReceiveThread = new Thread(RecieveMessage);
                 ReceiveThread.Start();
@@ -360,12 +295,12 @@ namespace DBP_관리
             }
         }
 
-        //대화방 불러오기 기능 이것도 유저가  A라고 가정후 실시 
+        //대화방 불러오기 기능
         public void view_list()
         {
             listBox1.Items.Clear();
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
-            string query = "SELECT distinct USER1, USER2 From Room WHERE idRoom IN (SELECT idRoom FROM Room WHERE USER1 = 'A' OR USER2 = 'A' GROUP BY idRoom);";
+            string query = "SELECT distinct USER1, USER2 From Room WHERE idRoom IN (SELECT idRoom FROM Room WHERE USER1 = \"" + myNickName + "\" OR USER2 = \"" + myNickName + "\" GROUP BY idRoom);";
 
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
@@ -385,29 +320,12 @@ namespace DBP_관리
 
         }
 
-        //대화 연결 - 유저는 ID 와 NAME 모두이지만 여기서는 상대 ID만 보여서 오류가 발생함..
-        private void listBoxChattingList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            List<User> dummyChattingUser = listBox1.Items.Cast<User>().ToList();
-
-            User selectedUser = (User)listBox1.SelectedItem;
-            if (Form_main.myID == selectedUser.userName)
-            {
-                MessageBox.Show("자기 자신과는 채팅할 수 없습니다.");
-                return;
-            }
-
-            this.OneOnOneReceiverID = selectedUser.userID;        //받는 사람 결정
-            this.OneOnOneReceiverName = selectedUser.userName;
-        }
-
-
         //treenode 더블클릭시 대화방 생성 
         //임의로 유저는 A로 고정 한 상태
         private void Chatting(object sender, TreeNodeMouseClickEventArgs e)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
-            string query = "SELECT distinct idRoom FROM Room WHERE (Room.USER1 = 'A' AND Room.USER2 = '" + e.Node.Text + "') OR (Room.USER1 = '" + e.Node.Text + "' AND Room.USER2 = 'A');";
+            string query = "SELECT distinct idRoom FROM Room WHERE (Room.USER1 =\"" + myNickName + "\" AND Room.USER2 = '" + e.Node.Text + "') OR (Room.USER1 = '" + e.Node.Text + "' AND Room.USER2 = 'A');";
 
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
@@ -418,9 +336,7 @@ namespace DBP_관리
                 
                     //만약 값이 널이라면 룸 생성
                     if (rdr.HasRows)
-                    {
-                    MessageBox.Show("이미 대화방이 존재합니다.");
-           
+                    {           
                     }
                     else
                     {
@@ -431,9 +347,29 @@ namespace DBP_관리
                     MySqlDataReader rdr2 = cmd2.ExecuteReader();
                     connect.Close();
                     view_list();
-                }
-                
+                }      
             }
+            if (treeView1.SelectedNode == null)
+            {
+                MessageBox.Show("채팅상대를 선택해주세요.", "Information");
+                return;
+            }
+
+            OneOnOneReceiverName = treeView1.SelectedNode.ToString();
+            OneOnOneReceiverName = OneOnOneReceiverName.Split(": ")[1];
+            OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
+            if (myID == OneOnOneReceiverID)//내 아이디와 선택한 유저의 아이디 비교
+            {
+                MessageBox.Show("자기 자신과는 채팅할 수 없습니다.");
+                OneOnOneReceiverName = "";
+                OneOnOneReceiverID = "";
+                return;
+            }
+            //이부분 자체가 현 프로그램에서 작동이 불가능해서 변경
+            string start_msg = OneOnOneReceiverName + "님과 채팅을 시작합니다";
+            MessageBox.Show(start_msg);
+
+            Chatting_Start();
 
 
         }
@@ -457,49 +393,64 @@ namespace DBP_관리
             Owner.Show();
 
         }
-
-        //오른쪽 버튼
-        private void buttonChattingStart_Click(object sender, EventArgs e)
+        private void Chatting_Start()//채팅 시작하자고 서버에 요청
         {
-            if (listBox1.SelectedItem == null)
-            {
-                MessageBox.Show("채팅상대를 선택해주세요.", "Information");
-                return;
-            }
-
-            List<User> dummyChattingUser = listBox1.SelectedItems.Cast<User>().ToList();
-
-            User selectedUser = (User)listBox1.SelectedItem;
-
-            if (myID == selectedUser.userID)//내 아이디와 선택한 유저의 아이디 비교
-            {
-                MessageBox.Show("자기 자신과는 채팅할 수 없습니다.");
-                return;
-            }
-            //이부분 자체가 현 프로그램에서 작동이 불가능해서 변경
-            MessageBox.Show("{0}님과 채팅을 시작합니다", selectedUser.userName);
-            
-            this.OneOnOneReceiverID = selectedUser.userID;//채팅 상대 결정됨 userName->userID로 바꿈
-            this.OneOnOneReceiverName = selectedUser.userName;
-            Chatting_Start();
-        }
-        private void Chatting_Start()
-        {
-
             string chattingStartMessage = string.Format("{0}%{1}<ChattingStart>", OneOnOneReceiverID, OneOnOneReceiverName);//UserID, UserName으로 ChattingStart작성
             byte[] chattingStartByte = UTF8Encoding.UTF8.GetBytes(chattingStartMessage);
             client.GetStream().Write(chattingStartByte, 0, chattingStartByte.Length);//서버에 보내는 부분
 
-        }
+        }      
 
         //왼쪽 버튼      룸도 이미 보여지기 때문에 이를 어떤 방식으로 옮겨야하는지 모르겠음.
         private void button1_Click(object sender, EventArgs e)
         {
-            RoomMemeber = listBoxRoom.SelectedItem.ToString();
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("채팅방을 선택해주세요.", "Information");
+                return;
+            }
+            else
+            {
+                OneOnOneReceiverName = listBox1.SelectedItem.ToString();
+                OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
+                Chatting_Start();
+            }
+        }
+        private string SearchIDwithNickName(string UserNickName)
+        {
+            string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
+            string query = "Select USER_id from USER where USER_nickname=\"" + UserNickName + "\"";
 
-            string chattingStartMessage = string.Format("{0}<ChattingRoomStart>", RoomMemeber);//UserID, UserName으로 ChattingStart작성
-            byte[] chattingStartByte = UTF8Encoding.UTF8.GetBytes(chattingStartMessage);
-            client.GetStream().Write(chattingStartByte, 0, chattingStartByte.Length);//서버에 보내는 부분
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                string UserID = "";
+                while (rdr.Read())
+                {
+                    UserID = rdr[0].ToString();
+                }
+                return UserID;
+            }
+        }
+        private string SearchNickNamewithID(string UserID)
+        {
+            string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
+            string query = "Select USER_nickname from USER where USER_id=\"" + UserID + "\"";
+
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                string UserNickName = "";
+                while (rdr.Read())
+                {
+                    UserNickName = rdr[0].ToString();
+                }
+                return UserNickName;
+            }
         }
     }
 }
