@@ -36,6 +36,8 @@ namespace DBP_관리 {
 				if (!rdr.Read()) {
 					//기존 데이터가 없다면 기본 다크 모드
 					selectedColor = "DarkMode";
+					Apply_Mode(selectedColor);
+					return;
 				}
 
 				selectedColor = rdr[0].ToString();
