@@ -408,5 +408,6 @@ namespace DBP_관리 {
             search_data(textBox2.Text, table);
             Visible_Init_Team_Update();
         }
+
     }
 }
