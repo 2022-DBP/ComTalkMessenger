@@ -40,8 +40,9 @@ namespace DBP_관리
             InitializeComponent();
 
 			Load_User_Config(user_ID);
+            SELECT_Font(user_ID);
 
-			listBoxHistory.Items.Add(messageList.ToString());
+            listBoxHistory.Items.Add(messageList.ToString());
             messageList.Add(string.Format("{0}님이 입장하였습니다.", chattingPartnerName));
             this.Text = chattingPartnerName + "님과의 채팅방";
 
@@ -55,7 +56,37 @@ namespace DBP_관리
             }
         }
 
-		private void Load_User_Config(string user_ID) {
+        private void SELECT_Font(string user)
+        {
+            string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+            string query = "SELECT Font, Font_Size FROM s5469698.USER_Config WHERE User_ID = " + user + ";";
+
+            using (MySqlConnection connection = new MySqlConnection(Connection_string))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    string Font = rdr[0].ToString();
+                    int Size = Convert.ToInt32(rdr[1].ToString());
+                    Apply_Font(Font, Size);
+                    return;
+                }
+                MessageBox.Show("설정된 폰트가 없습니다.");
+            }
+        }
+
+        private void Apply_Font(string Font, int Size)
+        {
+            Font ft = new Font(Font, Size);
+            listBoxHistory.Font = ft;
+            textBox1.Font = ft;
+            textBoxSend.Font = ft;
+        }
+
+        private void Load_User_Config(string user_ID) {
 			//원래 저장된 테마 데이터 불러오기 및 적용
 			string selectedColor = "";
 
@@ -202,6 +233,7 @@ namespace DBP_관리
             RefreshListBox();
 
         }
+
     }
 
 }
