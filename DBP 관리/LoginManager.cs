@@ -27,7 +27,7 @@ namespace DBP_관리
         public static Regist _Regist { get => instance._resist; }
 
         private Login _login = new Login();
-        
+
         public static Login _Login { get => instance._login; }
         // DB Connect Code
         public const string code = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
@@ -62,7 +62,7 @@ namespace DBP_관리
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     reader.Read();
                     Byte[] data = (Byte[])reader["USER_image"];
@@ -137,7 +137,7 @@ namespace DBP_관리
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     reader.Read();
                     UInt32 FileSize = reader.GetUInt32(reader.GetOrdinal("filesize"));

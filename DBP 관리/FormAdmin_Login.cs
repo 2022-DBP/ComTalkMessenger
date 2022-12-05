@@ -26,14 +26,19 @@ namespace DBP_관리
 
         public void LOGIN(string str1, string str2)
         {
-            LoginManager._Login.OnLogin(str1, str2);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             FormAdmin_Dpt frm = new FormAdmin_Dpt();
             frm.Show();
             this.Close();
+        }
+
+        private void FormAdmin_Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
