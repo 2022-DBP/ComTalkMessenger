@@ -162,13 +162,10 @@ namespace DBP_관리
             chattingThreadDic.Remove(chattingPartner);
         }
         public string receivedData;
-<<<<<<< Updated upstream
 		private string selectedColor = "";
-		public Form_main(string Data)
-=======
+
 
         public Form_main(string Data)
->>>>>>> Stashed changes
         {
             InitializeComponent();
             receivedData = Data;

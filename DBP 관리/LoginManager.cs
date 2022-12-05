@@ -102,10 +102,6 @@ namespace DBP_관리
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                 if (reader.HasRows)
                 {
                     reader.Read();

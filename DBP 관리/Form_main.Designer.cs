@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< Updated upstream
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.listBox1 = new System.Windows.Forms.ListBox();
@@ -328,7 +327,6 @@
 			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
-=======
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -618,8 +616,6 @@
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
->>>>>>> Stashed changes
-
         }
 
         #endregion
@@ -645,13 +641,10 @@
         private Label label1;
         private Label Info;
         private MenuStrip menuStrip1;
-<<<<<<< Updated upstream
         private ToolStripMenuItem 생일ToolStripMenuItem;
         private ToolStripMenuItem 테마변경ToolStripMenuItem;
         private ToolStripMenuItem 뉴스검색ToolStripMenuItem;
-=======
         private ToolStripMenuItem 열기ToolStripMenuItem;
         private ToolStripMenuItem 종료ToolStripMenuItem;
->>>>>>> Stashed changes
     }
 }
