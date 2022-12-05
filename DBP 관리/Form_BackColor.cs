@@ -13,12 +13,11 @@ namespace DBP_관리 {
 	public partial class Form_BackColor : Form {
 		string user_ID = "";
 		string selectedColor = "";
-		public Form_BackColor() {
+		public Form_BackColor(string user_ID) {
 			InitializeComponent();
 
 			//매개변수와 생성자 사용시 인자로 user_ID(USER.ID 컬럼 사용) 추가할 것...
-			//this.user_ID = user_ID;
-			this.user_ID = "1";
+			this.user_ID = user_ID;
 
 			Load_User_Config(user_ID);
 		}
@@ -35,16 +34,17 @@ namespace DBP_관리 {
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
 				if (!rdr.Read()) {
-					//기존 데이터가 없다면
-					checkBox_BackColor_DarkMode.Checked = true;
+					//기존 데이터가 없다면 기본 다크 모드
 					selectedColor = "DarkMode";
-					return;
 				}
 
-				while (rdr.Read()) {
-					
-				}
+				selectedColor = rdr[0].ToString();
 			}
+
+			if (selectedColor.Equals("DarkMode"))
+				checkBox_BackColor_DarkMode.Checked = true;
+			else
+				checkBox_BackColor_LightMode.Checked = true;
 		}
 
 		private void checkBox_BackColor_DarkMode_CheckedChanged(object sender, EventArgs e) {

@@ -11,12 +11,54 @@ using System.Windows.Forms;
 
 namespace DBP_관리 {
 	public partial class Form_Birthday : Form {
-		public Form_Birthday() {
+		public Form_Birthday(string user_ID) {
 			InitializeComponent();
+
+			Load_User_Config(user_ID);
 
 			label_Birthday_Title.Text = DateTime.Now.Month + "월 생일 목록";
 			Load_Birthday_Today_List();
 			Load_Birthday_Month_List();
+		}
+
+		private void Load_User_Config(string user_ID) {
+			//원래 저장된 테마 데이터 불러오기 및 적용
+			string selectedColor = "";
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "SELECT Back_Color FROM USER_Config WHERE User_ID = " + user_ID + ";";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				if (!rdr.Read()) {
+					//기존 데이터가 없다면 기본 다크 모드
+					selectedColor = "DarkMode";
+				}
+
+				selectedColor = rdr[0].ToString();
+			}
+
+			Apply_Mode(selectedColor);
+		}
+
+		private void Apply_Mode(string selectedColor) {
+			if (selectedColor.Equals("DarkMode")) {
+				this.BackColor = Color.FromArgb(66, 66, 66);
+				this.ForeColor = Color.White;
+			}
+			else {
+				this.BackColor = Color.White;
+				this.ForeColor = Color.FromArgb(66, 66, 66);
+			}
+			this.label_Birthday_Title.BackColor = this.BackColor;
+			this.label_Birthday_Title.ForeColor = this.ForeColor;
+			this.groupBox_Birthday_Today.BackColor = this.BackColor;
+			this.groupBox_Birthday_Today.ForeColor = this.ForeColor;
+			this.groupBox_Birthday_Month.BackColor = this.BackColor;
+			this.groupBox_Birthday_Month.ForeColor = this.ForeColor;
 		}
 
 		private void Load_Birthday_Today_List() {

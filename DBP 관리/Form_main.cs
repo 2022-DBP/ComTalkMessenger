@@ -17,13 +17,89 @@ namespace DBP_관리
     public partial class Form_main : Form
     {
         public string receivedData;
+        private string selectedColor = "";
         public Form_main(string Data)
         {
             InitializeComponent();
             receivedData = Data;
-        }
 
-        private void Form_main_Load(object sender, EventArgs e)
+            string user_ID = Get_ID(receivedData);
+			Load_User_Config(user_ID);
+		}
+
+		private string Get_ID(string Data) {
+			string ID = "";
+			string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
+			string query = "SELECT ID FROM USER WHERE USER_id = '" + Data + "';";
+
+			using (MySqlConnection connection = new MySqlConnection(conn)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read()) {
+                    ID = rdr[0].ToString();
+                }
+			}
+
+			return ID;
+		}
+
+		private void Load_User_Config(string user_ID) {
+			//원래 저장된 테마 데이터 불러오기 및 적용
+
+			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+			string query = "SELECT Back_Color FROM USER_Config WHERE User_ID = " + user_ID + ";";
+
+			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+				connection.Open();
+				MySqlCommand cmd = new MySqlCommand(query, connection);
+				MySqlDataReader rdr = cmd.ExecuteReader();
+
+				if (!rdr.Read()) {
+					//기존 데이터가 없다면 기본 다크 모드
+					selectedColor = "DarkMode";
+				}
+
+				selectedColor = rdr[0].ToString();
+			}
+
+            Apply_Mode(selectedColor);
+		}
+
+        private void Apply_Mode(string selectedColor) {
+            if (selectedColor.Equals("DarkMode")) {
+				this.BackColor = Color.FromArgb(66, 66, 66);
+				this.ForeColor = Color.White;
+			}
+            else {
+				this.BackColor = Color.White;
+				this.ForeColor = Color.FromArgb(66, 66, 66);
+			}
+			this.groupBox1.BackColor = this.BackColor;
+			this.groupBox1.ForeColor = this.ForeColor;
+			this.group_profile.BackColor = this.BackColor;
+			this.group_profile.ForeColor = this.ForeColor;
+			this.main_profile.BackColor = this.BackColor;
+			this.label_alterProfile.BackColor = this.BackColor;
+			this.label_alterProfile.ForeColor = this.ForeColor;
+			this.profile_nick.BackColor = this.BackColor;
+			this.profile_nick.ForeColor = this.ForeColor;
+			this.txt_nick.BackColor = this.BackColor;
+			this.txt_nick.ForeColor = this.ForeColor;
+			this.label_dapartment.BackColor = this.BackColor;
+			this.label_dapartment.ForeColor = this.ForeColor;
+			this.txt_department.BackColor = this.BackColor;
+			this.txt_department.ForeColor = this.ForeColor;
+			this.label_team.BackColor = this.BackColor;
+			this.label_team.ForeColor = this.ForeColor;
+			this.txt_team.BackColor = this.BackColor;
+			this.txt_team.ForeColor = this.ForeColor;
+			this.btn_main_logout.BackColor = this.ForeColor;
+			this.btn_main_logout.ForeColor = this.BackColor;
+		}
+
+		private void Form_main_Load(object sender, EventArgs e)
         {
             search_treeview();
             view_list();
@@ -212,14 +288,18 @@ namespace DBP_관리
         }
 
 		private void 생일ToolStripMenuItem_Click(object sender, EventArgs e) {
-            Form_Birthday formBirthday = new Form_Birthday();
+            string ID = Get_ID(receivedData);
+            Form_Birthday formBirthday = new Form_Birthday(ID);
             formBirthday.ShowDialog();
 		}
 
         private void 테마변경ToolStripMenuItem_Click(object sender, EventArgs e) {
-            Form_BackColor formBackColor = new Form_BackColor();    //인자로 사용자 정보를 줘야함(DB에서 불러와야하므로. USER.ID 사용.)
+			string ID = Get_ID(receivedData);
+			Form_BackColor formBackColor = new Form_BackColor(ID);
             formBackColor.ShowDialog();
-            //닫으면 메인 폼 다시 로드해야함(테마 변경 적용해야하므로)
-        }
+
+            //변경된 테마 적용
+			Load_User_Config(ID);
+		}
     }
 }
