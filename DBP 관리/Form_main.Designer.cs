@@ -43,6 +43,11 @@
             this.main_profile = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.textBoxMyID = new System.Windows.Forms.TextBox();
+            this.textBoxIPAdress = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Info = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.group_profile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.main_profile)).BeginInit();
@@ -53,9 +58,9 @@
             // 
             this.groupBox1.Controls.Add(this.treeView1);
             this.groupBox1.Location = new System.Drawing.Point(15, 19);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Size = new System.Drawing.Size(624, 565);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -64,7 +69,7 @@
             // treeView1
             // 
             this.treeView1.Location = new System.Drawing.Point(30, 39);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(4);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(547, 485);
             this.treeView1.TabIndex = 0;
@@ -74,13 +79,12 @@
             // 
             this.listBox1.Font = new System.Drawing.Font("맑은 고딕", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
+            this.listBox1.ItemHeight = 45;
             this.listBox1.Location = new System.Drawing.Point(661, 57);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(243, 504);
+            this.listBox1.Size = new System.Drawing.Size(243, 454);
             this.listBox1.TabIndex = 1;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBoxChattingList_SelectedIndexChanged);
             // 
             // group_profile
             // 
@@ -97,7 +101,7 @@
             this.group_profile.ForeColor = System.Drawing.Color.White;
             this.group_profile.Location = new System.Drawing.Point(982, 19);
             this.group_profile.Name = "group_profile";
-            this.group_profile.Size = new System.Drawing.Size(303, 542);
+            this.group_profile.Size = new System.Drawing.Size(303, 541);
             this.group_profile.TabIndex = 2;
             this.group_profile.TabStop = false;
             this.group_profile.Text = "프로필";
@@ -105,7 +109,7 @@
             // txt_team
             // 
             this.txt_team.AutoSize = true;
-            this.txt_team.Location = new System.Drawing.Point(163, 422);
+            this.txt_team.Location = new System.Drawing.Point(163, 421);
             this.txt_team.Name = "txt_team";
             this.txt_team.Size = new System.Drawing.Size(48, 25);
             this.txt_team.TabIndex = 9;
@@ -114,7 +118,7 @@
             // label_team
             // 
             this.label_team.AutoSize = true;
-            this.label_team.Location = new System.Drawing.Point(60, 422);
+            this.label_team.Location = new System.Drawing.Point(60, 421);
             this.label_team.Name = "label_team";
             this.label_team.Size = new System.Drawing.Size(31, 25);
             this.label_team.TabIndex = 8;
@@ -150,7 +154,7 @@
             // btn_main_logout
             // 
             this.btn_main_logout.ForeColor = System.Drawing.Color.Black;
-            this.btn_main_logout.Location = new System.Drawing.Point(34, 471);
+            this.btn_main_logout.Location = new System.Drawing.Point(33, 471);
             this.btn_main_logout.Name = "btn_main_logout";
             this.btn_main_logout.Size = new System.Drawing.Size(230, 43);
             this.btn_main_logout.TabIndex = 4;
@@ -181,16 +185,16 @@
             // 
             // main_profile
             // 
-            this.main_profile.Location = new System.Drawing.Point(34, 66);
+            this.main_profile.Location = new System.Drawing.Point(33, 67);
             this.main_profile.Name = "main_profile";
-            this.main_profile.Size = new System.Drawing.Size(230, 230);
+            this.main_profile.Size = new System.Drawing.Size(230, 229);
             this.main_profile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.main_profile.TabIndex = 0;
             this.main_profile.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(920, 300);
+            this.pictureBox1.Location = new System.Drawing.Point(921, 300);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 44);
             this.pictureBox1.TabIndex = 3;
@@ -200,27 +204,83 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // textBoxMyID
+            // 
+            this.textBoxMyID.Location = new System.Drawing.Point(1310, 57);
+            this.textBoxMyID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxMyID.Name = "textBoxMyID";
+            this.textBoxMyID.Size = new System.Drawing.Size(138, 27);
+            this.textBoxMyID.TabIndex = 4;
+            // 
+            // textBoxIPAdress
+            // 
+            this.textBoxIPAdress.Location = new System.Drawing.Point(1489, 57);
+            this.textBoxIPAdress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxIPAdress.Name = "textBoxIPAdress";
+            this.textBoxIPAdress.Size = new System.Drawing.Size(138, 27);
+            this.textBoxIPAdress.TabIndex = 5;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1322, 503);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(172, 57);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(1328, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 20);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "label1";
+            // 
+            // Info
+            // 
+            this.Info.AutoSize = true;
+            this.Info.ForeColor = System.Drawing.Color.White;
+            this.Info.Location = new System.Drawing.Point(1421, 25);
+            this.Info.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Info.Name = "Info";
+            this.Info.Size = new System.Drawing.Size(50, 20);
+            this.Info.TabIndex = 10;
+            this.Info.Text = "label2";
+            // 
             // Form_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.ClientSize = new System.Drawing.Size(1346, 600);
+            this.ClientSize = new System.Drawing.Size(1679, 600);
+            this.Controls.Add(this.Info);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBoxIPAdress);
+            this.Controls.Add(this.textBoxMyID);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.group_profile);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form_main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form_main";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_main_FormClosing);
+            this.Load += new System.EventHandler(this.Form_main_Load_1);
             this.groupBox1.ResumeLayout(false);
             this.group_profile.ResumeLayout(false);
             this.group_profile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.main_profile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -241,5 +301,10 @@
         private Label txt_nick;
         private Button btn_main_logout;
         private OpenFileDialog openFileDialog1;
+        private TextBox textBoxMyID;
+        private TextBox textBoxIPAdress;
+        private Button button1;
+        private Label label1;
+        private Label Info;
     }
 }

@@ -17,6 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using MySql.Data.MySqlClient;
 
 namespace DBP_관리
 {
@@ -42,8 +43,29 @@ namespace DBP_관리
             messageList.Add(string.Format("{0}님이 입장하였습니다.", chattingPartnerName));
             this.Text = chattingPartnerName + "님과의 채팅방";
 
+            try
+            {
+                CallMsgHistory();//과거 메세지 내역을 불러온다.
+            }
+            catch (Exception e)
+            {
+                return;
+            }
         }
         private void buttonSend_Click(object sender, EventArgs e)
+        {
+            SendMessage(sender);
+        }
+
+
+        private void Form_ChattingRoom_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendMessage(sender);
+            }
+        }
+        public void SendMessage(object sender)
         {
             if (string.IsNullOrEmpty(textBoxSend.Text))
                 return;
@@ -52,52 +74,21 @@ namespace DBP_관리
 
             if (message.Contains('<') || message.Contains('>'))
             {
-                MessageBox.Show("죄송합니다. >,< 기호는 사용하실수 없습니다.", "Information");
+                System.Windows.Forms.MessageBox.Show("죄송합니다. >,< 기호는 사용하실수 없습니다.", "Information");
                 return;
             }
 
             if (chattingPartner != null)
             {
                 parsedMessage = string.Format("{0}<{1}#{2}>", chattingPartner, chattingRoomID, message);
-
                 byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
                 client.GetStream().Write(byteData, 0, byteData.Length);
             }
+
+
             messageList.Add("나: " + message);
             textBoxSend.Clear();
             RefreshListBox();
-
-        }
-
-
-        private void Form_ChattingRoom_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (string.IsNullOrEmpty(textBoxSend.Text))
-                    return;
-                string message = textBoxSend.Text;
-                string parsedMessage = "";
-
-                if (message.Contains('<') || message.Contains('>'))
-                {
-                    System.Windows.Forms.MessageBox.Show("죄송합니다. >,< 기호는 사용하실수 없습니다.", "Information");
-                    return;
-                }
-
-                if (chattingPartner != null)
-                {
-                    parsedMessage = string.Format("{0}<{1}#{2}>", chattingPartner, chattingRoomID, message);
-                    byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
-                    client.GetStream().Write(byteData, 0, byteData.Length);
-                }
-
-
-                messageList.Add("나: " + message);
-                textBoxSend.Clear();
-                RefreshListBox();
-            }
-
         }
         public void ReceiveMessage(string sender, string message)
         {
@@ -118,9 +109,15 @@ namespace DBP_관리
 
                 return;
             }
-            //리스트박스에 잘 띄워보자...
-            messageList.Add(string.Format("{0}: {1}", sender, message));
-            RefreshListBox();
+            message = message.Split('#')[1];
+
+            //리스트박스에 띄우자
+            if (this.listBoxHistory.InvokeRequired)
+            {
+                this.listBoxHistory.Invoke(new MethodInvoker(delegate {
+                    messageList.Add(string.Format("{0}: {1}", sender, message)); RefreshListBox(); ;
+                }));
+            }
 
         }
         private void RefreshListBox()
@@ -137,21 +134,27 @@ namespace DBP_관리
 
             string message = string.Format("{0}님과의 채팅을 종료합니다.", chattingPartnerName);
             MessageBox.Show(message);
-            try
-            {
-                string exitMessage = "상대방이 채팅방을 나갔습니다.";
-                string parsedMessage = string.Format("{0}<{1}>", chattingPartner, exitMessage);
-                byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
-                client.GetStream().Write(byteData, 0, byteData.Length);
-            }
-            catch (Exception)
-            {
-
-            }
+            
         }
-
-        private void Form_ChattingRoom_Load(object sender, EventArgs e)
-        {
+        private void CallMsgHistory()
+        {//쿼리를 실행하고 그 결과를 배열의 형태로 받아온다.
+            string query = "SELECT msgText FROM s5469698.Chatting where Roomid=" + chattingRoomID;
+            using (MySqlConnection connection = new MySqlConnection("Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;"))
+            {
+                string[] readerUse = { };
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    messageList.Add(reader[0].ToString());
+                }
+            }
+            foreach (var item in messageList)
+            {
+                listBoxHistory.Items.Add(item);//제일귀찮다이거진짜.....
+            }
+            RefreshListBox();
 
         }
     }
