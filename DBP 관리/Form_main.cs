@@ -19,7 +19,8 @@ namespace DBP_관리
 {
     public partial class Form_main : Form
     {
-
+        private static string Font = null;
+        private static int Size = 0;
         public static string myID = null;
         public static string myNickName = null;
         TcpClient client = null;
@@ -174,7 +175,8 @@ namespace DBP_관리
             Login();
 
 			string user_ID = Get_ID(receivedData);
-			Load_User_Config(user_ID);
+            SELECT_Font(user_ID);
+            Load_User_Config(user_ID);
 		}
         private void Login()
         {
@@ -238,11 +240,12 @@ namespace DBP_관리
 				if (!rdr.Read()) {
 					//기존 데이터가 없다면 기본 다크 모드
 					selectedColor = "DarkMode";
+					Apply_Mode(selectedColor);
+                    return;
 				}
 
 				selectedColor = rdr[0].ToString();
 			}
-
 			Apply_Mode(selectedColor);
 		}
 
@@ -555,7 +558,45 @@ namespace DBP_관리
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            string ID = Get_ID(receivedData);
+            Form_Font formF = new Form_Font(ID);
+            formF.ShowDialog();
 
+            //변경된 테마 적용
+            SELECT_Font(ID);
         }
+
+        private void SELECT_Font(string user)
+        {
+            string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+            string query = "SELECT Font, Font_Size FROM s5469698.USER_Config WHERE User_ID = " + user + ";";
+
+            using (MySqlConnection connection = new MySqlConnection(Connection_string))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    Font = rdr[0].ToString();
+                    Size = Convert.ToInt32(rdr[1].ToString());
+                    Apply_Font();
+                    return;
+                }
+                MessageBox.Show("설정된 폰트가 없습니다.");
+            }
+        }
+
+
+        private void Apply_Font()
+        {
+            Font ft = new Font(Font, Size);
+            listBox1.Font = ft;
+            treeView1.Font = ft;
+            group_profile.Font = ft;
+            btn_main_logout.Font = ft;
+        }
+
     }
 }

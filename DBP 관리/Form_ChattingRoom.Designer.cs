@@ -40,22 +40,23 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(17, 16);
+            this.label2.Location = new System.Drawing.Point(22, 27);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 15);
+            this.label2.Size = new System.Drawing.Size(39, 20);
             this.label2.TabIndex = 9;
             this.label2.Text = "대화";
             // 
             // buttonSend
             // 
             this.buttonSend.BackColor = System.Drawing.Color.White;
-            this.buttonSend.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.buttonSend.Location = new System.Drawing.Point(584, 282);
-            this.buttonSend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonSend.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSend.Location = new System.Drawing.Point(751, 470);
+            this.buttonSend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSend.Name = "buttonSend";
-            this.buttonSend.Size = new System.Drawing.Size(76, 63);
+            this.buttonSend.Size = new System.Drawing.Size(98, 105);
             this.buttonSend.TabIndex = 7;
             this.buttonSend.Text = "보내기";
             this.buttonSend.UseVisualStyleBackColor = false;
@@ -63,44 +64,45 @@
             // 
             // textBoxSend
             // 
-            this.textBoxSend.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.textBoxSend.Location = new System.Drawing.Point(85, 282);
-            this.textBoxSend.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxSend.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxSend.Location = new System.Drawing.Point(109, 470);
+            this.textBoxSend.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxSend.Multiline = true;
             this.textBoxSend.Name = "textBoxSend";
-            this.textBoxSend.Size = new System.Drawing.Size(494, 64);
+            this.textBoxSend.Size = new System.Drawing.Size(634, 104);
             this.textBoxSend.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(16, 306);
+            this.label1.Location = new System.Drawing.Point(21, 510);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 15);
+            this.label1.Size = new System.Drawing.Size(67, 20);
             this.label1.TabIndex = 10;
             this.label1.Text = "message";
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.textBox1.Location = new System.Drawing.Point(19, 45);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.Location = new System.Drawing.Point(24, 75);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(601, 36);
+            this.textBox1.Size = new System.Drawing.Size(772, 57);
             this.textBox1.TabIndex = 11;
             // 
             // buttonNoticeVisible
             // 
             this.buttonNoticeVisible.BackColor = System.Drawing.Color.White;
-            this.buttonNoticeVisible.Font = new System.Drawing.Font("맑은 고딕", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.buttonNoticeVisible.Location = new System.Drawing.Point(620, 45);
-            this.buttonNoticeVisible.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonNoticeVisible.Font = new System.Drawing.Font("맑은 고딕", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonNoticeVisible.Location = new System.Drawing.Point(797, 75);
+            this.buttonNoticeVisible.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonNoticeVisible.Name = "buttonNoticeVisible";
-            this.buttonNoticeVisible.Size = new System.Drawing.Size(38, 35);
+            this.buttonNoticeVisible.Size = new System.Drawing.Size(49, 58);
             this.buttonNoticeVisible.TabIndex = 12;
             this.buttonNoticeVisible.Text = "공지";
             this.buttonNoticeVisible.UseVisualStyleBackColor = false;
@@ -108,20 +110,20 @@
             // listBoxHistory
             // 
             this.listBoxHistory.FormattingEnabled = true;
-            this.listBoxHistory.ItemHeight = 12;
-            this.listBoxHistory.Location = new System.Drawing.Point(20, 81);
-            this.listBoxHistory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listBoxHistory.ItemHeight = 20;
+            this.listBoxHistory.Location = new System.Drawing.Point(26, 135);
+            this.listBoxHistory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxHistory.Name = "listBoxHistory";
             this.listBoxHistory.ScrollAlwaysVisible = true;
-            this.listBoxHistory.Size = new System.Drawing.Size(639, 172);
+            this.listBoxHistory.Size = new System.Drawing.Size(820, 284);
             this.listBoxHistory.TabIndex = 15;
             // 
-            // FormChatting
+            // Form_ChattingRoom
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-            this.ClientSize = new System.Drawing.Size(681, 364);
+            this.ClientSize = new System.Drawing.Size(876, 607);
             this.Controls.Add(this.buttonNoticeVisible);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
@@ -129,8 +131,8 @@
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.textBoxSend);
             this.Controls.Add(this.listBoxHistory);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "FormChatting";
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "Form_ChattingRoom";
             this.Text = "채팅";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_ChattingRoom_FormClosing);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Form_ChattingRoom_PreviewKeyDown);
