@@ -8,20 +8,19 @@ using System.Xml;
 
 namespace DBP_包府
 {
+    public delegate void DataGetEventHandler(string data);
     public partial class Form_Address : Form
     {
+        public DataGetEventHandler sendEvent;
         int prevLBSelectedIndex = -1;
-
-        string ReceivedData;
-        public Form_Address(string Data)
+        public Form_Address()
         {
             InitializeComponent();
-            ReceivedData = Data;
         }
 
         public void SearchKeyword(string query, ListBox list)
         {
-            if(query.Equals(""))
+            if (query.Equals(""))
             {
                 MessageBox.Show("林家甫 涝仿秦林技夸");
                 return;
@@ -50,7 +49,7 @@ namespace DBP_包府
             XmlNodeList xnList = xml.GetElementsByTagName("newAddressListAreaCdSearchAll");
 
             list.Items.Clear();
-            foreach(XmlNode xn in xnList)
+            foreach (XmlNode xn in xnList)
             {
                 string zipNo = xn["zipNo"].InnerText;
                 string lnmAddress = xn["lnmAdres"].InnerText;
@@ -94,7 +93,7 @@ namespace DBP_包府
 
         private void TextEnter(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 SearchKeyword(txt_Keyword.Text, list_Address);
             }
@@ -102,15 +101,12 @@ namespace DBP_包府
 
         private void Form_Address_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Owner.Show();
+
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
-
-            Form_Resist regist = (Form_Resist)Owner;
-            regist.ReceivedData = list_Address.Text;
+            sendEvent(list_Address.Text);
             this.Close();
         }
     }

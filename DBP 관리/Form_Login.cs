@@ -23,7 +23,7 @@ namespace DBP_관리
         {
             if (e.KeyCode == Keys.Enter)
             {
-                MessageBox.Show("로그인");
+                Login_Click(sender, e);
             }
         }
 
@@ -60,6 +60,13 @@ namespace DBP_관리
             LoginManager._Login.AutoBox(autoInputCheck, autoLoginCheck, this.txt_Login, this.txt_Password, this);
         }
 
+        private void txt_Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Login_Click(sender, e);
+            }
+        }
     }
 }
- 
+

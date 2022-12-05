@@ -35,13 +35,13 @@ namespace DBP_관리
         // 회원가입 버튼
         private void Btn_ResistON(object sender, EventArgs e)
         {
-            if(!isID)
+            if (!isID)
             {
                 MessageBox.Show("아이디 중복 체크를 다시 해주세요");
                 return;
             }
- 
-            if(!isPass)
+
+            if (!isPass)
             {
                 MessageBox.Show("비밀번호를 다시 확인해주세요");
                 return;
@@ -55,7 +55,7 @@ namespace DBP_관리
 
         private void CheckID(object sender, EventArgs e)
         {
-            if(String.IsNullOrEmpty(txt_Id.Text))
+            if (String.IsNullOrEmpty(txt_Id.Text))
             {
                 MessageBox.Show("아이디를 입력하세요");
                 return;
@@ -68,7 +68,7 @@ namespace DBP_관리
 
         private void CheckPassword(object sender, CancelEventArgs e)
         {
-            if(txt_Password.Text.Equals(txt_ConfirmPass.Text))
+            if (txt_Password.Text.Equals(txt_ConfirmPass.Text))
             {
                 label_verify.ForeColor = Color.LightGreen;
                 label_verify.Text = "비밀번호가\n일치합니다";
@@ -102,11 +102,12 @@ namespace DBP_관리
         private void btn_searchAddress_Click(object sender, EventArgs e)
         {
             Point tempPoint = this.Location;
-            Form_Address address = new Form_Address("test");
+            Form_Address address = new Form_Address();
             address.Location = tempPoint;
-            address.Owner = this;
-            address.ShowDialog();
+            address.sendEvent += new DataGetEventHandler(this.DataGet);
 
+            address.ShowDialog();
+            /*
             if(address.ShowDialog() == DialogResult.OK)
             {
                 txt_address = ReceivedData;
@@ -116,8 +117,18 @@ namespace DBP_관리
                 txt_roadAddress.Text = ad[1];
                 txt_landlordAddress.Text = ad[2];
             }
+            */
         }
 
+        private void DataGet(string data)
+        {
+            string datas = data;
+            var ad = datas.Split('\n');
+
+            txt_zipCode.Text = ad[0];
+            txt_roadAddress.Text = ad[1];
+            txt_landlordAddress.Text = ad[2];
+        }
         private void Form_Exit_Control(object sender, FormClosingEventArgs e)
         {
             Owner.Show();

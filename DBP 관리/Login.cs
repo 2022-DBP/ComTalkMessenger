@@ -6,8 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
-
-
+using System.Net.Sockets;
 
 namespace DBP_관리
 {
@@ -21,7 +20,7 @@ namespace DBP_관리
                 conn.Open();
 
                 // 로그인 시 WHERE문으로 아이디를 확인, 비밀번호는 바로 암호화해서 동일한 암호화한 데이터 확인
-                string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256))))";
+                string query = $"SELECT ID, USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256))))";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -30,7 +29,6 @@ namespace DBP_관리
                 if (reader.HasRows)
                 {
                     reader.Close();
-
                     // 아이디 확인
                     string logquery = $"insert into Login_log (user_id, log_time, log_type) " +
                         $"values ((select ID from USER where USER_id = '{id}'), '{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}', 'in')";
@@ -43,6 +41,8 @@ namespace DBP_관리
                     cmd.ExecuteNonQuery();
 
                     Point temp = fLogin.Location;
+
+                    fLogin.Hide();
 
                     Form_main main = new Form_main(id);
                     main.Location = temp;
@@ -143,7 +143,7 @@ namespace DBP_관리
                     pas = reader["cast(AES_DECRYPT(unhex(USER_password), sha2('abcabc', 256)) as char(100))"].ToString();
 
                     Debug.WriteLine(log);
-                    if(login.Checked)
+                    if (login.Checked)
                     {
                         fLogin.Hide();
                         fLogin.ShowInTaskbar = false;

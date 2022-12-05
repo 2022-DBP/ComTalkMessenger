@@ -162,13 +162,19 @@ namespace DBP_관리
             chattingThreadDic.Remove(chattingPartner);
         }
         public string receivedData;
+<<<<<<< Updated upstream
 		private string selectedColor = "";
 		public Form_main(string Data)
+=======
+
+        public Form_main(string Data)
+>>>>>>> Stashed changes
         {
             InitializeComponent();
             receivedData = Data;
-            myID = "park";//로그인할때 정보를 받아올 것
+            myID = receivedData;//로그인할때 정보를 받아올 것
             //로그인할 때 쓰는 User_id 말고 int형인 ID여야 합니다.->추후 clientNumber로 사용
+
             textBoxIPAdress.Text = "127.0.0.1";
 
             Login();
@@ -192,6 +198,7 @@ namespace DBP_관리
 
                 myNickName = SearchNickNamewithID(myID);
                 label1.Text = myNickName;
+
                 Info.Text = string.Format("{0} 님 반갑습니다 ", myNickName);
 
                 ReceiveThread = new Thread(RecieveMessage);
@@ -458,14 +465,17 @@ namespace DBP_관리
         //로그아웃 기능
         private void btn_main_logout_Click(object sender, EventArgs e)
         {
+            LoginManager.Instance.Logout(receivedData);
             MessageBox.Show("로그아웃 되었습니다.");
             Owner.Show();
-            this.Close();
+            Application.Restart();
         }
 
         private void label_profile_click(object sender, EventArgs e)
         {
-            LoginManager.Instance.SetImage(openFileDialog1, main_profile, receivedData);
+            Form_ChangeProfile cp = new Form_ChangeProfile(receivedData);
+            cp.dataEvent += new DataEventHandler(this.CheckEvent);
+            cp.ShowDialog();
         }
 
         private void Form_main_FormClosing(object sender, FormClosingEventArgs e)
@@ -514,6 +524,21 @@ namespace DBP_관리
                 return UserID;
             }
         }
+
+
+        // delegate와 연동하여 프로필 수정 시 마다 데이터가 변경됨
+        public void CheckEvent(string check)
+        {
+            LoginManager.Instance.LoadUserData(receivedData, main_profile, txt_nick, txt_department, txt_team);
+        }
+
+        // 종료 기능
+        private void menu_AllClose_Click(object sender, EventArgs e)
+        {
+            LoginManager.Instance.Logout(receivedData);
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+        }
+
         private string SearchNickNamewithID(string UserID)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";

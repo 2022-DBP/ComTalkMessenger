@@ -68,7 +68,6 @@ namespace DBP_관리
 
         }
 
-
         // 아이디 중복 확인
         public bool CheckID(string check, string column, bool active)
         {
@@ -158,7 +157,7 @@ namespace DBP_관리
                     using (MySqlConnection conn = new MySqlConnection(LoginManager.code))
                     {
                         conn.Open();
-                        query = $"select {column} from {table}";
+                        query = $"select {column} from {table} order by dpt_name asc";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         MySqlDataReader reader = cmd.ExecuteReader();
                         department.Items.Clear();
@@ -184,7 +183,7 @@ namespace DBP_관리
                     using (MySqlConnection conn = new MySqlConnection(LoginManager.code))
                     {
                         conn.Open();
-                        query = $"select {column} from {table} where dpt_id = (select id from department where dpt_name = '{department.Text}')";
+                        query = $"select {column} from {table} where dpt_id = (select id from department where dpt_name = '{department.Text}') order by team_name asc";
                         MySqlCommand cmd = new MySqlCommand(query, conn);
                         MySqlDataReader reader = cmd.ExecuteReader();
                         team.Items.Clear();
