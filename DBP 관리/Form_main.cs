@@ -472,7 +472,8 @@ namespace DBP_관리
 
         private void label_profile_click(object sender, EventArgs e)
         {
-            Form_ChangeProfile cp = new Form_ChangeProfile(receivedData);
+			string ID = Get_ID(receivedData);
+			Form_ChangeProfile cp = new Form_ChangeProfile(receivedData, ID);
             cp.dataEvent += new DataEventHandler(this.CheckEvent);
             cp.ShowDialog();
         }
