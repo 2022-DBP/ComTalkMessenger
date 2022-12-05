@@ -161,6 +161,7 @@
 			// 
 			// btn_main_logout
 			// 
+			this.btn_main_logout.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.btn_main_logout.ForeColor = System.Drawing.Color.Black;
 			this.btn_main_logout.Location = new System.Drawing.Point(26, 353);
 			this.btn_main_logout.Margin = new System.Windows.Forms.Padding(2);
