@@ -204,7 +204,7 @@ namespace ChattingFormServerCversion
             string receiverID = "";
             string receiverNickName = "";
             string senderNickName = "";
-            senderNickName = dbmanager.RunQuery("SELECT USER_nickname FROM s5469698.USER WHERE ID=\"" + senderID+"\"");//로그인 시 본인의 이름, ID 저장해둘 수 있음
+            senderNickName = dbmanager.RunQuery("SELECT USER_nickname FROM s5469698.USER WHERE USER_id=\"" + senderID+"\"");//로그인 시 본인의 이름, ID 저장해둘 수 있음
 
             int senderNumber = -1;
             int receiverNumber = -1;

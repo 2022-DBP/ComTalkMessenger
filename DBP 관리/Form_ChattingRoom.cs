@@ -194,6 +194,7 @@ namespace DBP_관리
                     messageList.Add(string.Format("{0}: {1}", sender, message)); RefreshListBox(); ;
                 }));
             }
+            MessageBox.Show(sender+":"+ message);
 
         }
         private void RefreshListBox()
