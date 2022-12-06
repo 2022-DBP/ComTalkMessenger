@@ -171,7 +171,8 @@ namespace DBP_관리
             InitializeComponent();
             receivedData = Data;
             myID = receivedData;//로그인할때 정보를 받아올 것
-            //로그인할 때 쓰는 User_id 말고 int형인 ID여야 합니다.->추후 clientNumber로 사용
+                                //로그인할 때 쓰는 User_id 말고 int형인 ID여야 합니다.->추후 clientNumber로 사용
+            myNickName = SearchNickNamewithID(myID);
 
             textBoxIPAdress.Text = "127.0.0.1";
 
@@ -187,7 +188,8 @@ namespace DBP_관리
             {
                 string ip = textBoxIPAdress.Text;
                 string parsedID = "%^&";
-                parsedID += myID;
+                parsedID += myID+"#"+ myNickName;
+
                 client = new TcpClient();
                 client.Connect(ip, 9999);//직접 설정한 ip로 연결
 
@@ -196,7 +198,6 @@ namespace DBP_관리
                 client.GetStream().Write(byteData, 0, byteData.Length);
 
                 myNickName = SearchNickNamewithID(myID);
-                label1.Text = myNickName;
 
                 Info.Text = string.Format("{0} 님 반갑습니다 ", myNickName);
 
@@ -464,6 +465,7 @@ namespace DBP_관리
         //로그아웃 기능
         private void btn_main_logout_Click(object sender, EventArgs e)
         {
+            SendClosingMSG();
             LoginManager.Instance.Logout(receivedData);
             MessageBox.Show("로그아웃 되었습니다.");
             Owner.Show();
@@ -472,7 +474,8 @@ namespace DBP_관리
 
         private void label_profile_click(object sender, EventArgs e)
         {
-			string ID = Get_ID(receivedData);
+            SendClosingMSG();//리스트와, 현재 유저 리스트에서 유저를 삭제하도록 서버에 메세지를 보낸다.
+            string ID = Get_ID(receivedData);
 			Form_ChangeProfile cp = new Form_ChangeProfile(receivedData, ID);
             cp.dataEvent += new DataEventHandler(this.CheckEvent);
             cp.ShowDialog();
@@ -480,8 +483,9 @@ namespace DBP_관리
 
         private void Form_main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Owner.Show();
+            SendClosingMSG();
 
+            Owner.Show();
         }
         private void Chatting_Start()//채팅 시작하자고 서버에 요청
         {
@@ -535,10 +539,16 @@ namespace DBP_관리
         // 종료 기능
         private void menu_AllClose_Click(object sender, EventArgs e)
         {
+            SendClosingMSG();
             LoginManager.Instance.Logout(receivedData);
             System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
-
+        private void SendClosingMSG()//서버에 채팅 종료를 알립니다. 그러면 현재 접속 중인 유저에서 삭제되고, 서버 로그에 표시됩니다.
+        {
+            string parsedMessage = string.Format("{0}%{1}<CloseClient>", myID,myNickName);
+            byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
+            client.GetStream().Write(byteData, 0, byteData.Length);
+        }
         private string SearchNickNamewithID(string UserID)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";

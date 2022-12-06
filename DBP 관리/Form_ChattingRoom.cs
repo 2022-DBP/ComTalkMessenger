@@ -214,7 +214,7 @@ namespace DBP_관리
         }
         private void CallMsgHistory()
         {//쿼리를 실행하고 그 결과를 배열의 형태로 받아온다.
-            string query = "SELECT msgText FROM s5469698.Chatting where Roomid=" + chattingRoomID;
+            string query = "select CONCAT(`From`,\":\",msgText) as msg from Chatting where Roomid =" + chattingRoomID;
             using (MySqlConnection connection = new MySqlConnection("Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;"))
             {
                 string[] readerUse = { };

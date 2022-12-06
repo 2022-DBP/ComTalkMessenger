@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.ApplicationServices;
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace ChattingFormServerCversion
 {
     class ClientManager
     {
+        private static ClientManager instance = new ClientManager();
+        public static ClientManager GetInstance()//자기 자신의 인스턴스를 외부에 제공
+        {
+            return instance;
+        }
         FormServer formServer1 = new FormServer("str");
         public static ConcurrentDictionary<int, ClientData> clientDic = new ConcurrentDictionary<int, ClientData>();
         public static event Action<string, string>? messageParsingAction = null;
@@ -30,7 +36,7 @@ namespace ChattingFormServerCversion
 
             catch (Exception e)
             {
-                //RemoveClient(currentClient);
+                RemoveClient(currentClient);
             }
         }
 
@@ -38,16 +44,21 @@ namespace ChattingFormServerCversion
 
         private void DataReceived(IAsyncResult ar)
         {
-            ClientData? client = ar.AsyncState as ClientData;
+            ClientData client = ar.AsyncState as ClientData;
 
             try
             {
                 int byteLength = client.tcpClient.GetStream().EndRead(ar);
 
                 string strData = UTF8Encoding.UTF8.GetString(client.readBuffer, 0, byteLength);
-
-                client.tcpClient.GetStream().BeginRead(client.readBuffer, 0, client.readBuffer.Length, new AsyncCallback(DataReceived), client);
-
+                try
+                {
+                    client.tcpClient.GetStream().BeginRead(client.readBuffer, 0, client.readBuffer.Length, new AsyncCallback(DataReceived), client);
+                }
+                catch (System.StackOverflowException)
+                {
+                    RemoveClient(client);
+                }
                 if (string.IsNullOrEmpty(client.clientID))
                 {
                     if (ChangeListBoxAction != null)
@@ -55,7 +66,8 @@ namespace ChattingFormServerCversion
                         if (CheckID(strData))
                         {
                             string userID = strData.Substring(3);//로그인때 사용한 ID
-                            client.clientID = userID;//ID를 통해 본인의 이름(), 닉네임 저장해두자.
+                            client.clientID = userID.Split('#')[0];//ID를 통해 본인의 이름(), 닉네임 저장해두자.
+                            client.clientName = userID.Split('#')[1];
                             ChangeListBoxAction.Invoke(client.clientID, StaticDefine.ADD_USER_LIST);
                             string accessLog = string.Format("[{0}] {1} Access Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), client.clientID);
                             ChangeListBoxAction.Invoke(accessLog, StaticDefine.ADD_ACCESS_LIST);
@@ -64,28 +76,26 @@ namespace ChattingFormServerCversion
                         }
                     }
                 }
-
-
                 if (messageParsingAction != null)
                 {
                     Task task = Task.Run(() => formServer1.MessageParsing(client.clientID, strData));
 
                 }
-
             }
             catch (Exception e)
             {
-                RemoveClient(client);
+               // RemoveClient(client);
             }
         }
-        private void RemoveClient(ClientData targetClient)
+        public void RemoveClient(ClientData targetClient)
         {
-            ClientData? result = null;
-            ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
-            string leaveLog = string.Format("[{0}] {1} Leave Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientName);
-            ChangeListBoxAction.Invoke(leaveLog, StaticDefine.ADD_ACCESS_LIST);
-
-            ChangeListBoxAction.Invoke(result.clientName, StaticDefine.REMOVE_USER_LIST);
+            if (targetClient != null) { 
+                ClientData result = null;
+                ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
+                string leaveLog = string.Format("[{0}] {1} Leave Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientID);
+                ChangeListBoxAction.Invoke(leaveLog, StaticDefine.ADD_ACCESS_LIST);
+                ChangeListBoxAction.Invoke(result.clientID, StaticDefine.REMOVE_USER_LIST);
+            }
         }
 
 

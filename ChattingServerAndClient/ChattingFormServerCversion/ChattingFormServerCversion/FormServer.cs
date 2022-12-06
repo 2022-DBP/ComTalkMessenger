@@ -7,17 +7,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using MySqlX.XDevAPI.Common;
 
 
 namespace ChattingFormServerCversion
 {
     public partial class FormServer : Form
     {
+        ClientManager clientManager = ClientManager.GetInstance();
         private object lockObj = new object();
-        public static List<string>? chattingLogList = new List<string>();
-        public static List<string>? userList = new List<string>();
-        public static List<string>? usersList = new List<string>();
-        public static List<string>? AccessLogList = new List<string>();
+        public static List<string> chattingLogList = new List<string>();
+        public static List<string> userList = new List<string>();
+        public static List<string> AccessLogList = new List<string>();
+
         Task? conntectCheckThread = null;//연결을 체크하는 스레드
         string roomID = null;
 
@@ -96,7 +98,7 @@ namespace ChattingFormServerCversion
                     }
                     catch (Exception e)
                     {
-                        RemoveClient(item.Value);
+                        clientManager.RemoveClient(item.Value);
                     }
                 }
                 Thread.Sleep(1000);
@@ -105,12 +107,23 @@ namespace ChattingFormServerCversion
 
         private void RemoveClient(ClientData targetClient)
         {
-            ClientData? result = null;
+            ClientData result = null;
             ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
             string leaveLog = string.Format("[{0}] {1} Leave Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientName);
-            //AccessLogList.Add(leaveLog);
-            //ListBoxRefresh();
-            //ChangeListBox(result.clientName, StaticDefine.REMOVE_USER_LIST);
+            //ChangeListBoxAction.Invoke(leaveLog, StaticDefine.ADD_ACCESS_LIST);
+            //ChangeListBoxAction.Invoke(result.clientName, StaticDefine.REMOVE_USER_LIST);
+            if (this.listBoxAccessLog.InvokeRequired)
+            {
+                this.listBoxAccessLog.Invoke(new MethodInvoker(delegate {
+                    AccessLogList.Add(leaveLog); ListBoxRefresh(); ;
+                }));
+            }
+            if (this.listBoxUser.InvokeRequired)
+            {
+                this.listBoxUser.Invoke(new MethodInvoker(delegate {
+                    userList.Remove(result.clientName); ListBoxRefresh(); ;
+                }));
+            }
         }
 
         private void ChangeListBox(string Message, int key)
@@ -210,6 +223,14 @@ namespace ChattingFormServerCversion
                 
                 senderNumber = GetClinetNumber(senderID);//ID를 고유 번호로 하여 전송 구분에 사용한다.
                 receiverNumber = GetClinetNumber(receiverID);
+                
+                //0.채팅 종료를 요청할 시 클라이언트 리스트에서 sender를 지워준다.
+                if (parsedMessage.Contains("<CloseClient>"))
+                {
+                    ClientManager.clientDic.TryGetValue(senderNumber, out ClientData closingClientData);
+                    clientManager.RemoveClient(closingClientData);
+                    return;
+                }
 
                 //0.상대방이 접속 중이 아니라면 table에만 저장해둔다.
                 if (senderNumber == -1 || receiverNumber == -1)//유저 현재 접속 중이 아닐 경우의 메세지 보내기/방 생성
@@ -237,12 +258,6 @@ namespace ChattingFormServerCversion
 
                 byte[] sendByteData = new byte[parsedMessage.Length];
                 sendByteData = Encoding.Default.GetBytes(parsedMessage);
-
-                if (parsedMessage.Contains("CloseClient"))
-                {
-                    RemoveClient(ClientManager.clientDic[int.Parse(receiverID)]);
-                    return;
-                }
 
                 //1.현재 유저 리스트 보내기
                 if (parsedMessage.Contains("<GiveMeUserList>"))
@@ -353,11 +368,7 @@ namespace ChattingFormServerCversion
                         "(Room.USER1 = \"" + receiverNickName + "\" AND Room.USER2=\"" + senderNickName + "\") OR" +
                         " (Room.USER1 =\"" + senderNickName + "\" AND Room.USER2 = \"" + receiverNickName + "\");\r\n");
             return isRoom;
-        }
-        private void RoomManager(string senderNickName,string receiverNickName)
-        {
-
-        }
+        } 
 
         private void MainServerStart()
         {
