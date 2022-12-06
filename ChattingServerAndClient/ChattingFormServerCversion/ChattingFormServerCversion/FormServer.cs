@@ -238,13 +238,7 @@ namespace ChattingFormServerCversion
                     if(splitedMsg[1]=="ChattingStart")
                     {
                         string isRoom = IsRoom(senderNickName, receiverNickName);
-                        if (isRoom == "")
-                        {
-                            //채팅방 생성
-                            dbmanager.RunQuery("insert into Room(User1,User2) VALUES(\"" + receiverNickName + "\",\"" + senderNickName + "\")");//roomtable에 insert
-                            isRoom = IsRoom(senderNickName, receiverNickName);
-
-                        }
+                        
                         parsedMessage = string.Format("{0}%{1}<{2}#ChattingStart>", receiverID, receiverNickName, isRoom);
                         byte[] ByteData = Encoding.Default.GetBytes(parsedMessage);
                         ClientManager.clientDic[senderNumber].tcpClient.GetStream().Write(ByteData, 0, ByteData.Length);
