@@ -412,7 +412,7 @@ namespace DBP_관리
         private void Chatting(object sender, TreeNodeMouseClickEventArgs e)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
-            string query = "SELECT distinct idRoom FROM Room WHERE (Room.USER1 =\"" + myNickName + "\" AND Room.USER2 = '" + e.Node.Text + "') OR (Room.USER1 = '" + e.Node.Text + "' AND Room.USER2 = 'A');";
+            string query = "SELECT distinct idRoom FROM Room WHERE (Room.USER1 =\"" + myNickName + "\" AND Room.USER2 = '" + e.Node.Text + "') OR (Room.USER1 = '" + e.Node.Text + "' AND Room.USER2 = '" + myNickName + "');";
 
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
