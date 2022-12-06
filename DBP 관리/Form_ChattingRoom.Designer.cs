@@ -32,9 +32,10 @@
             this.buttonSend = new System.Windows.Forms.Button();
             this.textBoxSend = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonNoticeVisible = new System.Windows.Forms.Button();
+            this.textBoxSearchMsg = new System.Windows.Forms.TextBox();
+            this.buttonSearchMsg = new System.Windows.Forms.Button();
             this.listBoxHistory = new System.Windows.Forms.ListBox();
+            this.buttonHistory = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -84,28 +85,30 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "message";
             // 
-            // textBox1
+            // textBoxSearchMsg
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(24, 75);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(772, 57);
-            this.textBox1.TabIndex = 11;
+            this.textBoxSearchMsg.BackColor = System.Drawing.Color.White;
+            this.textBoxSearchMsg.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxSearchMsg.Location = new System.Drawing.Point(24, 75);
+            this.textBoxSearchMsg.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBoxSearchMsg.Multiline = true;
+            this.textBoxSearchMsg.Name = "textBoxSearchMsg";
+            this.textBoxSearchMsg.Size = new System.Drawing.Size(772, 57);
+            this.textBoxSearchMsg.TabIndex = 11;
             // 
-            // buttonNoticeVisible
+            // buttonSearchMsg
             // 
-            this.buttonNoticeVisible.BackColor = System.Drawing.Color.White;
-            this.buttonNoticeVisible.Font = new System.Drawing.Font("맑은 고딕", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonNoticeVisible.Location = new System.Drawing.Point(797, 75);
-            this.buttonNoticeVisible.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonNoticeVisible.Name = "buttonNoticeVisible";
-            this.buttonNoticeVisible.Size = new System.Drawing.Size(49, 58);
-            this.buttonNoticeVisible.TabIndex = 12;
-            this.buttonNoticeVisible.Text = "공지";
-            this.buttonNoticeVisible.UseVisualStyleBackColor = false;
+            this.buttonSearchMsg.BackColor = System.Drawing.Color.White;
+            this.buttonSearchMsg.Font = new System.Drawing.Font("맑은 고딕", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSearchMsg.ForeColor = System.Drawing.Color.Black;
+            this.buttonSearchMsg.Location = new System.Drawing.Point(797, 75);
+            this.buttonSearchMsg.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonSearchMsg.Name = "buttonSearchMsg";
+            this.buttonSearchMsg.Size = new System.Drawing.Size(49, 58);
+            this.buttonSearchMsg.TabIndex = 12;
+            this.buttonSearchMsg.Text = "검색";
+            this.buttonSearchMsg.UseVisualStyleBackColor = false;
+            this.buttonSearchMsg.Click += new System.EventHandler(this.buttonSearchMsg_Click);
             // 
             // listBoxHistory
             // 
@@ -118,14 +121,30 @@
             this.listBoxHistory.Size = new System.Drawing.Size(820, 284);
             this.listBoxHistory.TabIndex = 15;
             // 
+            // buttonHistory
+            // 
+            this.buttonHistory.BackColor = System.Drawing.Color.White;
+            this.buttonHistory.Font = new System.Drawing.Font("맑은 고딕", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonHistory.ForeColor = System.Drawing.Color.Black;
+            this.buttonHistory.Location = new System.Drawing.Point(797, 74);
+            this.buttonHistory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonHistory.Name = "buttonHistory";
+            this.buttonHistory.Size = new System.Drawing.Size(49, 58);
+            this.buttonHistory.TabIndex = 16;
+            this.buttonHistory.Text = "대화내역";
+            this.buttonHistory.UseVisualStyleBackColor = false;
+            this.buttonHistory.Visible = false;
+            this.buttonHistory.Click += new System.EventHandler(this.buttonHistory_Click);
+            // 
             // Form_ChattingRoom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
             this.ClientSize = new System.Drawing.Size(876, 607);
-            this.Controls.Add(this.buttonNoticeVisible);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.buttonHistory);
+            this.Controls.Add(this.buttonSearchMsg);
+            this.Controls.Add(this.textBoxSearchMsg);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonSend);
@@ -147,8 +166,9 @@
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.TextBox textBoxSend;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button buttonNoticeVisible;
+        private System.Windows.Forms.TextBox textBoxSearchMsg;
+        private System.Windows.Forms.Button buttonSearchMsg;
         private System.Windows.Forms.ListBox listBoxHistory;
+        private Button buttonHistory;
     }
 }

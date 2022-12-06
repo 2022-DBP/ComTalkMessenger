@@ -82,7 +82,7 @@ namespace DBP_관리
         {
             Font ft = new Font(Font, Size);
             listBoxHistory.Font = ft;
-            textBox1.Font = ft;
+            textBoxSearchMsg.Font = ft;
             textBoxSend.Font = ft;
         }
 
@@ -214,6 +214,11 @@ namespace DBP_관리
         }
         private void CallMsgHistory()
         {//쿼리를 실행하고 그 결과를 배열의 형태로 받아온다.
+
+            listBoxHistory.DataSource = null;
+            listBoxHistory.Items.Clear();
+            messageList.Clear();
+
             string query = "select CONCAT(`From`,\":\",msgText) as msg from Chatting where Roomid =" + chattingRoomID;
             using (MySqlConnection connection = new MySqlConnection("Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;"))
             {
@@ -228,12 +233,57 @@ namespace DBP_관리
             }
             foreach (var item in messageList)
             {
-                listBoxHistory.Items.Add(item);//제일귀찮다이거진짜.....
+                listBoxHistory.Items.Add(item);
             }
             RefreshListBox();
 
         }
 
+        private void buttonSearchMsg_Click(object sender, EventArgs e)
+        {
+            listBoxHistory.DataSource = null;
+            listBoxHistory.Items.Clear();
+            messageList.Clear();
+            string searchMsg = textBoxSearchMsg.Text;
+            string query = "select CONCAT(`From`,\":\",msgText) from Chatting where Roomid=" + chattingRoomID+"&&msgText LIKE \"%"+searchMsg+"%\"";
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection("Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;"))
+                {
+                    string[] readerUse = { };
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        messageList.Add(reader[0].ToString());
+                    }
+                }
+                foreach (var item in messageList)
+                {
+                    listBoxHistory.Items.Add(item);
+                }
+            }
+            catch(Exception)
+            {
+                messageList.Add("검색 결과가 없습니다.");
+            }
+            RefreshListBox();
+            buttonHistory.Visible = true;
+        }
+
+        private void buttonHistory_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CallMsgHistory();
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            buttonHistory.Visible = false;
+        }
     }
 
 }
