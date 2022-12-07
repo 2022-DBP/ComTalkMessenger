@@ -315,7 +315,7 @@ namespace DBP_관리 {
 
 		private void Check_PriChat(int user_id) {
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "SELECT department.dpt_name, team.team_name, USER.USER_name FROM department, team, USER WHERE department.id = USER.department_id AND team.id = USER.team_id AND USER.ID IN(SELECT USER_ID2 FROM USER_PriChat WHERE USER_ID2 != " + user_id + "); ";
+			string query = "SELECT department.dpt_name, team.team_name, USER.USER_name FROM department, team, USER WHERE department.id = USER.department_id AND team.id = USER.team_id AND USER.ID IN(SELECT User_ID2 FROM USER_PriChat WHERE User_ID1 = " + user_id + ");";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
@@ -331,7 +331,7 @@ namespace DBP_관리 {
 				}
 			}
 
-			query = "SELECT department.dpt_name, team.team_name, USER.USER_name FROM department, team, USER WHERE department.id = USER.department_id AND team.id = USER.team_id AND USER.ID IN(SELECT USER_ID1 FROM USER_PriChat WHERE USER_ID1 != " + user_id + "); ";
+			query = "SELECT department.dpt_name, team.team_name, USER.USER_name FROM department, team, USER WHERE department.id = USER.department_id AND team.id = USER.team_id AND USER.ID IN(SELECT User_ID1 FROM USER_PriChat WHERE User_ID2 = " + user_id + ");";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
