@@ -121,7 +121,7 @@ namespace DBP_관리 {
 			//이미 사용자와 대화 제한을 걸었던 부서, 팀, 직원은 체크를 해둬야함
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "SELECT department.dpt_name, team.team_name, group_concat(USER.USER_name) FROM department, team, USER, USER_PriChat WHERE USER_PriChat.UnableChat_User_ID = USER.ID AND USER_PriChat.User_id = " + user_id + " AND department.id = USER.department_id AND team.id = USER.team_id GROUP BY department.dpt_name, team.team_name;";
+			string query = "c";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();

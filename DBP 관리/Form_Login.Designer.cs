@@ -88,7 +88,7 @@
             // 
             // autoLoginCheck
             // 
-            this.autoLoginCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.autoLoginCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.autoLoginCheck.AutoSize = true;
             this.autoLoginCheck.ForeColor = System.Drawing.Color.White;
@@ -123,7 +123,7 @@
             // 
             // autoInputCheck
             // 
-            this.autoInputCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.autoInputCheck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.autoInputCheck.AutoSize = true;
             this.autoInputCheck.ForeColor = System.Drawing.Color.White;

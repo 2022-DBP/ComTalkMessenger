@@ -652,6 +652,13 @@ namespace DBP_관리
 
                 if (rdr.Read())
                 {
+                    if (rdr[0].ToString() == "" || rdr[1].ToString() == "")
+                    {
+                        Font = "맑은 고딕";
+                        Size = 10;
+                        Apply_Font();
+                        return;
+                    }
                     Font = rdr[0].ToString();
                     Size = Convert.ToInt32(rdr[1].ToString());
                     Apply_Font();
