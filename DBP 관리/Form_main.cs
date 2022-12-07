@@ -750,5 +750,11 @@ namespace DBP_관리
             Chatting_Start();
 
         }
+
+        private void 날씨정보ToolStripMenuItem_Click(object sender, EventArgs e) {
+			string ID = Get_ID(receivedData);
+			Form_Weather formWeather = new Form_Weather(ID);
+			formWeather.ShowDialog();
+		}
     }
 }

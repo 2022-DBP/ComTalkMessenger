@@ -298,7 +298,7 @@ namespace DBP_관리 {
 			list_PriChat.Clear();
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-			string query = "SELECT dpt_name, team_name, USER_name FROM department, team, USER WHERE team.dpt_id = department.id AND department.id = USER.department_id AND team.id = USER.team_id;";
+			string query = "SELECT dpt_name, team_name, USER_name FROM department, team, USER WHERE team.dpt_id = department.id AND department.id = USER.department_id AND team.id = USER.team_id AND USER.ID != " + user_id + ";";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
