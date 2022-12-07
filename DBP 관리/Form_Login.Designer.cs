@@ -178,6 +178,7 @@
             this.Controls.Add(this.autoLoginCheck);
             this.Name = "Form_Login";
             this.Text = "Comtalk Messenger";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Login_FormClosing);
             this.Load += new System.EventHandler(this.Form_Login_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

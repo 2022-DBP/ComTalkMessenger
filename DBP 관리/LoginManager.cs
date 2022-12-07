@@ -52,6 +52,7 @@ namespace DBP_관리
                 conn.Close();
             }
         }
+
         public void LoadUserData(string id, PictureBox image, TextBox name, TextBox nick, TextBox zipcode, TextBox road, TextBox landlord)
         {
             string SQL = string.Empty;
@@ -160,6 +161,24 @@ namespace DBP_관리
                 }
             }
         }
+        public void GetWeather()
+        {
+            string url = "http://kdh5394.cafe24.com/getweather.php";
+
+            var request = (HttpWebRequest)WebRequest.Create(url);
+
+            string results = string.Empty;
+            HttpWebResponse response;
+            using (response = request.GetResponse() as HttpWebResponse)
+            {
+                StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+                results = reader.ReadToEnd();
+
+                var par1 = results.Split('<');
+
+       //         Debug.WriteLine(par1[]);
+            }
+        }
 
         // 파일 가져오는 기능 
         public void GetImage(string id, PictureBox image)
@@ -203,10 +222,10 @@ namespace DBP_관리
                 reader.Close();
                 conn.Close();
             }
-
         }
 
-        public void ChangeProfile(string id, string name, string nick,
+        // 이미 변경된 텍스트 값을 이용해서 최종 데이터를 변경한다
+        public void ChangeProfile(string id, string name, string originNick, string nick,
                     string pass, string zipcode, string road, string landlord)
         {
             // 이미지 넣기 전 BLOB 형식에 넣을 수 있게 변환
@@ -222,14 +241,19 @@ namespace DBP_관리
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.ExecuteNonQuery();
 
-                    conn.Close();
 
                     MessageBox.Show("회원 정보가 변경되었습니다.");
+
+                    query = $"UPDATE Room SET USER1 = CASE WHEN USER1 = '{originNick}' THEN '{nick}'  ELSE USER1 END, USER2 = CASE WHEN USER2 = '{originNick}' THEN '{nick}' ELSE USER2 END WHERE USER1 = '{originNick}' OR USER2 = '{originNick}'";
+                    cmd.CommandText = query;
+                    cmd.ExecuteNonQuery();
+
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
                 }
+                conn.Close();
             }
         }
     }

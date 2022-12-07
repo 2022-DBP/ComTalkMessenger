@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChattingFormServerCversion
 {
+    [System.Serializable]
     class ClientData
     {
         public static bool isdebug = false;

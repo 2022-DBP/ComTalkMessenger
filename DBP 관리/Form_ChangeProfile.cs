@@ -17,6 +17,7 @@ namespace DBP_관리
     {
         public DataEventHandler dataEvent;
         string receivedData;
+        private string originNick;
         public Form_ChangeProfile(string data, string ID)
         {
             receivedData = data;
@@ -106,11 +107,12 @@ namespace DBP_관리
         private void Form_ChangeProfile_Load(object sender, EventArgs e)
         {
             LoginManager.Instance.LoadUserData(receivedData, pictureBox1, txt_name, txt_nickname, txt_zipCode, txt_roadAddress, txt_landlordAddress);
+            originNick = txt_nickname.Text;
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            LoginManager.Instance.ChangeProfile(receivedData, txt_name.Text, txt_nickname.Text, txt_password.Text, txt_zipCode.Text, txt_roadAddress.Text, txt_landlordAddress.Text);
+            LoginManager.Instance.ChangeProfile(receivedData, txt_name.Text, originNick, txt_nickname.Text, txt_password.Text, txt_zipCode.Text, txt_roadAddress.Text, txt_landlordAddress.Text);
             dataEvent("변경");
             this.Close();
         }

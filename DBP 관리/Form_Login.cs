@@ -16,6 +16,7 @@ namespace DBP_관리
         public Form_Login()
         {
             InitializeComponent();
+            LoginManager.Instance.GetWeather();
         }
 
 
@@ -68,6 +69,12 @@ namespace DBP_관리
             }
         }
 
+<<<<<<< Updated upstream
+=======
+        private void Form_Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
+>>>>>>> Stashed changes
     }
 }
 
