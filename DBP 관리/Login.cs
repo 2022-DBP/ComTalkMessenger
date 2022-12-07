@@ -61,13 +61,13 @@ namespace DBP_관리
         }
 
         // 관리자 로그인용
-        public void OnLogin(string id, string pass)
+        public void OnLogin(string id, string pass, FormAdmin_Login Alogin)
         {
             using (MySqlConnection conn = new MySqlConnection(LoginManager.code))
             {
                 conn.Open();
 
-                string query = $"SELECT USER_id, USER_password FROM USER WHERE USER_id = '{id}' AND USER_password = (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256))))";
+                string query = $"SELECT * FROM Admin WHERE Admin_ID = '{id}' AND Admin_PW = (select hex(aes_encrypt('{pass}', SHA2('abcabc', 256))))";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -75,11 +75,13 @@ namespace DBP_관리
                 // 데이터가 존재할 경우 일치하다고 판단하고 로그인
                 if (reader.HasRows)
                 {
-                    reader.Close();
-                    string logquery = $"insert into Login_log (user_id, log_time, log_type) " +
-                        $"values ((select ID from USER where USER_id = '{id}'), '{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}', 'in')";
-                    cmd.CommandText = logquery;
-                    cmd.ExecuteNonQuery();
+                    Point temp = Alogin.Location;
+
+                    Alogin.Hide();
+                    FormAdmin_Dpt frm = new FormAdmin_Dpt();
+                    frm.Location = temp;
+                    frm.Owner = Alogin;
+                    frm.Show();
                 }
                 // 데이터가 존재하지 않을 경우 아이디 또는 비밀번호가 일치하지 않음
                 else
