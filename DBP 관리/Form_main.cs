@@ -187,7 +187,8 @@ namespace DBP_관리
         {
             try
             {
-                string ip = "172.16.2.105";
+                string ip = "172.16.0.171";
+
                 string parsedID = "%^&";
                 parsedID += myID+"#"+ myNickName;
 
@@ -716,7 +717,6 @@ namespace DBP_관리
                     Apply_Font();
                     return;
                 }
-                MessageBox.Show("설정된 폰트가 없습니다.");
             }
         }
 
