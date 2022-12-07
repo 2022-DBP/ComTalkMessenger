@@ -15,7 +15,7 @@ namespace DBP_관리 {
     public partial class FormAdmin_User_Chat : Form {
 		private string user_name;
 		private int user_id;
-		private string Room_id;
+		List<string> Room_id = new List<string>();
 		private string date;
 		private string keyword;
 
@@ -72,7 +72,7 @@ namespace DBP_관리 {
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
 				while (rdr.Read()) {
-					Room_id = rdr[0].ToString();
+					Room_id.Add(rdr[0].ToString());
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -98,8 +98,10 @@ namespace DBP_관리 {
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
+				Room_id.Clear();
+
 				while (rdr.Read()) {
-					Room_id = rdr[0].ToString();
+					Room_id.Add(rdr[0].ToString());
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -125,7 +127,7 @@ namespace DBP_관리 {
 				listBox_Chat_Search.Items.Clear();
 
 				string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-				string query = "SELECT Chatting.To, Chatting.From, msgText FROM Chatting WHERE Roomid = " + Room_id + " AND Chatting.when LIKE '" + date + "%';";
+				string query = "SELECT Chatting.To, Chatting.From, msgText FROM Chatting WHERE Roomid = " + Room_id[listBox_Chat_Time_Search.SelectedIndex] + " AND Chatting.when LIKE '" + date + "%';";
 
 				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 					connection.Open();
@@ -151,8 +153,10 @@ namespace DBP_관리 {
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
+				Room_id.Clear();
+
 				while (rdr.Read()) {
-					Room_id = rdr[0].ToString();
+					Room_id.Add(rdr[0].ToString());
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -178,8 +182,10 @@ namespace DBP_관리 {
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
+				Room_id.Clear();
+
 				while (rdr.Read()) {
-					Room_id = rdr[0].ToString();
+					Room_id.Add(rdr[0].ToString());
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -205,7 +211,7 @@ namespace DBP_관리 {
 				listBox_Chat_Search.Items.Clear();
 
 				string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-				string query = "SELECT Chatting.To, Chatting.From, msgText FROM Chatting WHERE Roomid = " + Room_id + " AND Chatting.msgText LIKE '%" + keyword + "%'; ";
+				string query = "SELECT Chatting.To, Chatting.From, msgText FROM Chatting WHERE Roomid = " + Room_id[listBox_Chat_Keyword_Search.SelectedIndex] + " AND Chatting.msgText LIKE '%" + keyword + "%'; ";
 
 				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 					connection.Open();
