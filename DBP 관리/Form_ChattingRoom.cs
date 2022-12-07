@@ -26,6 +26,7 @@ namespace DBP_관리
         private string chattingPartner = null;
         private TcpClient client = null;
         private string chattingRoomID = "";
+        private string user_nickname = "";
         private ObservableCollection<string> messageList = new ObservableCollection<string>();
 
 
@@ -41,6 +42,7 @@ namespace DBP_관리
 
 			Load_User_Config(user_ID);
             SELECT_Font(user_ID);
+            user_nickname = SearchNickNamewithID(user_ID);
 
             listBoxHistory.Items.Add(messageList.ToString());
             messageList.Add(string.Format("{0}님이 입장하였습니다.", chattingPartnerName));
@@ -162,7 +164,7 @@ namespace DBP_관리
             }
 
 
-            messageList.Add("나: " + message);
+            messageList.Add(user_nickname + ": " + message);
             textBoxSend.Clear();
             RefreshListBox();
         }
@@ -219,8 +221,7 @@ namespace DBP_관리
             listBoxHistory.DataSource = null;
             listBoxHistory.Items.Clear();
             messageList.Clear();
-
-            string query = "select CONCAT(`From`,\":\",msgText) as msg from Chatting where Roomid =" + chattingRoomID;
+            string query = "select CONCAT(USER_nickname,\":\",msgText) from s5469698.Chatting inner join s5469698.USER on USER_id =`From`  where roomID =" + chattingRoomID+" order by `when`";
             using (MySqlConnection connection = new MySqlConnection("Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;"))
             {
                 string[] readerUse = { };
@@ -246,7 +247,7 @@ namespace DBP_관리
             listBoxHistory.Items.Clear();
             messageList.Clear();
             string searchMsg = textBoxSearchMsg.Text;
-            string query = "select CONCAT(`From`,\":\",msgText) from Chatting where Roomid=" + chattingRoomID+"&&msgText LIKE \"%"+searchMsg+"%\"";
+            string query = "select CONCAT(USER_nickname,\":\",msgText) from s5469698.Chatting inner join s5469698.USER on USER_id =`From`  where roomID =" + chattingRoomID + "&&msgText LIKE \"%" + searchMsg + "%\" order by `when`";
             try
             {
                 using (MySqlConnection connection = new MySqlConnection("Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;"))
@@ -284,6 +285,24 @@ namespace DBP_관리
                 return;
             }
             buttonHistory.Visible = false;
+        }
+        private string SearchNickNamewithID(string UserID)
+        {
+            string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
+            string query = "Select USER_nickname from USER where ID=\"" + UserID + "\"";
+
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                string UserNickName = "";
+                while (rdr.Read())
+                {
+                    UserNickName = rdr[0].ToString();
+                }
+                return UserNickName;
+            }
         }
     }
 

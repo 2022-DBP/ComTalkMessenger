@@ -312,16 +312,7 @@ namespace ChattingFormServerCversion
                 if (parsedMessage.Contains("<ChattingStart>"))
                 {//기존 채팅방이 있는지->sender, receiver userID로 query 검색
                     string isRoom = IsRoom(senderNickName, receiverNickName);
-                    if (isRoom == "")//방을 nickname 통해서 검색해야하나?
-                    {
-                        //채팅방 생성
-                        dbmanager.RunQuery("insert into Room(User1,User2) VALUES(\""+receiverNickName+"\",\""+senderNickName+"\")");//roomtable에 insert
-                       
-                    }
-                    else
-                    {//기존에 채팅방 있음.
-                        
-                    }
+                    
                     parsedMessage = string.Format("{0}%{1}<{2}#ChattingStart>", receiverID, receiverNickName, isRoom);//실시간 채팅 시작 부분
                     sendByteData = Encoding.Default.GetBytes(parsedMessage);
                     ClientManager.clientDic[senderNumber].tcpClient.GetStream().Write(sendByteData, 0, sendByteData.Length);
