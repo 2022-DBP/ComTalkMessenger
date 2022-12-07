@@ -99,6 +99,7 @@
 			this.checkedListBox_Pri_Visible_Dpt.Name = "checkedListBox_Pri_Visible_Dpt";
 			this.checkedListBox_Pri_Visible_Dpt.Size = new System.Drawing.Size(341, 328);
 			this.checkedListBox_Pri_Visible_Dpt.TabIndex = 12;
+			this.checkedListBox_Pri_Visible_Dpt.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Visible_Dpt_ItemCheck);
 			// 
 			// button_Pri_Visible_Dpt
 			// 
@@ -134,6 +135,7 @@
 			this.checkedListBox_Pri_Visible_Team.Name = "checkedListBox_Pri_Visible_Team";
 			this.checkedListBox_Pri_Visible_Team.Size = new System.Drawing.Size(341, 328);
 			this.checkedListBox_Pri_Visible_Team.TabIndex = 14;
+			this.checkedListBox_Pri_Visible_Team.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Visible_Team_ItemCheck);
 			// 
 			// button_Pri_Visible_Team
 			// 
@@ -169,6 +171,7 @@
 			this.checkedListBox_Pri_Visible_User.Name = "checkedListBox_Pri_Visible_User";
 			this.checkedListBox_Pri_Visible_User.Size = new System.Drawing.Size(341, 328);
 			this.checkedListBox_Pri_Visible_User.TabIndex = 16;
+			this.checkedListBox_Pri_Visible_User.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Visible_User_ItemCheck);
 			// 
 			// button_Pri_Visible_User
 			// 
@@ -204,6 +207,7 @@
 			this.checkedListBox_Pri_Chat.Name = "checkedListBox_Pri_Chat";
 			this.checkedListBox_Pri_Chat.Size = new System.Drawing.Size(361, 364);
 			this.checkedListBox_Pri_Chat.TabIndex = 5;
+			this.checkedListBox_Pri_Chat.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Chat_ItemCheck);
 			// 
 			// button_Pri_Chat
 			// 

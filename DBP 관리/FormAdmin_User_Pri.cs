@@ -71,6 +71,11 @@ namespace DBP_관리 {
 			}
 		}
 
+		private void checkedListBox_Pri_Visible_Dpt_ItemCheck(object sender, ItemCheckEventArgs e) {
+			//보기제한 부서 체크박스리스트 체크시
+
+		}
+
 		private void Load_PriVisible_Team(int user_id) {
 			//보기제한 팀 리스트 로드
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
@@ -105,6 +110,11 @@ namespace DBP_관리 {
 			}
 		}
 
+		private void checkedListBox_Pri_Visible_Team_ItemCheck(object sender, ItemCheckEventArgs e) {
+			//보기제한 팀 체크박스리스트 체크시
+
+		}
+
 		private void Load_PriVisible_User(int user_id) {
 			//보기제한 유저 리스트 로드
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
@@ -125,6 +135,11 @@ namespace DBP_관리 {
 
 		private void Check_PriVisible_User(int user_id) {
 			//보기제한 유저 체크
+
+		}
+
+		private void checkedListBox_Pri_Visible_User_ItemCheck(object sender, ItemCheckEventArgs e) {
+			//보기제한 유저 체크박스리스트 체크시
 
 		}
 
@@ -156,11 +171,11 @@ namespace DBP_관리 {
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
 				while (rdr.Read()) {
-					foreach(string str in checkedListBox_Pri_Chat.Items) {
-						if (str.Equals(rdr[0].ToString() + " " + rdr[1].ToString() + " " + rdr[2].ToString()))
-							
+					foreach (string str in checkedListBox_Pri_Chat.Items) {
+						if (str.Equals(rdr[0].ToString() + " " + rdr[1].ToString() + " " + rdr[2].ToString())) {
+							checkedListBox_Pri_Chat.SetItemChecked(checkedListBox_Pri_Chat.FindString(str), true);
+						}
 					}
-						
 				}
 			}
 
@@ -172,9 +187,18 @@ namespace DBP_관리 {
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
 				while (rdr.Read()) {
-
+					foreach (string str in checkedListBox_Pri_Chat.Items) {
+						if (str.Equals(rdr[0].ToString() + " " + rdr[1].ToString() + " " + rdr[2].ToString())) {
+							checkedListBox_Pri_Chat.SetItemChecked(checkedListBox_Pri_Chat.FindString(str), true);
+						}
+					}
 				}
 			}
+		}
+
+		private void checkedListBox_Pri_Chat_ItemCheck(object sender, ItemCheckEventArgs e) {
+			//대화 권한 체크리스트박스 체크시
+
 		}
 
 		private void button_Pri_Chat_Click(object sender, EventArgs e) {
