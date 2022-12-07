@@ -44,8 +44,8 @@
 			this.label_Chat_User_Search = new System.Windows.Forms.Label();
 			this.treeView_Chat_User_Search = new System.Windows.Forms.TreeView();
 			this.groupBox_Chat_Search = new System.Windows.Forms.GroupBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.textBox_Chat_Search = new System.Windows.Forms.TextBox();
+			this.label_Chat_Search = new System.Windows.Forms.Label();
+			this.listBox_Chat_Search = new System.Windows.Forms.ListBox();
 			this.tabControl_Chat_Time_Search.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage_Chat_Keyword_Search.SuspendLayout();
@@ -124,10 +124,10 @@
 			this.button_Chat_Time_Search.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_Chat_Time_Search.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_Chat_Time_Search.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_Chat_Time_Search.Location = new System.Drawing.Point(263, 21);
+			this.button_Chat_Time_Search.Location = new System.Drawing.Point(263, 19);
 			this.button_Chat_Time_Search.Margin = new System.Windows.Forms.Padding(2);
 			this.button_Chat_Time_Search.Name = "button_Chat_Time_Search";
-			this.button_Chat_Time_Search.Size = new System.Drawing.Size(73, 22);
+			this.button_Chat_Time_Search.Size = new System.Drawing.Size(73, 24);
 			this.button_Chat_Time_Search.TabIndex = 17;
 			this.button_Chat_Time_Search.Text = "검색";
 			this.button_Chat_Time_Search.UseVisualStyleBackColor = false;
@@ -174,10 +174,10 @@
 			this.button_Chat_Keyword_Search.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_Chat_Keyword_Search.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_Chat_Keyword_Search.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_Chat_Keyword_Search.Location = new System.Drawing.Point(263, 21);
+			this.button_Chat_Keyword_Search.Location = new System.Drawing.Point(263, 20);
 			this.button_Chat_Keyword_Search.Margin = new System.Windows.Forms.Padding(2);
 			this.button_Chat_Keyword_Search.Name = "button_Chat_Keyword_Search";
-			this.button_Chat_Keyword_Search.Size = new System.Drawing.Size(73, 22);
+			this.button_Chat_Keyword_Search.Size = new System.Drawing.Size(73, 23);
 			this.button_Chat_Keyword_Search.TabIndex = 13;
 			this.button_Chat_Keyword_Search.Text = "검색";
 			this.button_Chat_Keyword_Search.UseVisualStyleBackColor = false;
@@ -223,8 +223,8 @@
 			// 
 			// groupBox_Chat_Search
 			// 
-			this.groupBox_Chat_Search.Controls.Add(this.label1);
-			this.groupBox_Chat_Search.Controls.Add(this.textBox_Chat_Search);
+			this.groupBox_Chat_Search.Controls.Add(this.listBox_Chat_Search);
+			this.groupBox_Chat_Search.Controls.Add(this.label_Chat_Search);
 			this.groupBox_Chat_Search.ForeColor = System.Drawing.Color.White;
 			this.groupBox_Chat_Search.Location = new System.Drawing.Point(406, 68);
 			this.groupBox_Chat_Search.Name = "groupBox_Chat_Search";
@@ -233,22 +233,23 @@
 			this.groupBox_Chat_Search.TabStop = false;
 			this.groupBox_Chat_Search.Text = "검색 대화 내역";
 			// 
-			// label1
+			// label_Chat_Search
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(17, 24);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(123, 15);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "[선택 대화 목록 이름]";
+			this.label_Chat_Search.AutoSize = true;
+			this.label_Chat_Search.Location = new System.Drawing.Point(17, 24);
+			this.label_Chat_Search.Name = "label_Chat_Search";
+			this.label_Chat_Search.Size = new System.Drawing.Size(123, 15);
+			this.label_Chat_Search.TabIndex = 1;
+			this.label_Chat_Search.Text = "[선택 대화 목록 이름]";
 			// 
-			// textBox_Chat_Search
+			// listBox_Chat_Search
 			// 
-			this.textBox_Chat_Search.Location = new System.Drawing.Point(17, 44);
-			this.textBox_Chat_Search.Multiline = true;
-			this.textBox_Chat_Search.Name = "textBox_Chat_Search";
-			this.textBox_Chat_Search.Size = new System.Drawing.Size(432, 367);
-			this.textBox_Chat_Search.TabIndex = 0;
+			this.listBox_Chat_Search.FormattingEnabled = true;
+			this.listBox_Chat_Search.ItemHeight = 15;
+			this.listBox_Chat_Search.Location = new System.Drawing.Point(17, 45);
+			this.listBox_Chat_Search.Name = "listBox_Chat_Search";
+			this.listBox_Chat_Search.Size = new System.Drawing.Size(429, 364);
+			this.listBox_Chat_Search.TabIndex = 2;
 			// 
 			// FormAdmin_User_Chat
 			// 
@@ -291,9 +292,9 @@
 		private Button button_Chat_Keyword_Search;
 		private TextBox textBox_Chat_Keyword_Search;
 		private GroupBox groupBox_Chat_Search;
-		private TextBox textBox_Chat_Search;
-		private Label label1;
+		private Label label_Chat_Search;
 		private Label label_Chat_User_Search;
 		private TreeView treeView_Chat_User_Search;
+		private ListBox listBox_Chat_Search;
 	}
 }
