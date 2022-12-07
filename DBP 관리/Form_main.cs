@@ -187,7 +187,7 @@ namespace DBP_관리
         {
             try
             {
-                string ip = myIPAddress;
+                string ip = "172.16.2.105";
                 string parsedID = "%^&";
                 parsedID += myID+"#"+ myNickName;
 
@@ -200,7 +200,6 @@ namespace DBP_관리
 
                 myNickName = SearchNickNamewithID(myID);
 
-                Info.Text = string.Format("{0} 님 반갑습니다 ", myNickName);
 
                 ReceiveThread = new Thread(RecieveMessage);
                 ReceiveThread.Start();
