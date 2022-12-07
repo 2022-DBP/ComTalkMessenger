@@ -33,4 +33,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if exist &quot;$(TargetPath).locked&quot; del &quot;$(TargetPath).locked&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetPath)&quot; if not exist &quot;$(TargetPath).locked&quot; move &quot;$(TargetPath)&quot; &quot;$(TargetPath).locked&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetDir)$(TargetName).pdb.locked&quot; del &quot;$(TargetDir)$(TargetName).pdb.locked&quot;&#xD;&#xA;&#xD;&#xA;if exist &quot;$(TargetDir)$(TargetName).pdb&quot; if not exist &quot;$(TargetDir)$(TargetName).pdb.locked&quot; move &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(TargetDir)$(TargetName).pdb.locked&quot;" />
+  </Target>
+
 </Project>
