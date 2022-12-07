@@ -28,6 +28,7 @@ namespace DBP_관리
                 MessageBox.Show("프로필 이미지를 넣어주세요");
                 return false;
             }
+ 
             FileStream fs = new FileStream(profile, FileMode.Open, FileAccess.Read);
 
             BinaryReader br = new BinaryReader(fs);
@@ -67,6 +68,38 @@ namespace DBP_관리
             return true;
 
         }
+
+        /*
+        // 닉네임 중복 확인
+        public bool CheckRepetition(string id, Label label)
+        {
+            using (MySqlConnection conn = new MySqlConnection(LoginManager.code))
+            {
+                conn.Open();
+                string query = $"SELELCT USER_nickname FROM USER where USER_id = '{id}'";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                if (label.Text == "") return false;
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Close();
+                    label.Text = "닉네임이 중복됩니다";
+                    return false;
+
+                }
+                else
+                {
+                    reader.Close();
+                    label.Text = "";
+                    return true;
+
+                }
+                conn.Close();
+                return true;
+            }
+        }*/
+
 
         // 아이디 중복 확인
         public bool CheckID(string check, string column, bool active)

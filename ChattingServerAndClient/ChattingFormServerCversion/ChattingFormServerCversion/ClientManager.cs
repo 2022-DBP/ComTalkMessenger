@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -11,6 +12,7 @@ using static System.Windows.Forms.AxHost;
 
 namespace ChattingFormServerCversion
 {
+    [System.Serializable]
     class ClientManager
     {
         private static ClientManager instance = new ClientManager();
@@ -33,20 +35,17 @@ namespace ChattingFormServerCversion
                 newClient.GetStream().BeginRead(currentClient.readBuffer, 0, currentClient.readBuffer.Length, new AsyncCallback(DataReceived), currentClient);
                 clientDic.TryAdd(currentClient.clientNumber, currentClient);//유저 식별 번호와, 그외 유저 정보들 ADD
             }
-
             catch (Exception e)
             {
                 RemoveClient(currentClient);
             }
         }
 
-
-
         private void DataReceived(IAsyncResult ar)
         {
             ClientData client = ar.AsyncState as ClientData;
 
-            try
+            try 
             {
                 int byteLength = client.tcpClient.GetStream().EndRead(ar);
 
@@ -84,7 +83,7 @@ namespace ChattingFormServerCversion
             }
             catch (Exception e)
             {
-               // RemoveClient(client);
+               //RemoveClient(client);
             }
         }
         public void RemoveClient(ClientData targetClient)
@@ -94,6 +93,18 @@ namespace ChattingFormServerCversion
                 ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
                 string leaveLog = string.Format("[{0}] {1} Leave Server", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientID);
                 ChangeListBoxAction.Invoke(leaveLog, StaticDefine.ADD_ACCESS_LIST);
+                ChangeListBoxAction.Invoke(result.clientID, StaticDefine.REMOVE_USER_LIST);
+            }
+        }
+
+        public void ChangeProfile(ClientData targetClient)
+        {
+            if (targetClient != null)
+            {
+                ClientData result = null;
+                ClientManager.clientDic.TryRemove(targetClient.clientNumber, out result);
+                string profileLog = string.Format("[{0}] {1} Change Profile", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), result.clientID);
+                ChangeListBoxAction.Invoke(profileLog, StaticDefine.ADD_ACCESS_LIST);
                 ChangeListBoxAction.Invoke(result.clientID, StaticDefine.REMOVE_USER_LIST);
             }
         }

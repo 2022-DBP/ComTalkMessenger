@@ -422,6 +422,32 @@ namespace DBP_관리
                     listBox1.Items.Add(row["USER2"]);
                     listBox1.Items.Remove("" + myNickName + "");
                 }
+                connection.Close();
+            }
+
+        }
+        //대화방 불러오기 기능
+        public void view_list(int mode)
+        {
+            listBox1.Items.Clear();
+            string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
+            string query = "SELECT distinct USER1, USER2 From Room WHERE idRoom IN (SELECT idRoom FROM Room WHERE USER1 = \"" + txt_nick.Text + "\" OR USER2 = \"" + txt_nick.Text + "\" GROUP BY idRoom);";
+
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                DataTable dt = new DataTable();
+                dt.Load(rdr);
+                foreach (DataRow row in dt.Rows)
+                {
+                    listBox1.Items.Add(row["USER1"]);
+                    listBox1.Items.Add(row["USER2"]);
+                    listBox1.Items.Remove("" + txt_nick.Text + "");
+                }
+                connection.Close();
             }
 
         }
@@ -484,16 +510,29 @@ namespace DBP_관리
         //로그아웃 기능
         private void btn_main_logout_Click(object sender, EventArgs e)
         {
-            SendClosingMSG();
             LoginManager.Instance.Logout(receivedData);
-            MessageBox.Show("로그아웃 되었습니다.");
-            Owner.Show();
-            Application.Restart();
+            this.Close();
+
+            if(Owner == null)
+            {
+                SendClosingMSG();
+                Form_Login fl = new Form_Login();
+                MessageBox.Show("로그아웃 되었습니다.");
+                fl.Show();
+
+            }
+            else
+            {
+                SendClosingMSG();
+                MessageBox.Show("로그아웃 되었습니다.");
+                Owner.Show();
+                Owner.ShowInTaskbar = true;
+            }
         }
 
+        // 프로필 변경하는 기능
         private void label_profile_click(object sender, EventArgs e)
         {
-            SendClosingMSG();//리스트와, 현재 유저 리스트에서 유저를 삭제하도록 서버에 메세지를 보낸다.
             string ID = Get_ID(receivedData);
 			Form_ChangeProfile cp = new Form_ChangeProfile(receivedData, ID);
             cp.dataEvent += new DataEventHandler(this.CheckEvent);
@@ -502,9 +541,7 @@ namespace DBP_관리
 
         private void Form_main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SendClosingMSG();
 
-            Owner.Show();
         }
 
         private bool Cheak_api(string me, string to)
@@ -583,6 +620,14 @@ namespace DBP_관리
         public void CheckEvent(string check)
         {
             LoginManager.Instance.LoadUserData(receivedData, main_profile, txt_nick, txt_department, txt_team);
+            view_list(1);
+            Debug.WriteLine("DOnttqwrqwerf");
+            SendChangeProfile();
+            Form_main fm = new Form_main(receivedData);
+            this.Hide();
+            fm.Owner = this.Owner;
+            fm.Show();
+            this.Close();
         }
 
         // 종료 기능
@@ -595,6 +640,13 @@ namespace DBP_관리
         private void SendClosingMSG()//서버에 채팅 종료를 알립니다. 그러면 현재 접속 중인 유저에서 삭제되고, 서버 로그에 표시됩니다.
         {
             string parsedMessage = string.Format("{0}%{1}<CloseClient>", myID,myNickName);
+            byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
+            client.GetStream().Write(byteData, 0, byteData.Length);
+        }
+
+        private void SendChangeProfile()
+        {
+            string parsedMessage = string.Format("{0}%{1}<ChangeProfile>", myID, myNickName);
             byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
             client.GetStream().Write(byteData, 0, byteData.Length);
         }
@@ -617,6 +669,7 @@ namespace DBP_관리
             }
         }
 
+        #region 추가 기능
         private void 생일ToolStripMenuItem_Click(object sender, EventArgs e) {
 			string ID = Get_ID(receivedData);
 			Form_Birthday formBirthday = new Form_Birthday(ID);
@@ -688,11 +741,14 @@ namespace DBP_관리
             SELECT_Font(ID);
         }
 
+        #endregion
+       
         private void listBox_click(object sender, EventArgs e)
         {
             OneOnOneReceiverName = listBox1.SelectedItem.ToString();
             OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
             Chatting_Start();
+
         }
     }
 }

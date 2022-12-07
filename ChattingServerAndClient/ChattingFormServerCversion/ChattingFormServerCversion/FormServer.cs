@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using MySqlX.XDevAPI.Common;
-
+using System.Diagnostics;
 
 namespace ChattingFormServerCversion
 {
@@ -227,8 +227,17 @@ namespace ChattingFormServerCversion
                 //0.채팅 종료를 요청할 시 클라이언트 리스트에서 sender를 지워준다.
                 if (parsedMessage.Contains("<CloseClient>"))
                 {
+                    Debug.WriteLine("1");
                     ClientManager.clientDic.TryGetValue(senderNumber, out ClientData closingClientData);
                     clientManager.RemoveClient(closingClientData);
+                    return;
+                }
+
+                if (parsedMessage.Contains("<ChangeProfile>"))
+                {
+                    Debug.WriteLine("반응");
+                    ClientManager.clientDic.TryGetValue(senderNumber, out ClientData closingClientData);
+                    clientManager.ChangeProfile(closingClientData);
                     return;
                 }
 

@@ -107,17 +107,7 @@ namespace DBP_관리
             address.sendEvent += new DataGetEventHandler(this.DataGet);
 
             address.ShowDialog();
-            /*
-            if(address.ShowDialog() == DialogResult.OK)
-            {
-                txt_address = ReceivedData;
-                var ad = txt_address.Split('\n');
 
-                txt_zipCode.Text = ad[0];
-                txt_roadAddress.Text = ad[1];
-                txt_landlordAddress.Text = ad[2];
-            }
-            */
         }
 
         private void DataGet(string data)
@@ -133,5 +123,6 @@ namespace DBP_관리
         {
             Owner.Show();
         }
+
     }
 }
