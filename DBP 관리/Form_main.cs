@@ -558,7 +558,7 @@ namespace DBP_관리
         private bool Cheak_api(string me, string to)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
-            string query = "SELECT * FROM s5469698.USER_PriChat where (User_ID1 = '"+me+"' AND User_ID2 = (select USER.ID FROM USER WHERE USER.USER_nickname ='"+to+"')) OR (User_ID1 ='"+to+"' AND User_ID2 =(select USER.ID FROM USER WHERE USER.USER_nickname = '"+me+"'));";
+            string query = "SELECT * FROM s5469698.USER_PriChat where (User_ID1 = " + me + " AND User_ID2 = (select USER.ID FROM USER WHERE USER.USER_nickname ='" + to + "')) OR (User_ID2 = " + me + " AND User_ID1 =(select USER.ID FROM USER WHERE USER.USER_nickname = '" + to + "'));";
             using (MySqlConnection connection = new MySqlConnection(conn))
             {
                 connection.Open();
