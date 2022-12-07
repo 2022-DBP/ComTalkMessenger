@@ -8,6 +8,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace DBP_관리
         private static int Size = 0;
         public static string myID = null;
         public static string myNickName = null;
+        public static string myIPAddress = null;
         TcpClient client = null;
         Thread ReceiveThread = null;
         Form_ChattingRoom chattingWindow = null;
@@ -173,8 +175,7 @@ namespace DBP_관리
             myID = receivedData;//로그인할때 정보를 받아올 것
                                 //로그인할 때 쓰는 User_id 말고 int형인 ID여야 합니다.->추후 clientNumber로 사용
             myNickName = SearchNickNamewithID(myID);
-
-            textBoxIPAdress.Text = "127.0.0.1";
+            myIPAddress = GetIP();
 
             Login();
 
@@ -186,7 +187,7 @@ namespace DBP_관리
         {
             try
             {
-                string ip = textBoxIPAdress.Text;
+                string ip = myIPAddress;
                 string parsedID = "%^&";
                 parsedID += myID+"#"+ myNickName;
 
@@ -211,7 +212,20 @@ namespace DBP_관리
                 client = null;
             }
         }
-
+        private string GetIP()
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            string myIP = string.Empty;
+            for (int i = 0; i < host.AddressList.Length; i++)
+            {
+                if (host.AddressList[i].AddressFamily == AddressFamily.InterNetwork)
+                {
+                    myIP = host.AddressList[i].ToString();
+                    break;
+                }
+            }
+            return myIP;
+        }
 
 		private string Get_ID(string Data) {
 			string ID = "";
