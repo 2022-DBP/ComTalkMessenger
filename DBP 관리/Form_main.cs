@@ -579,23 +579,10 @@ namespace DBP_관리
                 byte[] chattingStartByte = UTF8Encoding.UTF8.GetBytes(chattingStartMessage);
                 client.GetStream().Write(chattingStartByte, 0, chattingStartByte.Length);//서버에 보내는 부분
             }
+            view_list();
         }      
 
-        //왼쪽 버튼      룸도 이미 보여지기 때문에 이를 어떤 방식으로 옮겨야하는지 모르겠음.
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (listBox1.SelectedItem == null)
-            {
-                MessageBox.Show("채팅방을 선택해주세요.", "Information");
-                return;
-            }
-            else
-            {
-                OneOnOneReceiverName = listBox1.SelectedItem.ToString();
-                OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
-                Chatting_Start();
-            }
-        }
+  
         private string SearchIDwithNickName(string UserNickName)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
