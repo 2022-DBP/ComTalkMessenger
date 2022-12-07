@@ -29,7 +29,6 @@ namespace DBP_관리
         private string user_nickname = "";
         private ObservableCollection<string> messageList = new ObservableCollection<string>();
 
-
         public Form_ChattingRoom(TcpClient client, string chattingPartner, string RoomID, string user_ID)
         {
             string[] SplitedSender = chattingPartner.Split('%');
@@ -205,8 +204,6 @@ namespace DBP_관리
                     messageList.Add(string.Format("{0}: {1}", sender, message)); RefreshListBox(); ;
                 }));
             }
-            MessageBox.Show(sender+":"+ message);
-
         }
         private void RefreshListBox()
         {

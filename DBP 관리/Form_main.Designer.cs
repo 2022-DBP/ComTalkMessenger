@@ -284,6 +284,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
 			this.ClientSize = new System.Drawing.Size(1326, 644);
+			this.ControlBox = false;
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.group_profile);
 			this.Controls.Add(this.listBox1);
