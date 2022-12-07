@@ -152,6 +152,9 @@ namespace DBP_관리
                             chattingThread.IsBackground = true;
                             chattingThread.Start();
                         }
+                        else {
+                            MessageBox.Show(chattingPartner + "님에게서 메세지가 도착하였습니다.");
+                        }
                     }
                     else
                     {
@@ -198,7 +201,7 @@ namespace DBP_관리
         {
             try
             {
-                string ip = GetIP();
+                string ip = "172.16.0.70";
                 Debug.WriteLine(ip);
                 string parsedID = "%^&";
                 // 172.16.0.70
