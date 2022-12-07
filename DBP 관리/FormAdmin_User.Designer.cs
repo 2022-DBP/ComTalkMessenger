@@ -154,9 +154,9 @@
 			this.groupBox_User_Dpt.Controls.Add(this.treeView_User);
 			this.groupBox_User_Dpt.ForeColor = System.Drawing.Color.White;
 			this.groupBox_User_Dpt.Location = new System.Drawing.Point(37, 91);
-			this.groupBox_User_Dpt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_Dpt.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox_User_Dpt.Name = "groupBox_User_Dpt";
-			this.groupBox_User_Dpt.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_Dpt.Padding = new System.Windows.Forms.Padding(4);
 			this.groupBox_User_Dpt.Size = new System.Drawing.Size(467, 580);
 			this.groupBox_User_Dpt.TabIndex = 7;
 			this.groupBox_User_Dpt.TabStop = false;
@@ -180,9 +180,9 @@
 			this.groupBox_User_DptChange.Controls.Add(this.button_User_DptChange);
 			this.groupBox_User_DptChange.ForeColor = System.Drawing.Color.White;
 			this.groupBox_User_DptChange.Location = new System.Drawing.Point(522, 121);
-			this.groupBox_User_DptChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_DptChange.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox_User_DptChange.Name = "groupBox_User_DptChange";
-			this.groupBox_User_DptChange.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_DptChange.Padding = new System.Windows.Forms.Padding(4);
 			this.groupBox_User_DptChange.Size = new System.Drawing.Size(606, 271);
 			this.groupBox_User_DptChange.TabIndex = 8;
 			this.groupBox_User_DptChange.TabStop = false;
@@ -211,7 +211,7 @@
 			// treeView_User_DptChange
 			// 
 			this.treeView_User_DptChange.Location = new System.Drawing.Point(13, 32);
-			this.treeView_User_DptChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.treeView_User_DptChange.Margin = new System.Windows.Forms.Padding(4);
 			this.treeView_User_DptChange.Name = "treeView_User_DptChange";
 			this.treeView_User_DptChange.Size = new System.Drawing.Size(284, 215);
 			this.treeView_User_DptChange.TabIndex = 0;
@@ -226,9 +226,9 @@
 			this.groupBox_User_Log.Controls.Add(this.dataGridView_User_Log);
 			this.groupBox_User_Log.ForeColor = System.Drawing.Color.White;
 			this.groupBox_User_Log.Location = new System.Drawing.Point(522, 400);
-			this.groupBox_User_Log.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_Log.Margin = new System.Windows.Forms.Padding(4);
 			this.groupBox_User_Log.Name = "groupBox_User_Log";
-			this.groupBox_User_Log.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_User_Log.Padding = new System.Windows.Forms.Padding(4);
 			this.groupBox_User_Log.Size = new System.Drawing.Size(606, 271);
 			this.groupBox_User_Log.TabIndex = 9;
 			this.groupBox_User_Log.TabStop = false;
@@ -247,7 +247,7 @@
 			// dateTimePicker_User_Log2
 			// 
 			this.dateTimePicker_User_Log2.Location = new System.Drawing.Point(265, 27);
-			this.dateTimePicker_User_Log2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dateTimePicker_User_Log2.Margin = new System.Windows.Forms.Padding(4);
 			this.dateTimePicker_User_Log2.Name = "dateTimePicker_User_Log2";
 			this.dateTimePicker_User_Log2.Size = new System.Drawing.Size(217, 27);
 			this.dateTimePicker_User_Log2.TabIndex = 12;
@@ -278,7 +278,7 @@
 			// 
 			this.dataGridView_User_Log.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView_User_Log.Location = new System.Drawing.Point(13, 68);
-			this.dataGridView_User_Log.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.dataGridView_User_Log.Margin = new System.Windows.Forms.Padding(4);
 			this.dataGridView_User_Log.Name = "dataGridView_User_Log";
 			this.dataGridView_User_Log.RowHeadersWidth = 51;
 			this.dataGridView_User_Log.RowTemplate.Height = 25;
@@ -306,6 +306,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
 			this.ClientSize = new System.Drawing.Size(1156, 729);
+			this.ControlBox = false;
 			this.Controls.Add(this.button_User_Chat);
 			this.Controls.Add(this.groupBox_User_Log);
 			this.Controls.Add(this.groupBox_User_DptChange);

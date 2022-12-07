@@ -128,10 +128,21 @@ namespace DBP_관리
                         messageList.Clear();
                         return;
                     }
-                    
-                    // 1:1채팅
 
-                    if (!chattingThreadDic.ContainsKey(chattingPartner))
+					if (InvokeRequired) //만든 쓰레드가 메인 쓰레드와 충돌할때
+                    {
+						Invoke(new MethodInvoker(delegate ()
+						{
+                            view_list();
+						}));
+					}
+					else {
+                        view_list();
+					}
+
+					// 1:1채팅
+
+					if (!chattingThreadDic.ContainsKey(chattingPartner))
                     {
                         string RoomID = message.Split('#')[0];
                         if (message.Split('#')[1] == "ChattingStart")//채팅 시작 요청
@@ -187,9 +198,10 @@ namespace DBP_관리
         {
             try
             {
-                string ip = "172.16.2.105";
-
+                string ip = GetIP();
+                Debug.WriteLine(ip);
                 string parsedID = "%^&";
+                // 172.16.0.70
                 parsedID += myID+"#"+ myNickName;
 
                 client = new TcpClient();
@@ -340,7 +352,7 @@ namespace DBP_관리
             string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_nickname) FROM s5469698.department left join s5469698.team on department.id = team.dpt_id " +
                 "AND team.id NOT IN(SELECT team.id FROM team, USER_Visible WHERE team.id = USER_Visible.UnableChat_Team_ID AND USER_Visible.User_ID ='"+ID+"')" +
                 "left join s5469698.USER on USER.team_id = team.id AND USER.ID NOT IN(SELECT USER.ID FROM USER, USER_Visible WHERE USER.ID = USER_Visible.UnableChat_User_ID AND USER_Visible.User_ID = '"+ID+"')" +
-                "where department.id NOT IN(SELECT department.id FROM department, USER_Visible WHERE department.id = USER_Visible.UnableChat_Dpt_ID AND USER_Visible.User_ID = '"+ID+"')" +
+                "where USER.ID != " + ID + " AND department.id NOT IN(SELECT department.id FROM department, USER_Visible WHERE department.id = USER_Visible.UnableChat_Dpt_ID AND USER_Visible.User_ID = '"+ID+"')" +
                 "group by department.dpt_name, team.team_name;";
             using (MySqlConnection connection = new MySqlConnection(Connection_string))
             {
@@ -404,7 +416,7 @@ namespace DBP_관리
         //대화방 불러오기 기능
         public void view_list()
         {
-            listBox1.Items.Clear();
+            this.listBox1.Items.Clear();
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
             string query = "SELECT distinct USER1, USER2 From Room WHERE idRoom IN (SELECT idRoom FROM Room WHERE USER1 = \"" + myNickName + "\" OR USER2 = \"" + myNickName + "\" GROUP BY idRoom);";
 
@@ -418,9 +430,9 @@ namespace DBP_관리
                 dt.Load(rdr);
                 foreach (DataRow row in dt.Rows)
                 {
-                    listBox1.Items.Add(row["USER1"]);
-                    listBox1.Items.Add(row["USER2"]);
-                    listBox1.Items.Remove("" + myNickName + "");
+                    this.listBox1.Items.Add(row["USER1"]);
+                    this.listBox1.Items.Add(row["USER2"]);
+                    this.listBox1.Items.Remove("" + myNickName + "");
                 }
                 connection.Close();
             }
@@ -456,54 +468,50 @@ namespace DBP_관리
         //임의로 유저는 A로 고정 한 상태
         private void Chatting(object sender, TreeNodeMouseClickEventArgs e)
         {
-            string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
-            string query = "SELECT distinct idRoom FROM Room WHERE (Room.USER1 =\"" + myNickName + "\" AND Room.USER2 = '" + e.Node.Text + "') OR (Room.USER1 = '" + e.Node.Text + "' AND Room.USER2 = '" + myNickName + "');";
+            if (e.Node.Nodes.Count == 0) {
+				string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
+				string query = "SELECT distinct idRoom FROM Room WHERE (Room.USER1 =\"" + myNickName + "\" AND Room.USER2 = '" + e.Node.Text + "') OR (Room.USER1 = '" + e.Node.Text + "' AND Room.USER2 = '" + myNickName + "');";
 
-            using (MySqlConnection connection = new MySqlConnection(conn))
-            {
-                connection.Open();
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                
-                    //만약 값이 널이라면 룸 생성
-                    if (rdr.HasRows)
-                    {           
-                    }
-                    else
-                    {
-                    string query2 = "INSERT INTO Room (USER1,USER2) values('" + myNickName + "', '" + e.Node.Text + "');";
-                    MySqlConnection connect = new MySqlConnection(conn);
-                    connect.Open();
-                    MySqlCommand cmd2 = new MySqlCommand(query2, connect);
-                    MySqlDataReader rdr2 = cmd2.ExecuteReader();
-                    connect.Close();
-                    view_list();
-                }      
-            }
-            if (treeView1.SelectedNode == null)
-            {
-                MessageBox.Show("채팅상대를 선택해주세요.", "Information");
-                return;
-            }
-
-            OneOnOneReceiverName = treeView1.SelectedNode.ToString();
-            OneOnOneReceiverName = OneOnOneReceiverName.Split(": ")[1];
-            OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
-            if (myID == OneOnOneReceiverID)//내 아이디와 선택한 유저의 아이디 비교
-            {
-                MessageBox.Show("자기 자신과는 채팅할 수 없습니다.");
-                OneOnOneReceiverName = "";
-                OneOnOneReceiverID = "";
-                return;
-            }
-            //이부분 자체가 현 프로그램에서 작동이 불가능해서 변경
-            string start_msg = OneOnOneReceiverName + "님과 채팅을 시작합니다";
-            MessageBox.Show(start_msg);
-
-            Chatting_Start();
+				using (MySqlConnection connection = new MySqlConnection(conn)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
 
 
+					//만약 값이 널이라면 룸 생성
+					if (rdr.HasRows) {
+					}
+					else {
+						string query2 = "INSERT INTO Room (USER1,USER2) values('" + myNickName + "', '" + e.Node.Text + "');";
+						MySqlConnection connect = new MySqlConnection(conn);
+						connect.Open();
+						MySqlCommand cmd2 = new MySqlCommand(query2, connect);
+						MySqlDataReader rdr2 = cmd2.ExecuteReader();
+						connect.Close();
+						view_list();
+					}
+				}
+				if (treeView1.SelectedNode == null) {
+					MessageBox.Show("채팅상대를 선택해주세요.", "Information");
+					return;
+				}
+
+				OneOnOneReceiverName = treeView1.SelectedNode.ToString();
+				OneOnOneReceiverName = OneOnOneReceiverName.Split(": ")[1];
+				OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
+				if (myID == OneOnOneReceiverID)//내 아이디와 선택한 유저의 아이디 비교
+				{
+					MessageBox.Show("자기 자신과는 채팅할 수 없습니다.");
+					OneOnOneReceiverName = "";
+					OneOnOneReceiverID = "";
+					return;
+				}
+				//이부분 자체가 현 프로그램에서 작동이 불가능해서 변경
+				string start_msg = OneOnOneReceiverName + "님과 채팅을 시작합니다";
+				MessageBox.Show(start_msg);
+
+				Chatting_Start();
+			}
         }
 
 
@@ -606,17 +614,20 @@ namespace DBP_관리
         // delegate와 연동하여 프로필 수정 시 마다 데이터가 변경됨
         public void CheckEvent(string check)
         {
-            LoginManager.Instance.LoadUserData(receivedData, main_profile, txt_nick, txt_department, txt_team);
-            view_list(1);
-            Debug.WriteLine("DOnttqwrqwerf");
+        //    LoginManager.Instance.LoadUserData(receivedData, main_profile, txt_nick, txt_department, txt_team);
+        //    view_list(1);
             SendChangeProfile();
-            Form_main fm = new Form_main(receivedData);
-            this.Hide();
-            fm.Owner = this.Owner;
-            fm.Show();
-            this.Close();
+
         }
 
+        public void CheckReset()
+        {
+			this.Hide();
+			Form_main fm = new Form_main(receivedData);
+			this.Close();
+
+			fm.Show();
+		}
         // 종료 기능
         private void menu_AllClose_Click(object sender, EventArgs e)
         {
@@ -636,7 +647,10 @@ namespace DBP_관리
             string parsedMessage = string.Format("{0}%{1}<ChangeProfile>", myID, myNickName);
             byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
             client.GetStream().Write(byteData, 0, byteData.Length);
-        }
+            Thread.Sleep(1000);
+            CheckReset();
+
+		}
         private string SearchNickNamewithID(string UserID)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
@@ -731,10 +745,11 @@ namespace DBP_관리
        
         private void listBox_click(object sender, EventArgs e)
         {
-            OneOnOneReceiverName = listBox1.SelectedItem.ToString();
-            OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
-            Chatting_Start();
-
+            if (listBox1.SelectedItem != null){
+				OneOnOneReceiverName = listBox1.SelectedItem.ToString();
+				OneOnOneReceiverID = SearchIDwithNickName(OneOnOneReceiverName);
+				Chatting_Start();
+			}
         }
 
         private void 날씨정보ToolStripMenuItem_Click(object sender, EventArgs e) {

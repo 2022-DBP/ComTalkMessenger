@@ -58,6 +58,10 @@ namespace DBP_관리
                 Login_Click(sender, e);
             }
         }
-    }
+
+        private void Form_Login_FormClosed(object sender, FormClosedEventArgs e) {
+			System.Diagnostics.Process.GetCurrentProcess().Kill();
+		}
+	}
 }
 
