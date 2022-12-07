@@ -187,7 +187,7 @@ namespace DBP_관리
         {
             try
             {
-                string ip = "172.16.0.171";
+                string ip = "172.16.2.105";
 
                 string parsedID = "%^&";
                 parsedID += myID+"#"+ myNickName;
