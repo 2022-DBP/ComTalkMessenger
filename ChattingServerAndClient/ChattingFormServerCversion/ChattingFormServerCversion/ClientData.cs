@@ -10,6 +10,7 @@ namespace ChattingFormServerCversion
     [System.Serializable]
     class ClientData
     {
+        public static int count = 0;
         public static bool isdebug = false;
         public TcpClient tcpClient { get; set; }
         public Byte[] readBuffer { get; set; }
@@ -40,6 +41,8 @@ namespace ChattingFormServerCversion
             {
                 temp = tcpClient.Client.RemoteEndPoint.ToString().Split(splitDivision);
             }
+            count++;
+            MessageBox.Show(count.ToString());
 
             this.clientNumber = int.Parse(temp[3]);
         }
