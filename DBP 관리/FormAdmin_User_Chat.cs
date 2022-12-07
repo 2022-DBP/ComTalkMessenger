@@ -91,7 +91,7 @@ namespace DBP_관리 {
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
 			string query = "SELECT idRoom, USER1, USER2 FROM Room WHERE idRoom IN(SELECT idRoom FROM Room WHERE USER1 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") OR USER2 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") GROUP BY idRoom)" +
-			               " AND idRoom = (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.when LIKE '" + date + "%' GROUP BY Roomid);";
+			               " AND idRoom IN (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.when LIKE '" + date + "%' GROUP BY Roomid);";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
@@ -171,7 +171,7 @@ namespace DBP_관리 {
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
 			string query = "SELECT idRoom, USER1, USER2 FROM Room WHERE idRoom IN(SELECT idRoom FROM Room WHERE USER1 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") OR USER2 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") GROUP BY idRoom)" +
-			               " AND idRoom = (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.msgText LIKE '%" + keyword + "%' GROUP BY Roomid);";
+			               " AND idRoom IN (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.msgText LIKE '%" + keyword + "%' GROUP BY Roomid);";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();

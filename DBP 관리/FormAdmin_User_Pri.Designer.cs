@@ -51,10 +51,9 @@
 			this.label_Pri_Title.AutoSize = true;
 			this.label_Pri_Title.Font = new System.Drawing.Font("맑은 고딕", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.label_Pri_Title.ForeColor = System.Drawing.Color.White;
-			this.label_Pri_Title.Location = new System.Drawing.Point(29, 14);
-			this.label_Pri_Title.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label_Pri_Title.Location = new System.Drawing.Point(37, 19);
 			this.label_Pri_Title.Name = "label_Pri_Title";
-			this.label_Pri_Title.Size = new System.Drawing.Size(244, 37);
+			this.label_Pri_Title.Size = new System.Drawing.Size(306, 46);
 			this.label_Pri_Title.TabIndex = 0;
 			this.label_Pri_Title.Text = "[사용자] 권한 조정";
 			// 
@@ -62,9 +61,11 @@
 			// 
 			this.groupBox_Pri_Visible.Controls.Add(this.tabControl_Pri_Visible);
 			this.groupBox_Pri_Visible.ForeColor = System.Drawing.Color.White;
-			this.groupBox_Pri_Visible.Location = new System.Drawing.Point(29, 68);
+			this.groupBox_Pri_Visible.Location = new System.Drawing.Point(37, 91);
+			this.groupBox_Pri_Visible.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox_Pri_Visible.Name = "groupBox_Pri_Visible";
-			this.groupBox_Pri_Visible.Size = new System.Drawing.Size(409, 435);
+			this.groupBox_Pri_Visible.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_Pri_Visible.Size = new System.Drawing.Size(526, 580);
 			this.groupBox_Pri_Visible.TabIndex = 9;
 			this.groupBox_Pri_Visible.TabStop = false;
 			this.groupBox_Pri_Visible.Text = "직원 보기 권한 조정";
@@ -74,20 +75,22 @@
 			this.tabControl_Pri_Visible.Controls.Add(this.tabPage_Pri_Visible_Dpt);
 			this.tabControl_Pri_Visible.Controls.Add(this.tabPage_Pri_Visible_Team);
 			this.tabControl_Pri_Visible.Controls.Add(this.tabPage_Pri_Visible_User);
-			this.tabControl_Pri_Visible.Location = new System.Drawing.Point(21, 22);
+			this.tabControl_Pri_Visible.Location = new System.Drawing.Point(27, 29);
+			this.tabControl_Pri_Visible.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.tabControl_Pri_Visible.Name = "tabControl_Pri_Visible";
 			this.tabControl_Pri_Visible.SelectedIndex = 0;
-			this.tabControl_Pri_Visible.Size = new System.Drawing.Size(361, 397);
+			this.tabControl_Pri_Visible.Size = new System.Drawing.Size(464, 529);
 			this.tabControl_Pri_Visible.TabIndex = 5;
 			// 
 			// tabPage_Pri_Visible_Dpt
 			// 
 			this.tabPage_Pri_Visible_Dpt.Controls.Add(this.checkedListBox_Pri_Visible_Dpt);
 			this.tabPage_Pri_Visible_Dpt.Controls.Add(this.button_Pri_Visible_Dpt);
-			this.tabPage_Pri_Visible_Dpt.Location = new System.Drawing.Point(4, 24);
+			this.tabPage_Pri_Visible_Dpt.Location = new System.Drawing.Point(4, 29);
+			this.tabPage_Pri_Visible_Dpt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.tabPage_Pri_Visible_Dpt.Name = "tabPage_Pri_Visible_Dpt";
-			this.tabPage_Pri_Visible_Dpt.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage_Pri_Visible_Dpt.Size = new System.Drawing.Size(353, 369);
+			this.tabPage_Pri_Visible_Dpt.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage_Pri_Visible_Dpt.Size = new System.Drawing.Size(456, 496);
 			this.tabPage_Pri_Visible_Dpt.TabIndex = 0;
 			this.tabPage_Pri_Visible_Dpt.Text = "부서";
 			this.tabPage_Pri_Visible_Dpt.UseVisualStyleBackColor = true;
@@ -95,11 +98,11 @@
 			// checkedListBox_Pri_Visible_Dpt
 			// 
 			this.checkedListBox_Pri_Visible_Dpt.FormattingEnabled = true;
-			this.checkedListBox_Pri_Visible_Dpt.Location = new System.Drawing.Point(6, 6);
+			this.checkedListBox_Pri_Visible_Dpt.Location = new System.Drawing.Point(8, 8);
+			this.checkedListBox_Pri_Visible_Dpt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.checkedListBox_Pri_Visible_Dpt.Name = "checkedListBox_Pri_Visible_Dpt";
-			this.checkedListBox_Pri_Visible_Dpt.Size = new System.Drawing.Size(341, 328);
+			this.checkedListBox_Pri_Visible_Dpt.Size = new System.Drawing.Size(437, 422);
 			this.checkedListBox_Pri_Visible_Dpt.TabIndex = 12;
-			this.checkedListBox_Pri_Visible_Dpt.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Visible_Dpt_ItemCheck);
 			// 
 			// button_Pri_Visible_Dpt
 			// 
@@ -107,10 +110,9 @@
 			this.button_Pri_Visible_Dpt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_Pri_Visible_Dpt.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_Pri_Visible_Dpt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_Pri_Visible_Dpt.Location = new System.Drawing.Point(6, 341);
-			this.button_Pri_Visible_Dpt.Margin = new System.Windows.Forms.Padding(2);
+			this.button_Pri_Visible_Dpt.Location = new System.Drawing.Point(8, 455);
 			this.button_Pri_Visible_Dpt.Name = "button_Pri_Visible_Dpt";
-			this.button_Pri_Visible_Dpt.Size = new System.Drawing.Size(341, 23);
+			this.button_Pri_Visible_Dpt.Size = new System.Drawing.Size(438, 31);
 			this.button_Pri_Visible_Dpt.TabIndex = 11;
 			this.button_Pri_Visible_Dpt.Text = "적용하기";
 			this.button_Pri_Visible_Dpt.UseVisualStyleBackColor = false;
@@ -120,10 +122,11 @@
 			// 
 			this.tabPage_Pri_Visible_Team.Controls.Add(this.checkedListBox_Pri_Visible_Team);
 			this.tabPage_Pri_Visible_Team.Controls.Add(this.button_Pri_Visible_Team);
-			this.tabPage_Pri_Visible_Team.Location = new System.Drawing.Point(4, 24);
+			this.tabPage_Pri_Visible_Team.Location = new System.Drawing.Point(4, 29);
+			this.tabPage_Pri_Visible_Team.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.tabPage_Pri_Visible_Team.Name = "tabPage_Pri_Visible_Team";
-			this.tabPage_Pri_Visible_Team.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage_Pri_Visible_Team.Size = new System.Drawing.Size(353, 369);
+			this.tabPage_Pri_Visible_Team.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage_Pri_Visible_Team.Size = new System.Drawing.Size(456, 496);
 			this.tabPage_Pri_Visible_Team.TabIndex = 1;
 			this.tabPage_Pri_Visible_Team.Text = "팀";
 			this.tabPage_Pri_Visible_Team.UseVisualStyleBackColor = true;
@@ -131,11 +134,11 @@
 			// checkedListBox_Pri_Visible_Team
 			// 
 			this.checkedListBox_Pri_Visible_Team.FormattingEnabled = true;
-			this.checkedListBox_Pri_Visible_Team.Location = new System.Drawing.Point(6, 6);
+			this.checkedListBox_Pri_Visible_Team.Location = new System.Drawing.Point(8, 8);
+			this.checkedListBox_Pri_Visible_Team.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.checkedListBox_Pri_Visible_Team.Name = "checkedListBox_Pri_Visible_Team";
-			this.checkedListBox_Pri_Visible_Team.Size = new System.Drawing.Size(341, 328);
+			this.checkedListBox_Pri_Visible_Team.Size = new System.Drawing.Size(437, 422);
 			this.checkedListBox_Pri_Visible_Team.TabIndex = 14;
-			this.checkedListBox_Pri_Visible_Team.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Visible_Team_ItemCheck);
 			// 
 			// button_Pri_Visible_Team
 			// 
@@ -143,10 +146,9 @@
 			this.button_Pri_Visible_Team.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_Pri_Visible_Team.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_Pri_Visible_Team.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_Pri_Visible_Team.Location = new System.Drawing.Point(6, 341);
-			this.button_Pri_Visible_Team.Margin = new System.Windows.Forms.Padding(2);
+			this.button_Pri_Visible_Team.Location = new System.Drawing.Point(8, 455);
 			this.button_Pri_Visible_Team.Name = "button_Pri_Visible_Team";
-			this.button_Pri_Visible_Team.Size = new System.Drawing.Size(341, 23);
+			this.button_Pri_Visible_Team.Size = new System.Drawing.Size(438, 31);
 			this.button_Pri_Visible_Team.TabIndex = 13;
 			this.button_Pri_Visible_Team.Text = "적용하기";
 			this.button_Pri_Visible_Team.UseVisualStyleBackColor = false;
@@ -156,10 +158,11 @@
 			// 
 			this.tabPage_Pri_Visible_User.Controls.Add(this.checkedListBox_Pri_Visible_User);
 			this.tabPage_Pri_Visible_User.Controls.Add(this.button_Pri_Visible_User);
-			this.tabPage_Pri_Visible_User.Location = new System.Drawing.Point(4, 24);
+			this.tabPage_Pri_Visible_User.Location = new System.Drawing.Point(4, 29);
+			this.tabPage_Pri_Visible_User.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.tabPage_Pri_Visible_User.Name = "tabPage_Pri_Visible_User";
-			this.tabPage_Pri_Visible_User.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage_Pri_Visible_User.Size = new System.Drawing.Size(353, 369);
+			this.tabPage_Pri_Visible_User.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.tabPage_Pri_Visible_User.Size = new System.Drawing.Size(456, 496);
 			this.tabPage_Pri_Visible_User.TabIndex = 2;
 			this.tabPage_Pri_Visible_User.Text = "직원";
 			this.tabPage_Pri_Visible_User.UseVisualStyleBackColor = true;
@@ -167,11 +170,11 @@
 			// checkedListBox_Pri_Visible_User
 			// 
 			this.checkedListBox_Pri_Visible_User.FormattingEnabled = true;
-			this.checkedListBox_Pri_Visible_User.Location = new System.Drawing.Point(6, 6);
+			this.checkedListBox_Pri_Visible_User.Location = new System.Drawing.Point(8, 8);
+			this.checkedListBox_Pri_Visible_User.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.checkedListBox_Pri_Visible_User.Name = "checkedListBox_Pri_Visible_User";
-			this.checkedListBox_Pri_Visible_User.Size = new System.Drawing.Size(341, 328);
+			this.checkedListBox_Pri_Visible_User.Size = new System.Drawing.Size(437, 422);
 			this.checkedListBox_Pri_Visible_User.TabIndex = 16;
-			this.checkedListBox_Pri_Visible_User.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Visible_User_ItemCheck);
 			// 
 			// button_Pri_Visible_User
 			// 
@@ -179,10 +182,9 @@
 			this.button_Pri_Visible_User.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_Pri_Visible_User.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_Pri_Visible_User.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_Pri_Visible_User.Location = new System.Drawing.Point(6, 341);
-			this.button_Pri_Visible_User.Margin = new System.Windows.Forms.Padding(2);
+			this.button_Pri_Visible_User.Location = new System.Drawing.Point(8, 455);
 			this.button_Pri_Visible_User.Name = "button_Pri_Visible_User";
-			this.button_Pri_Visible_User.Size = new System.Drawing.Size(341, 23);
+			this.button_Pri_Visible_User.Size = new System.Drawing.Size(438, 31);
 			this.button_Pri_Visible_User.TabIndex = 15;
 			this.button_Pri_Visible_User.Text = "적용하기";
 			this.button_Pri_Visible_User.UseVisualStyleBackColor = false;
@@ -193,9 +195,11 @@
 			this.groupBox_Pri_Chat.Controls.Add(this.checkedListBox_Pri_Chat);
 			this.groupBox_Pri_Chat.Controls.Add(this.button_Pri_Chat);
 			this.groupBox_Pri_Chat.ForeColor = System.Drawing.Color.White;
-			this.groupBox_Pri_Chat.Location = new System.Drawing.Point(456, 68);
+			this.groupBox_Pri_Chat.Location = new System.Drawing.Point(586, 91);
+			this.groupBox_Pri_Chat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.groupBox_Pri_Chat.Name = "groupBox_Pri_Chat";
-			this.groupBox_Pri_Chat.Size = new System.Drawing.Size(409, 435);
+			this.groupBox_Pri_Chat.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.groupBox_Pri_Chat.Size = new System.Drawing.Size(526, 580);
 			this.groupBox_Pri_Chat.TabIndex = 10;
 			this.groupBox_Pri_Chat.TabStop = false;
 			this.groupBox_Pri_Chat.Text = "직원 대화 권한 조정";
@@ -203,11 +207,11 @@
 			// checkedListBox_Pri_Chat
 			// 
 			this.checkedListBox_Pri_Chat.FormattingEnabled = true;
-			this.checkedListBox_Pri_Chat.Location = new System.Drawing.Point(21, 22);
+			this.checkedListBox_Pri_Chat.Location = new System.Drawing.Point(27, 29);
+			this.checkedListBox_Pri_Chat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.checkedListBox_Pri_Chat.Name = "checkedListBox_Pri_Chat";
-			this.checkedListBox_Pri_Chat.Size = new System.Drawing.Size(361, 364);
+			this.checkedListBox_Pri_Chat.Size = new System.Drawing.Size(463, 466);
 			this.checkedListBox_Pri_Chat.TabIndex = 5;
-			this.checkedListBox_Pri_Chat.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox_Pri_Chat_ItemCheck);
 			// 
 			// button_Pri_Chat
 			// 
@@ -215,10 +219,9 @@
 			this.button_Pri_Chat.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
 			this.button_Pri_Chat.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.button_Pri_Chat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.button_Pri_Chat.Location = new System.Drawing.Point(21, 396);
-			this.button_Pri_Chat.Margin = new System.Windows.Forms.Padding(2);
+			this.button_Pri_Chat.Location = new System.Drawing.Point(27, 528);
 			this.button_Pri_Chat.Name = "button_Pri_Chat";
-			this.button_Pri_Chat.Size = new System.Drawing.Size(361, 23);
+			this.button_Pri_Chat.Size = new System.Drawing.Size(464, 31);
 			this.button_Pri_Chat.TabIndex = 4;
 			this.button_Pri_Chat.Text = "적용하기";
 			this.button_Pri_Chat.UseVisualStyleBackColor = false;
@@ -226,14 +229,13 @@
 			// 
 			// FormAdmin_User_Pri
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(66)))));
-			this.ClientSize = new System.Drawing.Size(899, 547);
+			this.ClientSize = new System.Drawing.Size(1156, 729);
 			this.Controls.Add(this.groupBox_Pri_Chat);
 			this.Controls.Add(this.groupBox_Pri_Visible);
 			this.Controls.Add(this.label_Pri_Title);
-			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "FormAdmin_User_Pri";
 			this.Text = "사용자 권한 조정";
 			this.groupBox_Pri_Visible.ResumeLayout(false);
