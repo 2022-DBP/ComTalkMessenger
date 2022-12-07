@@ -201,7 +201,7 @@ namespace DBP_관리
         {
             try
             {
-                string ip = "172.16.0.70";
+                string ip = "210.125.30.174";
                 Debug.WriteLine(ip);
                 string parsedID = "%^&";
                 // 172.16.0.70
