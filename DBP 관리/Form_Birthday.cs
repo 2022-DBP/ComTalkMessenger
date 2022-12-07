@@ -74,15 +74,13 @@ namespace DBP_관리 {
 
 				listBox_Birthday_Today.Items.Clear();
 
-				if (!rdr.Read()) {
-					listBox_Birthday_Today.Items.Add("오늘(" + DateTime.Now.Month + "월 " + DateTime.Now.Day + "일)이 생일인 사람은 없습니다.");
-					return;
-				}
-
 				while (rdr.Read()) {
 					listBox_Birthday_Today.Items.Add(rdr[0].ToString() + " " + rdr[1].ToString() + " " + rdr[2].ToString()  + " (" + DateTime.Now.Month + "월 " + DateTime.Now.Day + "일)");
 				}
 			}
+
+			if (listBox_Birthday_Today.Items.Count == 0)
+				listBox_Birthday_Today.Items.Add("오늘(" + DateTime.Now.Month + "월 " + DateTime.Now.Day + "일)이 생일인 사람은 없습니다.");
 		}
 
 		private void Load_Birthday_Month_List() {
@@ -95,16 +93,14 @@ namespace DBP_관리 {
 				MySqlDataReader rdr = cmd.ExecuteReader();
 
 				listBox_Birthday_Month.Items.Clear();
-				
-				if (!rdr.Read()) {
-					listBox_Birthday_Month.Items.Add("이번 달에 생일인 사람은 없습니다.");
-					return;
-				}
 
 				while (rdr.Read()) {
 					listBox_Birthday_Month.Items.Add(rdr[0].ToString() + " " + rdr[1].ToString() + " " + rdr[2].ToString() + " (" + rdr[3].ToString() + "월 " + rdr[4].ToString() + "일)");	
 				}
 			}
+
+			if (listBox_Birthday_Month.Items.Count == 0)
+				listBox_Birthday_Month.Items.Add("이번 달에 생일인 사람은 없습니다.");
 		}
 	}
 }

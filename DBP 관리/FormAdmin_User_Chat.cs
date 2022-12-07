@@ -324,6 +324,9 @@ namespace DBP_관리 {
 						listBox_Chat_Search.Items.Add("[" + rdr[1].ToString() + "] -> [" + rdr[0].ToString() + "] : " + rdr[2].ToString());
 					}
 				}
+
+				if (listBox_Chat_Search.Items.Count == 0)
+					MessageBox.Show("대화가 없습니다.");
 			}
 			else
 				treeView_Chat_User_Search.SelectedNode = null;  //아니면 선택 해제
