@@ -15,6 +15,9 @@ namespace DBP_관리 {
     public partial class FormAdmin_User_Chat : Form {
 		private string user_name;
 		private int user_id;
+		private string Room_id;
+		private string date;
+		private string keyword;
 
 		public FormAdmin_User_Chat(string user_name, int user_id) {
             InitializeComponent();
@@ -22,7 +25,10 @@ namespace DBP_관리 {
 			this.user_name = user_name;
 			this.user_id = user_id; //이는 USER 테이블의 User_id가 아닌, ID임(인덱스).
 
+			date = DateTime.Now.ToString("yyyy-MM-dd");
+
 			label_Chat_Title.Text = user_name + " 대화 검색";
+			label_Chat_Search.Text = "먼저 확인할 대화 상대를 선택해주세요.";
 
 			dateTimePicker_Chat_Time_Search.CustomFormat = "yyyy-MM-dd";
 			dateTimePicker_Chat_Time_Search.Format = DateTimePickerFormat.Custom;
@@ -64,9 +70,9 @@ namespace DBP_관리 {
 				connection.Open();
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
-				TreeNode department = null;
 
 				while (rdr.Read()) {
+					Room_id = rdr[0].ToString();
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -85,15 +91,15 @@ namespace DBP_관리 {
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
 			string query = "SELECT idRoom, USER1, USER2 FROM Room WHERE idRoom IN(SELECT idRoom FROM Room WHERE USER1 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") OR USER2 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") GROUP BY idRoom)" +
-			               " AND idRoom = (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.when = '" + date + "' GROUP BY Roomid);";
+			               " AND idRoom IN (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.when LIKE '" + date + "%' GROUP BY Roomid);";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
-				TreeNode department = null;
 
 				while (rdr.Read()) {
+					Room_id = rdr[0].ToString();
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -108,13 +114,29 @@ namespace DBP_관리 {
 
 		private void button_Chat_Time_Search_Click(object sender, EventArgs e) {
 			//시간별 검색 버튼 클릭
-			string date = dateTimePicker_Chat_Time_Search.Text;
+			date = dateTimePicker_Chat_Time_Search.Text;
 			Load_List_Time_Search(user_id, date);
 		}
 
 		private void listBox_Chat_Time_Search_SelectedIndexChanged(object sender, EventArgs e) {
-			//시간별 검색 대화 리스트 선택시 오른쪽 textbox에 대화 내역 출력
+			//시간별 검색 대화 리스트 선택시 오른쪽 listbox에 대화 내역 출력
+			if (listBox_Chat_Time_Search.SelectedItem != null) {
+				label_Chat_Search.Text = "선택한 대화 상대 : " + listBox_Chat_Time_Search.SelectedItem.ToString();
+				listBox_Chat_Search.Items.Clear();
 
+				string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+				string query = "SELECT Chatting.To, Chatting.From, msgText FROM Chatting WHERE Roomid = " + Room_id + " AND Chatting.when LIKE '" + date + "%';";
+
+				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
+
+					while (rdr.Read()) {
+						listBox_Chat_Search.Items.Add("[" + rdr[1].ToString() + "] -> [" + rdr[0].ToString() + "] : " + rdr[2].ToString());
+					}
+				}
+			}
 		}
 
 		private void Load_List_Keyword_Search(int user_id) {
@@ -128,9 +150,9 @@ namespace DBP_관리 {
 				connection.Open();
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
-				TreeNode department = null;
 
 				while (rdr.Read()) {
+					Room_id = rdr[0].ToString();
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -149,15 +171,15 @@ namespace DBP_관리 {
 
 			string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
 			string query = "SELECT idRoom, USER1, USER2 FROM Room WHERE idRoom IN(SELECT idRoom FROM Room WHERE USER1 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") OR USER2 = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") GROUP BY idRoom)" +
-			               " AND idRoom = (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_nickname FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.msgText LIKE '%" + keyword + "%' GROUP BY Roomid);";
+			               " AND idRoom IN (SELECT Roomid FROM Chatting WHERE (Chatting.To = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ")) AND Chatting.msgText LIKE '%" + keyword + "%' GROUP BY Roomid);";
 
 			using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
 				connection.Open();
 				MySqlCommand cmd = new MySqlCommand(query, connection);
 				MySqlDataReader rdr = cmd.ExecuteReader();
-				TreeNode department = null;
 
 				while (rdr.Read()) {
+					Room_id = rdr[0].ToString();
 					string user1 = rdr[1].ToString();
 					string user2 = rdr[2].ToString();
 					string user_nickname = get_user_nickname(user_id);
@@ -172,13 +194,29 @@ namespace DBP_관리 {
 
 		private void button_Chat_Keyword_Search_Click(object sender, EventArgs e) {
 			//키워드별 검색 버튼 클릭
-			string keyword = textBox_Chat_Keyword_Search.Text;
+			keyword = textBox_Chat_Keyword_Search.Text;
 			Load_List_Keyword_Search(user_id, keyword);
 		}
 
 		private void listBox_Chat_Keyword_Search_SelectedIndexChanged(object sender, EventArgs e) {
-			//키워드별 검색 대화 리스트 선택시 오른쪽 textbox에 대화 내역 출력
+			//키워드별 검색 대화 리스트 선택시 오른쪽 listbox에 대화 내역 출력
+			if (listBox_Chat_Keyword_Search.SelectedItem != null) {
+				label_Chat_Search.Text = "선택한 대화 상대 : " + listBox_Chat_Keyword_Search.SelectedItem.ToString();
+				listBox_Chat_Search.Items.Clear();
 
+				string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+				string query = "SELECT Chatting.To, Chatting.From, msgText FROM Chatting WHERE Roomid = " + Room_id + " AND Chatting.msgText LIKE '%" + keyword + "%'; ";
+
+				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
+
+					while (rdr.Read()) {
+						listBox_Chat_Search.Items.Add("[" + rdr[1].ToString() + "] -> [" + rdr[0].ToString() + "] : " + rdr[2].ToString());
+					}
+				}
+			}
 		}
 
 		private TreeNode SearchNode(string SearchText, TreeNode StartNode) {
@@ -264,9 +302,31 @@ namespace DBP_관리 {
 		}
 
 		private void treeView_Chat_User_Search_AfterSelect(object sender, TreeViewEventArgs e) {
-			//사용자별 검색 트리뷰 선택시 해당 사용자와의 대화 내역을 오른쪽 textbox에 출력
+			//사용자별 검색 트리뷰 선택시 해당 사용자와의 대화 내역을 오른쪽 listtbox에 출력
 			//대화 방이 없을 경우 메세지 박스로 알림
-			
+			if (treeView_Chat_User_Search.SelectedNode.Nodes.Count == 0) {   //선택한 노드 아래에 더 이상 노드가 없다 = 자식 노드(직원)를 선택했다.
+				label_Chat_Search.Text = "선택한 대화 상대 : " + treeView_Chat_User_Search.SelectedNode.Text;
+				listBox_Chat_Search.Items.Clear();
+
+				string dpt = treeView_Chat_User_Search.SelectedNode.Parent.Parent.Text;
+				string team = treeView_Chat_User_Search.SelectedNode.Parent.Text;
+				string user = treeView_Chat_User_Search.SelectedNode.Text;
+
+				string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
+				string query = "SELECT Chatting.To, Chatting.From, msgText FROM Chatting WHERE (Chatting.To = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ") OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.ID = " + user_id + ")) AND (Chatting.To = (SELECT USER_id FROM USER WHERE USER.department_id = (SELECT department.id FROM department WHERE department.dpt_name = '" + dpt + "') AND USER.team_id = (SELECT team.id FROM team WHERE team.team_name = '" + team + "') AND USER.USER_name = '" + user + "') OR Chatting.From = (SELECT USER_id FROM USER WHERE USER.department_id = (SELECT department.id FROM department WHERE department.dpt_name = '" + dpt + "') AND USER.team_id = (SELECT team.id FROM team WHERE team.team_name = '" + team + "') AND USER.USER_name = '" + user + "'));";
+
+				using (MySqlConnection connection = new MySqlConnection(Connection_string)) {
+					connection.Open();
+					MySqlCommand cmd = new MySqlCommand(query, connection);
+					MySqlDataReader rdr = cmd.ExecuteReader();
+
+					while (rdr.Read()) {
+						listBox_Chat_Search.Items.Add("[" + rdr[1].ToString() + "] -> [" + rdr[0].ToString() + "] : " + rdr[2].ToString());
+					}
+				}
+			}
+			else
+				treeView_Chat_User_Search.SelectedNode = null;  //아니면 선택 해제
 		}
 	}
 }
