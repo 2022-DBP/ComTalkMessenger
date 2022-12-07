@@ -333,10 +333,15 @@ namespace DBP_관리
         }
         public void search_treeview() //메인화면 트리뷰 메서드
         {
+            string ID = Get_ID(myID);
             treeView1.Nodes.Clear();
             string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
-            string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_nickname) FROM s5469698.department left outer join s5469698.team on department.id = team.dpt_id left outer join s5469698.USER on USER.team_id = team.id group by department.dpt_name, team.team_name;";
-
+            /* string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_nickname) FROM s5469698.department left outer join s5469698.team on department.id = team.dpt_id left outer join s5469698.USER on USER.team_id = team.id group by department.dpt_name, team.team_name;";*/
+            string query = "SELECT department.dpt_name, team.team_name, group_concat(USER_nickname) FROM s5469698.department left join s5469698.team on department.id = team.dpt_id " +
+                "AND team.id NOT IN(SELECT team.id FROM team, USER_Visible WHERE team.id = USER_Visible.UnableChat_Team_ID AND USER_Visible.User_ID ='"+ID+"')" +
+                "left join s5469698.USER on USER.team_id = team.id AND USER.ID NOT IN(SELECT USER.ID FROM USER, USER_Visible WHERE USER.ID = USER_Visible.UnableChat_User_ID AND USER_Visible.User_ID = '"+ID+"')" +
+                "where department.id NOT IN(SELECT department.id FROM department, USER_Visible WHERE department.id = USER_Visible.UnableChat_Dpt_ID AND USER_Visible.User_ID = '"+ID+"')" +
+                "group by department.dpt_name, team.team_name;";
             using (MySqlConnection connection = new MySqlConnection(Connection_string))
             {
                 connection.Open();
@@ -501,12 +506,42 @@ namespace DBP_관리
 
             Owner.Show();
         }
+
+        private bool Cheak_api(string me, string to)
+        {
+            string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
+            string query = "SELECT * FROM s5469698.USER_PriChat where (User_ID1 = '"+me+"' AND User_ID2 = (select USER.ID FROM USER WHERE USER.USER_nickname ='"+to+"')) OR (User_ID1 ='"+to+"' AND User_ID2 =(select USER.ID FROM USER WHERE USER.USER_nickname = '"+me+"'));";
+            using (MySqlConnection connection = new MySqlConnection(conn))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+
+                //만약 값이 널이라면 룸 생성
+                if (rdr.HasRows)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+
         private void Chatting_Start()//채팅 시작하자고 서버에 요청
         {
-            string chattingStartMessage = string.Format("{0}%{1}<ChattingStart>", OneOnOneReceiverID, OneOnOneReceiverName);//UserID, UserName으로 ChattingStart작성
-            byte[] chattingStartByte = UTF8Encoding.UTF8.GetBytes(chattingStartMessage);
-            client.GetStream().Write(chattingStartByte, 0, chattingStartByte.Length);//서버에 보내는 부분
-
+            string A = Get_ID(myID);
+            if (Cheak_api(A,OneOnOneReceiverName)) {
+                MessageBox.Show("대화 권한이 없습니다.");
+            }
+            else {
+                string chattingStartMessage = string.Format("{0}%{1}<ChattingStart>", OneOnOneReceiverID, OneOnOneReceiverName);//UserID, UserName으로 ChattingStart작성
+                byte[] chattingStartByte = UTF8Encoding.UTF8.GetBytes(chattingStartMessage);
+                client.GetStream().Write(chattingStartByte, 0, chattingStartByte.Length);//서버에 보내는 부분
+            }
         }      
 
         //왼쪽 버튼      룸도 이미 보여지기 때문에 이를 어떤 방식으로 옮겨야하는지 모르겠음.
@@ -617,6 +652,13 @@ namespace DBP_관리
 
                 if (rdr.Read())
                 {
+                    if (rdr[0].ToString() == "" || rdr[1].ToString() == "")
+                    {
+                        Font = "맑은 고딕";
+                        Size = 10;
+                        Apply_Font();
+                        return;
+                    }
                     Font = rdr[0].ToString();
                     Size = Convert.ToInt32(rdr[1].ToString());
                     Apply_Font();
