@@ -41,10 +41,9 @@ namespace ChattingFormServerCversion
             {
                 temp = tcpClient.Client.RemoteEndPoint.ToString().Split(splitDivision);
             }
-            count++;
-            MessageBox.Show(count.ToString());
 
-            this.clientNumber = int.Parse(temp[3]);
+            count++;
+            this.clientNumber = count;
         }
     }
 }

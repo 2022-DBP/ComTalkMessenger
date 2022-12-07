@@ -58,6 +58,9 @@ namespace DBP_관리
             }
         }
 
+
+
+
         private void SELECT_Font(string user)
         {
             string Connection_string = "Server=115.85.181.212;Port=3306;Database=s5469698;Uid=s5469698;Pwd=s5469698;CharSet=utf8;";
@@ -71,12 +74,18 @@ namespace DBP_관리
 
                 if (rdr.Read())
                 {
-                    string Font = rdr[0].ToString();
-                    int Size = Convert.ToInt32(rdr[1].ToString());
-                    Apply_Font(Font, Size);
+                    if (rdr[0].ToString() == "" || rdr[1].ToString() == "")
+                    {
+                        string Font = "맑은 고딕";
+                        int Size = 10;
+                        Apply_Font(Font, Size);
+                        return;
+                    }
+                    string Font_ = rdr[0].ToString();
+                    int Size_ = Convert.ToInt32(rdr[1].ToString());
+                    Apply_Font(Font_, Size_);
                     return;
                 }
-                MessageBox.Show("설정된 폰트가 없습니다.");
             }
         }
 
@@ -306,6 +315,7 @@ namespace DBP_관리
                 return UserNickName;
             }
         }
+
     }
 
 }

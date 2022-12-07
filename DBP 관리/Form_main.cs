@@ -187,7 +187,7 @@ namespace DBP_관리
         {
             try
             {
-                string ip = "172.16.0.171";
+                string ip = GetIP();
                 string parsedID = "%^&";
                 parsedID += myID+"#"+ myNickName;
 
@@ -618,17 +618,20 @@ namespace DBP_관리
         // delegate와 연동하여 프로필 수정 시 마다 데이터가 변경됨
         public void CheckEvent(string check)
         {
-            LoginManager.Instance.LoadUserData(receivedData, main_profile, txt_nick, txt_department, txt_team);
-            view_list(1);
-            Debug.WriteLine("DOnttqwrqwerf");
+        //    LoginManager.Instance.LoadUserData(receivedData, main_profile, txt_nick, txt_department, txt_team);
+        //    view_list(1);
             SendChangeProfile();
-            Form_main fm = new Form_main(receivedData);
-            this.Hide();
-            fm.Owner = this.Owner;
-            fm.Show();
-            this.Close();
+
         }
 
+        public void CheckReset()
+        {
+			this.Hide();
+			Form_main fm = new Form_main(receivedData);
+			this.Close();
+
+			fm.Show();
+		}
         // 종료 기능
         private void menu_AllClose_Click(object sender, EventArgs e)
         {
@@ -648,7 +651,10 @@ namespace DBP_관리
             string parsedMessage = string.Format("{0}%{1}<ChangeProfile>", myID, myNickName);
             byte[] byteData = UTF8Encoding.UTF8.GetBytes(parsedMessage);
             client.GetStream().Write(byteData, 0, byteData.Length);
-        }
+            Thread.Sleep(1000);
+            CheckReset();
+
+		}
         private string SearchNickNamewithID(string UserID)
         {
             string conn = "Data Source = 115.85.181.212; Database=s5469698; Uid=s5469698; Pwd=s5469698; CharSet=utf8;";
@@ -716,7 +722,6 @@ namespace DBP_관리
                     Apply_Font();
                     return;
                 }
-                MessageBox.Show("설정된 폰트가 없습니다.");
             }
         }
 
